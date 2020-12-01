@@ -7,12 +7,12 @@
 export const MenuItems = [
     {
         title: "Jadwal Peminjaman",
-        path: "/see-schedule",
+        path: "/mhs/see-schedule",
         cName: "dropdown-link"
     },
     {
         title: "Ajukan Peminjaman",
-        path: "/add-schedule",
+        path: "/mhs/add-schedule",
         cName: "dropdown-link"
     },
 

@@ -5,13 +5,13 @@
     font-family: 'PT Sans', sans-serif;
 }
 
-.consulting {
+/* .consulting {
     display: flex;
     height: 90vh;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-}
+} */
 
 .container {
   margin: 30px auto;

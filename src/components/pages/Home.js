@@ -1,12 +1,20 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../globalState/GlobalState';
+import { Breadcrumb } from '../Breadcrumb';
+import { StickyHeadTable } from '../../components/StickyHeadTable';
 
 const Home = () => {
-    const { content } = useContext(GlobalContext);
-
+    const { borrowingList } = useContext(GlobalContext);
+    console.log(borrowingList);
     return (
         <>
-            <h1 className="consulting">HOME</h1>
+            <div className="container">
+                <Breadcrumb />
+            </div>
+
+            <div className="container-schedule">
+                <StickyHeadTable />
+            </div>
         </>
     )
 }

@@ -14,9 +14,9 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/add-schedule' exact component={AddSchedule} />
-          <Route path='/see-schedule' exact component={SeeSchedule} />
+          <Route path='/mhs' exact component={Home} />
+          <Route path='/mhs/add-schedule' exact component={AddSchedule} />
+          <Route path='/mhs/see-schedule' exact component={SeeSchedule} />
 
         </Switch>
       </Router>

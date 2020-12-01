@@ -39,7 +39,7 @@ export const Navbar = () => {
 
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className="nav-item">
-                        <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+                        <Link to="/mhs" className="nav-links" onClick={closeMobileMenu}>
                             Beranda
                         </Link>
                     </li>
@@ -47,23 +47,24 @@ export const Navbar = () => {
                         className="nav-item"
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}>
-                        <Link to="/services" className="nav-links" onClick={closeMobileMenu}>
+                        <Link className="nav-links" onClick={closeMobileMenu}>
                             Layanan <i className="fa fa-caret-down" />
                         </Link>
                         {dropdown && <Dropdown />}
                     </li>
                     <li className="nav-item">
-                        <Link to="/contact-us" className="nav-links" onClick={closeMobileMenu}>
+                        <Link className="nav-links" onClick={closeMobileMenu}>
                             <i className="far fa-bell"></i>
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/sign-up" className="nav-links-mobile" onClick={closeMobileMenu}>
-                            Log Out
+                        <Link className="nav-links" onClick={closeMobileMenu}>
+                            <i class="fas fa-sign-out-alt"></i>
                         </Link>
                     </li>
+
                 </ul>
-                <Button />
+
             </nav>
         </>
     )
