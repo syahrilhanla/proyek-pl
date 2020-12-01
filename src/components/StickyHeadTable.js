@@ -37,7 +37,7 @@ function createData(name, nim, ruangan, waktu) {
 // DUMMY DATA
 const rows = [
     createData('Toyota', '1710131110017', 32, "januari"),
-    createData('Honda', '1610131220005', 25, '9596961')
+    createData('Honda', '1610131220005', 25, 'januari')
 ];
 
 const useStyles = makeStyles({
