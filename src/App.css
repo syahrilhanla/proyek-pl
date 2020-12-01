@@ -1,38 +1,82 @@
-.App {
-  text-align: center;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'PT Sans', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.consulting {
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container {
+  margin: 30px auto;
+  width: 450px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.container-schedule {
+  margin: 30px auto;
+  width: 750px;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  letter-spacing: 1px;
+  margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+h3 {
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 10px;
+  margin: 20px 0 10px;
+}
+
+h4 {
+  margin: 0px 0 5px;
+}
+
+label {
+  display: inline-block;
+  margin: 10px 0;
+}
+
+/* input[type='text'],
+input[type='datetime-local'] {
+  border: 2px solid #dedede;
+  border-radius: 2px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+} */
+
+#submit-btn {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.form-control input.input-normal{
+  border: 2px solid #dedede;
+  border-radius: 2px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+.form-control input.input-error {
+  border: 2px solid rgba(231, 38, 38, 0.925);
+  color: rgba(231, 38, 38, 0.925);
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+.TH-Black {
+  background-color: black;
 }

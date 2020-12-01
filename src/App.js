@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { Navbar } from './components/Navbar.js';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import Home from './components/pages/Home';
+import SeeSchedule from './components/pages/SeeSchedule';
+import AddSchedule from './components/pages/AddSchedule';
+
+import { GlobalProvider } from './components/globalState/GlobalState';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProvider>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/add-schedule' exact component={AddSchedule} />
+          <Route path='/see-schedule' exact component={SeeSchedule} />
+
+        </Switch>
+      </Router>
+    </GlobalProvider>
+
   );
 }
 
