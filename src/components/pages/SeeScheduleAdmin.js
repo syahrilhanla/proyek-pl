@@ -1,8 +1,8 @@
 import React from 'react';
-import { StickyHeadTable } from '../../components/StickyHeadTable';
+import { StickyHeadTable } from '../StickyHeadTable';
 import { Breadcrumb } from '../Breadcrumb';
 
-const SeeSchedule = () => {
+export const SeeScheduleAdmin = () => {
     return (
         <>
             <div className="container">
@@ -15,4 +15,3 @@ const SeeSchedule = () => {
     )
 }
 
-export default SeeSchedule;

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../globalState/GlobalState';
 import { Breadcrumb } from '../Breadcrumb';
-import { StickyHeadTable } from '../../components/StickyHeadTable';
+import { StickyHeadTable } from '../StickyHeadTable';
 
 const Home = () => {
     const { borrowingList } = useContext(GlobalContext);

@@ -2,6 +2,12 @@ import React, { createContext, useReducer } from 'react';
 
 const AppReducer = (state, action) => {
     switch (action.type) {
+        case 'ADD_NEW_DATA':
+            return {
+                ...state,
+                borrowingList: [action.payload, ...state.borrowingList]
+            }
+
         default:
             return state;
     }
@@ -10,29 +16,32 @@ const AppReducer = (state, action) => {
 const initialState = {
     borrowingList: [
         {
-            nama: 'Syahril',
+            name: 'Syahril',
             nim: 1710131110017,
-            ruangan: 'Ruangan 32',
-            awalPinjam: '8 January 2020',
-            akhirPinjam: '9 January 2020'
+            room: 'Ruang 32',
+            startDate: '8 January 2020',
+            time: '08:00-10:00',
+            status: 'new-borrowing',
         },
         {
-            nama: 'Jones',
+            name: 'Jones',
             nim: 1710131110017,
-            ruangan: 'Ruangan 27',
-            awalPinjam: '8 January 2020',
-            akhirPinjam: '9 January 2020'
+            room: 'Ruang 27',
+            startDate: '8 January 2020',
+            time: '08:00-10:00',
+            status: 'approved',
         },
         {
-            nama: 'Jonathan',
+            name: 'Jonathan',
             nim: 1710131110017,
-            ruangan: 'Ruangan 25',
-            awalPinjam: '8 January 2020',
-            akhirPinjam: '9 January 2020'
+            room: 'Ruang 25',
+            startDate: '8 January 2020',
+            time: '08:00-10:00',
+            status: 'waiting-verification',
         }
     ],
     loginInfo: {
-        nama: 'Syahril',
+        name: 'Syahril',
         nim: 1710131110017,
         email: 'syahrilhanla\@gmail.com'
     }
@@ -43,8 +52,15 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
+    const addNewBorrowing = (newData) => {
+        dispatch({
+            type: 'ADD_NEW_DATA',
+            payload: newData
+        });
+    }
+
     return (
-        <GlobalContext.Provider value={{ borrowingList: state.borrowingList, loginInfo: state.loginInfo }}>
+        <GlobalContext.Provider value={{ borrowingList: state.borrowingList, loginInfo: state.loginInfo, addNewBorrowing }}>
             {children}
         </GlobalContext.Provider>
     )

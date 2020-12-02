@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -9,36 +9,37 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import './StickyHeadTable.css';
+import { GlobalContext } from './globalState/GlobalState';
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'nim', label: 'NIM', minWidth: 100 },
+    { id: 'name', label: 'Name', minWidth: 170, align: 'center' },
+    { id: 'nim', label: 'NIM', minWidth: 100, align: 'center' },
     {
-        id: 'ruangan',
+        id: 'room',
         label: 'Ruangan',
         minWidth: 170,
-        align: 'right',
+        align: 'center',
         format: (value) => value.toLocaleString('en-US'),
     },
     {
-        id: 'waktu',
+        id: 'startDate',
+        label: 'Awal Pinjam',
+        minWidth: 170,
+        align: 'center',
+        format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+        id: 'time',
         label: 'Waktu',
         minWidth: 170,
-        align: 'right',
+        align: 'center',
         format: (value) => value.toLocaleString('en-US'),
     }
 ];
 
-function createData(name, nim, ruangan, waktu) {
-    return { name, nim, ruangan, waktu };
+function createData(name, nim, room, startDate, time) {
+    return { name: name, nim: nim, room: room, startDate: startDate, time: time };
 }
-
-// DUMMY DATA
-const rows = [
-    createData('Toyota', '1710131110017', 32, "januari"),
-    createData('Honda', '1610131220005', 25, 'januari')
-];
 
 const useStyles = makeStyles({
     root: {
@@ -47,12 +48,27 @@ const useStyles = makeStyles({
     container: {
         maxHeight: 440,
     },
+    tableHead: {
+        backgroundColor: '#2c2b2b',
+        color: '#ffffff',
+    }
 });
 
 export const StickyHeadTable = () => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    // Fetching data from global state
+    const { borrowingList } = useContext(GlobalContext);
+    borrowingList.forEach(content => console.log(content.room));
+    // putting data from global state to rows
+    const rows = borrowingList.map(content => (
+        createData(content.name, content.nim, content.room, content.startDate, content.time)
+    ));
+
+
+    console.log(borrowingList);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -66,11 +82,12 @@ export const StickyHeadTable = () => {
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead className="TH-Black">
-                        <TableRow className="TH-Black">
+                <Table aria-label="sticky table">
+                    <TableHead >
+                        <TableRow className={classes.tableHead}>
                             {columns.map((column) => (
                                 <TableCell
+                                    className={classes.tableHead}
                                     key={column.id}
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
@@ -99,7 +116,7 @@ export const StickyHeadTable = () => {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[5, 10, 20]}
                 component="div"
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
