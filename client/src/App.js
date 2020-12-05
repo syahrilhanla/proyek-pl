@@ -1,5 +1,4 @@
 import './App.css';
-import { Navbar } from './components/Navbar.js';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HomeMHS from './components/pages/HomeMHS';
@@ -9,13 +8,14 @@ import { AddScheduleMHS } from './components/pages/AddScheduleMHS';
 import { HomeAdmin } from './components/pages/HomeAdmin';
 
 import { GlobalProvider } from './components/globalState/GlobalState';
+import { LoginPage } from './components/pages/LoginPage';
 
 
 function App() {
   return (
     <GlobalProvider>
       <Router>
-        <Navbar />
+        <Route path='/' exact component={LoginPage} />
         <Switch>
           <Route path='/mhs' exact component={HomeMHS} />
           <Route path='/adm' exact component={HomeAdmin} />

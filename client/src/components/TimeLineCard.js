@@ -10,7 +10,7 @@ import { FormDialog } from './FormDialog';
 
 export function TimeLineCard({ borrowingList, cardStyle }) {
 
-    console.log(cardStyle);
+    // console.log(cardStyle);
     const useStyles = makeStyles({
         root: {
             minWidth: 275,

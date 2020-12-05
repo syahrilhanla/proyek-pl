@@ -1,15 +1,24 @@
+import { Badge, Divider } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import { Dropdown } from './Dropdown';
+import { NewNotification } from './NewNotification';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import './Navbar.css';
 
 export const Navbar = () => {
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const [newNotification, setNewNotification] = useState(false);
+    let [notifications, setNotifications] = useState(0);
 
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
+
+    const onMouseClick = () => {
+        setNewNotification(!newNotification);
+    }
 
     const onMouseEnter = () => {
         if (window.innerWidth < 960) {
@@ -30,7 +39,7 @@ export const Navbar = () => {
     return (
         <>
             <nav className="navbar">
-                <Link to="/" className="navbar-logo">
+                <Link to="/adm" className="navbar-logo">
                     LOGO
                 </Link>
                 <div className="menu-icon" onClick={handleClick}>
@@ -47,15 +56,18 @@ export const Navbar = () => {
                         className="nav-item"
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}>
-                        <Link to='/mhs/add-schedule' className="nav-links" onClick={closeMobileMenu}>
+                        <div className="nav-links" onClick={closeMobileMenu}>
                             Layanan <i className="fa fa-caret-down" />
-                        </Link>
+                        </div>
                         {dropdown && <Dropdown />}
                     </li>
                     <li className="nav-item">
-                        <Link to="/mhs/notification" className="nav-links" onClick={closeMobileMenu}>
-                            <i className="far fa-bell"></i>
-                        </Link>
+                        <div onClick={onMouseClick} className="nav-links not" onClick={closeMobileMenu}>
+                            <Badge badgeContent={notifications} color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </div>
+
                     </li>
                     <li className="nav-item">
                         <Link to="/" className="nav-links" onClick={closeMobileMenu}>

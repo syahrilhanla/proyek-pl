@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -60,7 +60,14 @@ export const StickyHeadTable = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     // Fetching data from global state
-    const { borrowingList } = useContext(GlobalContext);
+    const { borrowingList, getBorrowingData } = useContext(GlobalContext);
+
+    // UseEffect 
+    useEffect(() => {
+        getBorrowingData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     borrowingList.forEach(content => console.log(content.room));
     // putting data from global state to rows
     const rows = borrowingList.map(content => (
