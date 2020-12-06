@@ -87,6 +87,14 @@ input.input-half {
   width: 100%;
 }
 
+.time {
+  margin-left: 6px;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: flex-end;
+}
+
 .TH-Black {
   background-color: black;
 }

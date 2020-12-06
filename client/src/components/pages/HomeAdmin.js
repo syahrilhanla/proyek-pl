@@ -7,15 +7,15 @@ import { PrimarySearchAppBar } from '../PrimarySearchBar';
 
 export const HomeAdmin = () => {
 
-    const { borrowingList } = useContext(GlobalContext);
+    const { borrowingList, getBorrowingData } = useContext(GlobalContext);
     // info Logger 
     const log = (information) => {
         console.log(information)
     }
 
     useEffect(() => {
-        log(borrowingList)
-    }, [borrowingList]);
+        getBorrowingData();
+    }, []);
 
     const cardStyle = (list) => {
         if (list === 'new-borrowing') {

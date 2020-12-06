@@ -149,23 +149,26 @@ export const AddScheduleMHS = () => {
                             className="input-normal"
                         />
                     </div>
-                    <div className="form-control">
-                        <label><h3>Waktu Peminjaman</h3></label><br />
-                        <label htmlFor="starts" style={{ marginLeft: '6px' }}><h4>Mulai</h4></label>
-                        <input
-                            type="time"
-                            value={startTime}
-                            onChange={(e) => setStartTime(e.target.value)}
-                            className="input-half"
-                        />
+                    <div className="form-control ">
+                    <label><h3>Waktu Peminjaman</h3></label><br />
+                        <div className="time">
+                            
+                            <label htmlFor="starts" ><h4>Mulai</h4></label>
+                            <input
+                                type="time"
+                                value={startTime}
+                                onChange={(e) => setStartTime(e.target.value)}
+                                className="input-half"
+                            />
 
-                        <label htmlFor="finishes"><h4>Sampai</h4></label>
-                        <input
-                            type="time"
-                            value={finishTime}
-                            onChange={(e) => setFinishTime(e.target.value)}
-                            className="input-half"
-                        />
+                            <label htmlFor="finishes"><h4>Sampai</h4></label>
+                            <input
+                                type="time"
+                                value={finishTime}
+                                onChange={(e) => setFinishTime(e.target.value)}
+                                className="input-half"
+                            />
+                        </div>
                     </div>
 
                     <input type="submit" value="Ajukan Peminjaman" className="btn btn-primary" id='submit-btn' />

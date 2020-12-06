@@ -60,13 +60,7 @@ export const StickyHeadTable = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     // Fetching data from global state
-    const { borrowingList, getBorrowingData } = useContext(GlobalContext);
-
-    // UseEffect 
-    useEffect(() => {
-        getBorrowingData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    const { borrowingList } = useContext(GlobalContext);
 
     borrowingList.forEach(content => console.log(content.room));
     // putting data from global state to rows

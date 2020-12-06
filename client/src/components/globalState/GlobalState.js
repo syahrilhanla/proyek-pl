@@ -77,7 +77,7 @@ export const GlobalProvider = ({ children }) => {
 
     const getBorrowingData = async () => {
         try {
-            const res = await axios.get('/mhs/api/v1/borrowingData');
+            const res = await axios.get('/api/v1/borrowingData');
 
             dispatch({
                 type: 'GET_BORROWING_DATA',

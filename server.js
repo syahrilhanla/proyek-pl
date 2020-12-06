@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-app.use('/mhs/api/v1/borrowingData', borrowingData);
+// app.use('/mhs/api/v1/borrowingData', borrowingData);
+app.use('/api/v1/borrowingData', borrowingData);
 
 const PORT = process.env.PORT || 5000;
 
