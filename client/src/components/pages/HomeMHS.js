@@ -3,6 +3,7 @@ import { GlobalContext } from '../globalState/GlobalState';
 import { Breadcrumb } from '../Breadcrumb';
 import { StickyHeadTable } from '../StickyHeadTable';
 import { Navbar } from '../Navbar';
+import { Sidebar } from '../../components/Sidebar';
 
 const Home = () => {
 

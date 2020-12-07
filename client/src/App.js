@@ -9,20 +9,26 @@ import { HomeAdmin } from './components/pages/HomeAdmin';
 
 import { GlobalProvider } from './components/globalState/GlobalState';
 import { LoginPage } from './components/pages/LoginPage';
-import { GoogleOAuth } from './components/pages/GoogleOAuth';
-
 
 function App() {
   return (
     <GlobalProvider>
       <Router>
-        <Route path='/' exact component={LoginPage} />
         <Switch>
+          <Route path='/' exact component={LoginPage} />
           <Route path='/mhs' exact component={HomeMHS} />
           <Route path='/adm' exact component={HomeAdmin} />
           <Route path='/mhs/add-schedule' exact component={AddScheduleMHS} />
           <Route path='/mhs/see-schedule' exact component={SeeScheduleMHS} />
           <Route path='/adm/see-schedule' exact component={SeeScheduleAdmin} />
+
+          {/* Brian Code
+          <Route path='/overview' exact component={Overview} />
+          <Route path='/reports' exact component={Reports} />
+          <Route path='/reports/reports1' exact component={ReportsOne} />
+          <Route path='/reports/reports2' exact component={ReportsTwo} />
+          <Route path='/reports/reports3' exact component={ReportsThree} />
+          <Route path='/team' exact component={Team} /> */}
 
         </Switch>
       </Router>

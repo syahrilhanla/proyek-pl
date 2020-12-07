@@ -38,7 +38,7 @@ const columns = [
     },
     {
         id: 'deleteAction',
-        label: 'Action',
+        label: 'Aksi',
         minWidth: 10,
         align: 'center',
         format: (value) => value.toLocaleString('en-US'),

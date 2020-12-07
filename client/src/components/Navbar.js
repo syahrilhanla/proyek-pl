@@ -6,6 +6,7 @@ import { Dropdown } from './Dropdown';
 import { NewNotification } from './NewNotification';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import './Navbar.css';
+import { Sidebar } from './Sidebar';
 
 export const Navbar = () => {
     const [click, setClick] = useState(false);
@@ -39,6 +40,8 @@ export const Navbar = () => {
     return (
         <>
             <nav className="navbar">
+
+                <Sidebar />
                 <Link to="/adm" className="navbar-logo">
                     LOGO
                 </Link>
@@ -47,7 +50,7 @@ export const Navbar = () => {
                 </div>
 
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link to="/mhs" className="nav-links" onClick={closeMobileMenu}>
                             Beranda
                         </Link>
@@ -60,7 +63,7 @@ export const Navbar = () => {
                             Layanan <i className="fa fa-caret-down" />
                         </div>
                         {dropdown && <Dropdown />}
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                         <div onClick={onMouseClick} className="nav-links not" onClick={closeMobileMenu}>
                             <Badge badgeContent={notifications} color="secondary">
