@@ -14,11 +14,11 @@ const AppReducer = (state, action) => {
                 borrowingList: [...state.borrowingList, action.payload]
             }
 
-        // case 'TAKE_LOGIN_INFO':
-        //     return {
-        //         ...state,
-        //         loginInfo: [action.payload, ...state.loginInfo]
-        //     }
+        case 'TAKE_LOGIN_INFO':
+            return {
+                ...state,
+                loginInfo: [action.payload, ...state.loginInfo]
+            }
         case 'FETCHING_ERROR':
             return {
                 ...state,
@@ -62,12 +62,7 @@ const initialState = {
         //     status: 'waiting-verification',
         // }
     ],
-    loginInfo: {
-        email: 'syahrilhanla\@gmail.com',
-        password: 'jones_johnson',
-        name: 'Syahril',
-        nim: 1710131110017
-    }
+    loginInfo: []
 }
 
 export const GlobalContext = createContext(initialState);
@@ -135,6 +130,7 @@ export const GlobalProvider = ({ children }) => {
                 payload: err.response.data.error
             });
         }
+        console.log(id);
     }
 
     return (

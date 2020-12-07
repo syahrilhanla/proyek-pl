@@ -1,25 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { Button } from '../Button';
+import React from 'react';
+import GoogleOAuth from './GoogleOAuth';
 import './LoginPage.css';
-import { GlobalContext } from '../globalState/GlobalState';
-import { GoogleOAuth } from './GoogleOAuth';
 
 export const LoginPage = () => {
-
-    // BRING IN GLOBAL CONTEXT
-    const { takeLoginInfo } = useContext(GlobalContext);
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = (e) => {
-        const newLoginInfo = {
-            email: email,
-            password: password
-        }
-        takeLoginInfo(newLoginInfo);
-    }
-
 
     return (
         <div className='login-page-root'>
@@ -27,7 +10,7 @@ export const LoginPage = () => {
                 <h1 className='login-page'>
                     Masuk dengan Akun ULM
                 </h1>
-                <form onSubmit={handleSubmit}>
+                <form>
                     <div className='choose-user'>
                         <i className="fas fa-user-circle" />
                         {/* <br />

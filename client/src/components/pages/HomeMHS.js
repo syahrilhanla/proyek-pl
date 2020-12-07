@@ -6,11 +6,12 @@ import { Navbar } from '../Navbar';
 
 const Home = () => {
 
-    const { borrowingList, getBorrowingData } = useContext(GlobalContext);
+    const { loginInfo, getBorrowingData } = useContext(GlobalContext);
 
     // UseEffect 
     useEffect(() => {
         getBorrowingData();
+        console.log(loginInfo)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

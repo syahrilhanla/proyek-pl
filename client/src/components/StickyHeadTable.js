@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,14 +10,15 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import { GlobalContext } from './globalState/GlobalState';
+import { Button } from './Button';
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170, align: 'center' },
+    { id: 'usage', label: 'Keperluan', minWidth: 170, align: 'center' },
     { id: 'nim', label: 'NIM', minWidth: 100, align: 'center' },
     {
         id: 'room',
         label: 'Ruangan',
-        minWidth: 170,
+        minWidth: 140,
         align: 'center',
         format: (value) => value.toLocaleString('en-US'),
     },
@@ -31,14 +32,21 @@ const columns = [
     {
         id: 'time',
         label: 'Waktu',
-        minWidth: 170,
+        minWidth: 130,
+        align: 'center',
+        format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+        id: 'deleteAction',
+        label: 'Action',
+        minWidth: 10,
         align: 'center',
         format: (value) => value.toLocaleString('en-US'),
     }
 ];
 
-function createData(name, nim, room, startDate, time) {
-    return { name: name, nim: nim, room: room, startDate: startDate, time: time };
+function createData(usage, nim, room, startDate, time, deleteAction) {
+    return { usage: usage, nim: nim, room: room, startDate: startDate, time: time, deleteAction: deleteAction};
 }
 
 const useStyles = makeStyles({
@@ -54,22 +62,38 @@ const useStyles = makeStyles({
     }
 });
 
+const buttonDelete = {
+    padding: '8px 20px',
+    borderRadius: '4px',
+    outline: 'none',
+    border: 'none',
+    fontSize: '18px',
+    color: 'white',
+    cursor: 'pointer',
+    backgroundColor: '#ff1818'
+}
+
 export const StickyHeadTable = () => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     // Fetching data from global state
-    const { borrowingList } = useContext(GlobalContext);
+    const { borrowingList, deleteBorrowingData } = useContext(GlobalContext);
 
-    borrowingList.forEach(content => console.log(content.room));
     // putting data from global state to rows
     const rows = borrowingList.map(content => (
-        createData(content.name, content.nim, content.room, content.startDate, content.time)
+        createData(
+            content.usage, content.nim,
+            content.room, content.startDate,
+            content.time, 
+            <button 
+                onClick={() => deleteBorrowingData(content._id)}
+                style={buttonDelete}    
+            >
+                    X
+            </button>)
     ));
-
-
-    console.log(borrowingList);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

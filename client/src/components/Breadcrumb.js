@@ -5,11 +5,11 @@ import { Button } from './Button';
 
 export const Breadcrumb = () => {
     const { loginInfo } = useContext(GlobalContext);
-    console.log(loginInfo);
+    const name = loginInfo.map(item => item.name)
     return (
 
         <div className="breadcrumb">
-            <span><h3>Selamat Datang, {loginInfo.name}!</h3></span>
+            <span><h3>Selamat Datang, {name}!</h3></span>
             <Button text="Ajukan Peminjaman" goTo="/mhs/add-schedule" />
         </div>
 

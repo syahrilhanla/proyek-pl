@@ -18,10 +18,13 @@ export const AddScheduleMHS = () => {
         })
     }
 
+    // Get login details
+    const newName = loginInfo.map(item => item.name)
+    const newNim = loginInfo.map(item => item.nim)
 
     // STATE
-    const [name, setName] = useState(loginInfo.name);
-    const [nim, setNim] = useState(loginInfo.nim);
+    const [name, setName] = useState('newName');
+    const [nim, setNim] = useState('newNim');
     const [usage, setUsage] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
     const [room, setRoom] = useState('');
@@ -53,9 +56,6 @@ export const AddScheduleMHS = () => {
         // isEmpty(newData);
     }
 
-    useEffect(() => {
-        log(borrowingList);
-    }, [borrowingList]);
 
     // ROOMS GENERATOR
     const rooms = [];
@@ -79,8 +79,8 @@ export const AddScheduleMHS = () => {
                         <label htmlFor="name"><h3>Nama</h3></label>
                         <input
                             type="text"
-                            placeholder={loginInfo.name}
-                            value={loginInfo.name}
+                            placeholder={name}
+                            value={name}
                             className="input-normal"
                             disabled
                         />
@@ -90,8 +90,8 @@ export const AddScheduleMHS = () => {
                         <label htmlFor="nim"><h3>NIM</h3></label>
                         <input
                             type="text"
-                            placeholder={loginInfo.nim}
-                            value={loginInfo.nim}
+                            placeholder={nim}
+                            value={nim}
                             className="input-normal"
                             disabled
                         />
