@@ -79,3 +79,33 @@ exports.deleteBorrowingData = async (req, res, next) => {
         });
     }
 }
+
+//  @desc   Update Borrowing Data
+//  @route  UPDATE /api/v1/borrowingData/:id
+//  @access public
+exports.updateBorrowingData = async (req, res, next) => {
+    try {
+        const { name, nim, room, startDate, time, status, usage } = req.body;
+        const borrowingData = await BorrowingData.findById(req.params.id);
+
+        if (!borrowingData) {
+            return res.status(404).json({
+                success: false,
+                error: 'No Borrowing Data found'
+            });
+        }
+
+        console.log(borrowingData);
+
+        return res.status(200).json({
+            success: true,
+            data: {}
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: 'Server Error'
+        });
+    }
+}

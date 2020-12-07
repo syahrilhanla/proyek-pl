@@ -29,6 +29,11 @@ const AppReducer = (state, action) => {
                 ...state,
                 borrowingList: state.borrowingList.filter(data => data._id !== action.payload)
             }
+        case 'UPDATE_BORROWING_DATA':
+            return {
+                ...state,
+                borrowingList: [...state.borrowingList, action.payload]
+            }
 
         default:
             return state;
@@ -36,32 +41,7 @@ const AppReducer = (state, action) => {
 }
 
 const initialState = {
-    borrowingList: [
-        // {
-        //     name: 'Syahril',
-        //     nim: 1710131110017,
-        //     room: 'Ruang 32',
-        //     startDate: '8 January 2020',
-        //     time: '08:00-10:00',
-        //     status: 'new-borrowing',
-        // },
-        // {
-        //     name: 'Jones',
-        //     nim: 1710131110017,
-        //     room: 'Ruang 27',
-        //     startDate: '8 January 2020',
-        //     time: '08:00-10:00',
-        //     status: 'approved',
-        // },
-        // {
-        //     name: 'Jonathan',
-        //     nim: 1710131110017,
-        //     room: 'Ruang 25',
-        //     startDate: '8 January 2020',
-        //     time: '08:00-10:00',
-        //     status: 'waiting-verification',
-        // }
-    ],
+    borrowingList: [],
     loginInfo: []
 }
 
@@ -81,7 +61,7 @@ export const GlobalProvider = ({ children }) => {
         } catch (err) {
             dispatch({
                 type: 'FETCHING_ERROR',
-                payload: err.response.data.error
+                payload: err.response
             });
         }
     }
@@ -116,7 +96,6 @@ export const GlobalProvider = ({ children }) => {
         });
     }
 
-    // FrontEnd is not built yet
     const deleteBorrowingData = async (id) => {
         try {
             await axios.delete(`/api/v1/borrowingData/${id}`);
@@ -134,6 +113,23 @@ export const GlobalProvider = ({ children }) => {
         console.log(id);
     }
 
+    const updateBorrowingData = async (id) => {
+        // try {
+        //     await axios.update(`/api/v1/borrowingData/${id}`);
+
+        //     dispatch({
+        //         type: 'UPDATE_BORROWING_DATA',
+        //         payload: id
+        //     });
+        // } catch (err) {
+        //     dispatch({
+        //         type: 'FETCHING_ERROR',
+        //         payload: err.response.data.error
+        //     });
+        // }
+        console.log(id);
+    }
+
     return (
         <GlobalContext.Provider value={{
             borrowingList: state.borrowingList,
@@ -141,7 +137,8 @@ export const GlobalProvider = ({ children }) => {
             addNewBorrowing,
             takeLoginInfo,
             getBorrowingData,
-            deleteBorrowingData
+            deleteBorrowingData,
+            updateBorrowingData
         }}>
             {children}
         </GlobalContext.Provider>

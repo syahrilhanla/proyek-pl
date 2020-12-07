@@ -31,7 +31,7 @@ export const AddScheduleMHS = () => {
     const [startDate, setDate] = useState({});
     const [startTime, setStartTime] = useState('');
     const [finishTime, setFinishTime] = useState('');
-    const [status, setStatus] = useState('new-borrowing')
+    const [status, setStatus] = useState(1);
 
     // info Logger 
     const log = (information) => {

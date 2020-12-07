@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Button from '@material-ui/core/Button';
 // import { Button } from './Button';
 import TextField from '@material-ui/core/TextField';
@@ -7,9 +7,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { GlobalContext } from './globalState/GlobalState';
 
-export function FormDialog({ buttonColor }) {
+export function FormDialog({ buttonColor, borrowingID }) {
     const [open, setOpen] = React.useState(false);
+    const { updateBorrowingData } = useContext(GlobalContext);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -45,7 +47,7 @@ export function FormDialog({ buttonColor }) {
                     <Button onClick={handleClose} color="primary">
                         Batal
           </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} onClick={() => updateBorrowingData(borrowingID)} color="primary">
                         Izinkan
           </Button>
                 </DialogActions>

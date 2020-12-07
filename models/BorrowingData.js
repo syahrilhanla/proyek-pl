@@ -22,8 +22,8 @@ const BorrowingDataSchema = new mongoose.Schema({
         required: [true, 'Please add time']
     },
     status: {
-        type: String,
-        default: 'new-borrowing'
+        type: Number,
+        default: 1
     },
     usage: {
         type: String,

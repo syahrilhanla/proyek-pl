@@ -10,7 +10,7 @@ import { FormDialog } from './FormDialog';
 
 export function TimeLineCard({ borrowingList, cardStyle }) {
 
-    // console.log(cardStyle);
+    console.log(borrowingList);
     const useStyles = makeStyles({
         root: {
             minWidth: 275,
@@ -46,11 +46,11 @@ export function TimeLineCard({ borrowingList, cardStyle }) {
                 <Typography variant="body2" component="p">
                     {borrowingList.startDate}
                     <br />
-                    08:00 - 11:00
+                    {borrowingList.time}
                 </Typography>
             </CardContent>
             <CardActions>
-                <FormDialog buttonColor={cardStyle.buttonColor} />
+                <FormDialog buttonColor={cardStyle.buttonColor} borrowingID={borrowingList._id} />
             </CardActions>
         </Card>
     );
