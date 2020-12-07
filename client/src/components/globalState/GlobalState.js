@@ -106,6 +106,7 @@ export const GlobalProvider = ({ children }) => {
                 payload: err.response.data.error
             });
         }
+        console.log(newData)
     }
 
     const takeLoginInfo = (newLogin) => {

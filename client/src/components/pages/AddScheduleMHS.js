@@ -23,8 +23,8 @@ export const AddScheduleMHS = () => {
     const newNim = loginInfo.map(item => item.nim)
 
     // STATE
-    const [name, setName] = useState('newName');
-    const [nim, setNim] = useState('newNim');
+    const [name, setName] = useState(newName[0]);
+    const [nim, setNim] = useState(newNim[0]);
     const [usage, setUsage] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
     const [room, setRoom] = useState('');
@@ -82,6 +82,7 @@ export const AddScheduleMHS = () => {
                             placeholder={name}
                             value={name}
                             className="input-normal"
+                            // onChange={(e) => setName(e.target.value)}
                             disabled
                         />
                     </div>
@@ -93,6 +94,7 @@ export const AddScheduleMHS = () => {
                             placeholder={nim}
                             value={nim}
                             className="input-normal"
+                            // onChange={(e) => setNim(e.target.value)}
                             disabled
                         />
                     </div>
