@@ -10,6 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import { GlobalContext } from './globalState/GlobalState';
+import { Button } from './Button';
 
 const columns = [
     { id: 'usage', label: 'Keperluan', minWidth: 170, align: 'center' },
@@ -34,11 +35,18 @@ const columns = [
         minWidth: 130,
         align: 'center',
         format: (value) => value.toLocaleString('en-US'),
+    },
+    {
+        id: 'deleteAction',
+        label: 'Aksi',
+        minWidth: 10,
+        align: 'center',
+        format: (value) => value.toLocaleString('en-US'),
     }
 ];
 
-function createData(usage, nim, room, startDate, time) {
-    return { usage: usage, nim: nim, room: room, startDate: startDate, time: time};
+function createData(usage, nim, room, startDate, time, deleteAction) {
+    return { usage: usage, nim: nim, room: room, startDate: startDate, time: time, deleteAction: deleteAction};
 }
 
 const useStyles = makeStyles({
@@ -65,21 +73,27 @@ const buttonDelete = {
     backgroundColor: '#ff1818'
 }
 
-export const StickyHeadTable = () => {
+export const StickyHeadTableADM = () => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     // Fetching data from global state
-    const { borrowingList } = useContext(GlobalContext);
+    const { borrowingList, deleteBorrowingData } = useContext(GlobalContext);
 
     // putting data from global state to rows
     const rows = borrowingList.map(content => (
         createData(
             content.usage, content.nim,
             content.room, content.startDate,
-            content.time)
-        ));
+            content.time, 
+            <button 
+                onClick={() => deleteBorrowingData(content._id)}
+                style={buttonDelete}    
+            >
+                    X
+            </button>)
+    ));
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

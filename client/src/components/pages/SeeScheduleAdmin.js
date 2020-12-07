@@ -1,17 +1,13 @@
 import React from 'react';
-import { StickyHeadTable } from '../StickyHeadTable';
-import { Breadcrumb } from '../Breadcrumb';
+import { StickyHeadTableADM } from '../../components/StickyHeadTableADM';
 import { Navbar } from '../Navbar';
 
 export const SeeScheduleAdmin = () => {
     return (
         <>
-            <Navbar />
-            <div className="container">
-                <Breadcrumb />
-            </div>
+            <Navbar user={'adm'}/>
             <div className="container-schedule">
-                <StickyHeadTable />
+                <StickyHeadTableADM />
             </div>
         </>
     )

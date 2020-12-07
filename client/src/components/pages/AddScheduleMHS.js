@@ -70,7 +70,7 @@ export const AddScheduleMHS = () => {
 
     return (
         <>
-            <Navbar />
+            <Navbar user={'mhs'}/>
             <div className="container">
                 <h1>Peminjaman Baru</h1>
 

@@ -7,12 +7,24 @@ import { NewNotification } from './NewNotification';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import './Navbar.css';
 import { Sidebar } from './Sidebar';
+import { SidebarDataADM } from './SidebarDataADM';
+import { SidebarData } from './SidebarData';
 
-export const Navbar = () => {
+export const Navbar = ({user}) => {
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
     const [newNotification, setNewNotification] = useState(false);
     let [notifications, setNotifications] = useState(0);
+
+    // Checks if its mhs or adm
+    const checkUser = (user) => {
+        console.log(user);
+        if (user === 'adm') {
+            return SidebarDataADM
+        } else {
+            return SidebarData
+        }
+    }
 
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
@@ -21,27 +33,27 @@ export const Navbar = () => {
         setNewNotification(!newNotification);
     }
 
-    const onMouseEnter = () => {
-        if (window.innerWidth < 960) {
-            setDropdown(false);
-        } else {
-            setDropdown(true);
-        }
-    }
+    // const onMouseEnter = () => {
+    //     if (window.innerWidth < 960) {
+    //         setDropdown(false);
+    //     } else {
+    //         setDropdown(true);
+    //     }
+    // }
 
-    const onMouseLeave = () => {
-        if (window.innerWidth < 960) {
-            setDropdown(false);
-        } else {
-            setDropdown(false);
-        }
-    }
+    // const onMouseLeave = () => {
+    //     if (window.innerWidth < 960) {
+    //         setDropdown(false);
+    //     } else {
+    //         setDropdown(false);
+    //     }
+    // }
 
     return (
         <>
             <nav className="navbar">
 
-                <Sidebar />
+                <Sidebar sideBarData={checkUser(user)}/>
                 <Link to="/adm" className="navbar-logo">
                     LOGO
                 </Link>

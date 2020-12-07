@@ -28,7 +28,7 @@ export const HomeAdmin = () => {
     }
     return (
         <>
-            <Navbar />
+            <Navbar user={'adm'}/>
 
             <div className="container">
                 <h1>Lini Masa</h1>

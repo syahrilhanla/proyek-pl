@@ -6,7 +6,7 @@ import { Navbar } from '../Navbar';
 export const SeeScheduleMHS = () => {
     return (
         <>
-            <Navbar />
+            <Navbar user={'mhs'}/>
             <div className="container">
                 <Breadcrumb />
             </div>

@@ -18,7 +18,7 @@ const Home = () => {
 
     return (
         <>
-            <Navbar />
+            <Navbar user={'mhs'}/>
             <div className="container">
                 <Breadcrumb />
             </div>
