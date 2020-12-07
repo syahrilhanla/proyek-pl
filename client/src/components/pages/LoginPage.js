@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Button } from '../Button';
 import './LoginPage.css';
 import { GlobalContext } from '../globalState/GlobalState';
+import { GoogleOAuth } from './GoogleOAuth';
 
 export const LoginPage = () => {
 
@@ -29,7 +30,7 @@ export const LoginPage = () => {
                 <form onSubmit={handleSubmit}>
                     <div className='choose-user'>
                         <i className="fas fa-user-circle" />
-                        <br />
+                        {/* <br />
                         <div className="form-control">
                             <input
                                 type="email"
@@ -51,7 +52,8 @@ export const LoginPage = () => {
                         </div>
 
                         <Button text="Login" goTo="/mhs" onClick={handleSubmit} />
-                        <br />
+                        <br /> */}
+                        <GoogleOAuth />
                     </div>
                 </form>
             </div>

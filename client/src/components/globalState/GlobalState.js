@@ -14,11 +14,11 @@ const AppReducer = (state, action) => {
                 borrowingList: [...state.borrowingList, action.payload]
             }
 
-        case 'TAKE_LOGIN_INFO':
-            return {
-                ...state,
-                loginInfo: [action.payload, ...state.loginInfo]
-            }
+        // case 'TAKE_LOGIN_INFO':
+        //     return {
+        //         ...state,
+        //         loginInfo: [action.payload, ...state.loginInfo]
+        //     }
         case 'FETCHING_ERROR':
             return {
                 ...state,

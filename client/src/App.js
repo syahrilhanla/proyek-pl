@@ -9,6 +9,7 @@ import { HomeAdmin } from './components/pages/HomeAdmin';
 
 import { GlobalProvider } from './components/globalState/GlobalState';
 import { LoginPage } from './components/pages/LoginPage';
+import { GoogleOAuth } from './components/pages/GoogleOAuth';
 
 
 function App() {
