@@ -113,20 +113,23 @@ export const GlobalProvider = ({ children }) => {
         console.log(id);
     }
 
-    const updateBorrowingData = async (id) => {
-        // try {
-        //     await axios.update(`/api/v1/borrowingData/${id}`);
+    const updateBorrowingData = async (id, status) => {
+        try {
+            const res = await axios.put(`/api/v1/borrowingData/${id}`, {status: status + 1});
+            const getData = await axios.get(`/api/v1/borrowingData/`);
+            console.log({res})
 
-        //     dispatch({
-        //         type: 'UPDATE_BORROWING_DATA',
-        //         payload: id
-        //     });
-        // } catch (err) {
-        //     dispatch({
-        //         type: 'FETCHING_ERROR',
-        //         payload: err.response.data.error
-        //     });
-        // }
+            dispatch({
+                type: 'UPDATE_BORROWING_DATA',
+                payload: getData.data.data[0]
+            });
+        } catch (err) {
+            dispatch({
+                type: 'FETCHING_ERROR',
+                payload: err
+            });
+            console.log(err)
+        }
         console.log(id);
     }
 

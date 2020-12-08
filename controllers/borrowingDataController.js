@@ -86,20 +86,22 @@ exports.deleteBorrowingData = async (req, res, next) => {
 exports.updateBorrowingData = async (req, res, next) => {
     try {
         const { name, nim, room, startDate, time, status, usage } = req.body;
-        const borrowingData = await BorrowingData.findById(req.params.id);
+
+        const borrowingData = await BorrowingData.findById(req.params.id, (err, newData) => {
+            newData.status = status;
+            newData.save();
+        });
 
         if (!borrowingData) {
             return res.status(404).json({
                 success: false,
                 error: 'No Borrowing Data found'
             });
-        }
+        } 
 
-        console.log(borrowingData);
-
-        return res.status(200).json({
+        return res.status(201).json({
             success: true,
-            data: {}
+            data: borrowingData
         });
 
     } catch (err) {

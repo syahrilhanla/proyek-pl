@@ -11,7 +11,7 @@ import { GlobalContext } from './globalState/GlobalState';
 
 export function FormDialog({ buttonColor, borrowingID }) {
     const [open, setOpen] = React.useState(false);
-    const { updateBorrowingData } = useContext(GlobalContext);
+    const { updateBorrowingData, borrowingList } = useContext(GlobalContext);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -47,7 +47,7 @@ export function FormDialog({ buttonColor, borrowingID }) {
                     <Button onClick={handleClose} color="primary">
                         Batal
           </Button>
-                    <Button onClick={handleClose} onClick={() => updateBorrowingData(borrowingID)} color="primary">
+                    <Button onClick={handleClose} onClick={() => updateBorrowingData(borrowingID, borrowingList[0].status)} color="primary">
                         Izinkan
           </Button>
                 </DialogActions>
