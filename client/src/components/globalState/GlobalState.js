@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useState } from 'react';
 import axios from 'axios';
 
 const AppReducer = (state, action) => {
@@ -49,6 +49,7 @@ export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
+    const [updateState, setUpdateState] = useState(false);
 
     const getBorrowingData = async () => {
         try {
@@ -86,7 +87,6 @@ export const GlobalProvider = ({ children }) => {
                 payload: err.response.data.error
             });
         }
-        console.log(newData)
     }
 
     const takeLoginInfo = (newLogin) => {
@@ -114,14 +114,18 @@ export const GlobalProvider = ({ children }) => {
     }
 
     const updateBorrowingData = async (id, status) => {
+
         try {
+            console.log(status);
             const res = await axios.put(`/api/v1/borrowingData/${id}`, {status: status + 1});
             const getData = await axios.get(`/api/v1/borrowingData/`);
-            console.log({res})
+            const newData = getData.data.data.forEach(item => console.log(item))
+            setUpdateState(!updateState);
+            console.log(res.data.data)
 
             dispatch({
                 type: 'UPDATE_BORROWING_DATA',
-                payload: getData.data.data[0]
+                payload: res.data.data
             });
         } catch (err) {
             dispatch({
@@ -141,7 +145,8 @@ export const GlobalProvider = ({ children }) => {
             takeLoginInfo,
             getBorrowingData,
             deleteBorrowingData,
-            updateBorrowingData
+            updateBorrowingData,
+            updateState
         }}>
             {children}
         </GlobalContext.Provider>

@@ -22,8 +22,6 @@ export function TimeLineCard({ borrowingList }) {
             }
     }
 
-    console.log(borrowingList);
-
     // styles attributes
     const styles = cardStyle(borrowingList);
 
@@ -66,7 +64,9 @@ export function TimeLineCard({ borrowingList }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <FormDialog buttonColor={styles.buttonColor} borrowingID={borrowingList._id} />
+                <FormDialog buttonColor={styles.buttonColor} 
+                    borrowingID={borrowingList._id}
+                    borrowingList={borrowingList} />
             </CardActions>
         </Card>
     );

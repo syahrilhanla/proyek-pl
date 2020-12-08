@@ -9,9 +9,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { GlobalContext } from './globalState/GlobalState';
 
-export function FormDialog({ buttonColor, borrowingID }) {
+export function FormDialog({ buttonColor, borrowingID, borrowingList }) {
     const [open, setOpen] = React.useState(false);
-    const { updateBorrowingData, borrowingList } = useContext(GlobalContext);
+    const { updateBorrowingData } = useContext(GlobalContext);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,7 +33,7 @@ export function FormDialog({ buttonColor, borrowingID }) {
                 <DialogContent>
                     <DialogContentText>
                         Silahkan masukkan sandi pribadi untuk mengizinkan permintaan peminjaman.
-          </DialogContentText>
+                    </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
@@ -46,10 +46,15 @@ export function FormDialog({ buttonColor, borrowingID }) {
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Batal
-          </Button>
-                    <Button onClick={handleClose} onClick={() => updateBorrowingData(borrowingID, borrowingList[0].status)} color="primary">
+                    </Button>
+                    <Button
+                        color="primary"
+                        onClick={() => 
+                            updateBorrowingData(borrowingID, borrowingList.status)}
+                        onClick={handleClose}  
+                        >   
                         Izinkan
-          </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div >

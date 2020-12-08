@@ -18,17 +18,13 @@ export const AddScheduleMHS = () => {
         })
     }
 
-    // Get login details
-    const newName = loginInfo.map(item => item.name)
-    const newNim = loginInfo.map(item => item.nim)
-
     // STATE
-    const [name, setName] = useState(newName[0]);
-    const [nim, setNim] = useState(newNim[0]);
+    const [name, setName] = useState('');
+    const [nim, setNim] = useState('');
     const [usage, setUsage] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
     const [room, setRoom] = useState('');
-    const [startDate, setDate] = useState({});
+    const [startDate, setDate] = useState('');
     const [startTime, setStartTime] = useState('');
     const [finishTime, setFinishTime] = useState('');
     const [status, setStatus] = useState(1);
@@ -76,26 +72,24 @@ export const AddScheduleMHS = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-control">
-                        <label htmlFor="name"><h3>Nama</h3></label>
+                        <label htmlFor="name"><h3>Atas Nama (Prodi/Organisasi)</h3></label>
                         <input
                             type="text"
                             placeholder={name}
                             value={name}
                             className="input-normal"
-                            // onChange={(e) => setName(e.target.value)}
-                            disabled
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
                     <div className="form-control">
-                        <label htmlFor="nim"><h3>NIM</h3></label>
+                        <label htmlFor="nim"><h3>NIM (Isi Apabila Mahasiswa)</h3></label>
                         <input
                             type="text"
                             placeholder={nim}
                             value={nim}
                             className="input-normal"
-                            // onChange={(e) => setNim(e.target.value)}
-                            disabled
+                            onChange={(e) => setNim(e.target.value)}
                         />
                     </div>
 
@@ -142,7 +136,6 @@ export const AddScheduleMHS = () => {
 
                     <div className="form-control">
                         <label><h3>Tanggal Peminjaman</h3></label><br />
-                        <label htmlFor="starts"><h4>Mulai</h4></label>
                         <input
                             type="date"
                             value={startDate}

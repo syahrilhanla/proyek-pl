@@ -6,11 +6,12 @@ import { Navbar } from '../Navbar';
 
 export const HomeAdmin = () => {
 
-    const { borrowingList, getBorrowingData } = useContext(GlobalContext);
+    const { borrowingList, getBorrowingData, updateState } = useContext(GlobalContext);
 
     useEffect(() => {
         getBorrowingData();
-    }, []);
+        console.log(borrowingList)
+    }, [updateState]);
 
     return (
         <>
