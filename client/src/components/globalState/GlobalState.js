@@ -118,10 +118,7 @@ export const GlobalProvider = ({ children }) => {
         try {
             console.log(status);
             const res = await axios.put(`/api/v1/borrowingData/${id}`, {status: status + 1});
-            const getData = await axios.get(`/api/v1/borrowingData/`);
-            const newData = getData.data.data.forEach(item => console.log(item))
             setUpdateState(!updateState);
-            console.log(res.data.data)
 
             dispatch({
                 type: 'UPDATE_BORROWING_DATA',

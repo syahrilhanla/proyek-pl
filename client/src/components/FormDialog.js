@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@material-ui/core/Button';
 // import { Button } from './Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,8 +10,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { GlobalContext } from './globalState/GlobalState';
 
 export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [password, setPassword] = useState('');
     const { updateBorrowingData } = useContext(GlobalContext);
+
+    // Passwords to verify permission
+    const PASSWORD= {
+        firstLevel: '123456',
+        secondLevel: '987654'
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -26,6 +33,16 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
         handleClose();
     }
     
+    // If password true then update status, if not then send email to student
+    const verifyPermission = (passwordInput) => {
+        if (passwordInput === PASSWORD.firstLevel) {
+            updateAndClose();        
+        } else {
+            console.log('wrong password');
+            handleClose();
+        }
+    }
+
     return (
         <div>
             <div style={{ backgroundColor: styles.color, marginLeft: "10rem", borderRadius: "3px", marginTop: "-20px" }}>
@@ -45,6 +62,7 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
                         id="password"
                         label="Password"
                         type="password"
+                        onChange={(e) => setPassword(e.target.value)}
                         fullWidth
                     />
                 </DialogContent>
@@ -54,7 +72,7 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
                     </Button>
                     <Button
                         color="primary"
-                        onClick={() => updateAndClose()}
+                        onClick={() => verifyPermission(password)}
                     >   
                         Izinkan
                     </Button>

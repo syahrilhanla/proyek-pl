@@ -9,6 +9,7 @@ import { FormDialog } from './FormDialog';
 
 export function TimeLineCard({ borrowingList }) {
 
+    // Configure which style which
     const cardStyle = (borrowingList) => {
             if (borrowingList.status === 1) {
                 return { title: "Peminjaman Baru", color: "#cf957e", buttonColor: "#CB4335 ", gradient: 'linear-gradient(180deg, #cf957e 0%, #ff8062 50%, #ff1600 100%)' };
