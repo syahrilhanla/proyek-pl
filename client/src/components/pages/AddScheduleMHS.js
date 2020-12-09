@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { GlobalContext } from '../globalState/GlobalState';
 import { Navbar } from '../Navbar';
 
 export const AddScheduleMHS = () => {
 
-    const { borrowingList, loginInfo, addNewBorrowing } = useContext(GlobalContext);
+    const { addNewBorrowing } = useContext(GlobalContext);
 
     //CHECK EMPTY FIELDS NOT DONE YET
     const isEmpty = (fields) => {
@@ -29,20 +29,45 @@ export const AddScheduleMHS = () => {
     const [finishTime, setFinishTime] = useState('');
     const [status, setStatus] = useState(1);
 
+    // REFS
+    const refName = useRef('');
+
+    // Make focus to input name
+    useEffect(() => {
+        refName.current.focus();
+    },[])
+
     // info Logger 
     const log = (information) => {
         console.log(information)
     }
 
+    // Turns date into formatted data
+    const dateFormatter = (date, month, year) => {
+        const months = [
+            'Januari', 'Februari', 'Maret', 'April',
+            'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+            'Oktober', 'November', 'Desember'
+        ];
+        const formattedMonth = months.filter((element, index) => index === month - 1);
+        
+        return `${date} ${formattedMonth} ${year}`;
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // GET FORMATTED DATA
         const time = `${startTime}-${finishTime}`;
+        const year = startDate.slice(0, 4);
+        const month = startDate.slice(5, 7);
+        const date = startDate.slice(9, 11);
+
         // Creates new Object to push to database every time submit hit
         const newData = {
             name: name, nim: nim, room: room,
             usage: usage, phoneNum: phoneNum,
-            startDate: startDate,
+            startDate: dateFormatter(date, month, year),
             time: time,
             status: status
         }
@@ -64,6 +89,8 @@ export const AddScheduleMHS = () => {
     roomGen();
     // ###############################
 
+    const required = () => <span style={{color: 'red'}}>*</span>;
+
     return (
         <>
             <Navbar user={'mhs'}/>
@@ -72,10 +99,11 @@ export const AddScheduleMHS = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-control">
-                        <label htmlFor="name"><h3>Atas Nama (Prodi/Organisasi)</h3></label>
+                        <label htmlFor="name"><h3>{required()} Atas Nama (Prodi/Organisasi)</h3></label>
                         <input
+                            ref={refName}
                             type="text"
-                            placeholder={name}
+                            placeholder="Masukkan Nama Organisasi/Program Studi"
                             value={name}
                             className="input-normal"
                             onChange={(e) => setName(e.target.value)}
@@ -86,7 +114,7 @@ export const AddScheduleMHS = () => {
                         <label htmlFor="nim"><h3>NIM (Isi Apabila Mahasiswa)</h3></label>
                         <input
                             type="text"
-                            placeholder={nim}
+                            placeholder="Masukkan NIM Apabila Mahasiswa"
                             value={nim}
                             className="input-normal"
                             onChange={(e) => setNim(e.target.value)}
@@ -94,7 +122,7 @@ export const AddScheduleMHS = () => {
                     </div>
 
                     <div className="form-control">
-                        <label htmlFor="noTelp"><h3>Nomor Telepon/WA</h3></label>
+                        <label htmlFor="noTelp"><h3>{required()} Nomor Telepon/WA</h3></label>
                         <input
                             type="text"
                             placeholder="Masukkan Nomor Telepon/WA..."
@@ -105,7 +133,7 @@ export const AddScheduleMHS = () => {
                     </div>
 
                     <div className="form-control">
-                        <label htmlFor="room"><h3>Ruangan</h3></label>
+                        <label htmlFor="room"><h3>{required()} Ruangan</h3></label>
                         <input
                             list="room"
                             type="text"
@@ -124,7 +152,7 @@ export const AddScheduleMHS = () => {
                     </div>
 
                     <div className="form-control">
-                        <label htmlFor="keperluan"><h3>Keperluan</h3></label>
+                        <label htmlFor="keperluan"><h3>{required()} Keperluan</h3></label>
                         <input
                             type="text"
                             placeholder="Masukkan Keperluan..."
@@ -135,7 +163,7 @@ export const AddScheduleMHS = () => {
                     </div>
 
                     <div className="form-control">
-                        <label><h3>Tanggal Peminjaman</h3></label><br />
+                        <label><h3>{required()} Tanggal Peminjaman</h3></label><br />
                         <input
                             type="date"
                             value={startDate}
@@ -145,7 +173,7 @@ export const AddScheduleMHS = () => {
                         />
                     </div>
                     <div className="form-control ">
-                    <label><h3>Waktu Peminjaman</h3></label><br />
+                    <label><h3>{required()} Waktu Peminjaman</h3></label><br />
                         <div className="time">
                             
                             <label htmlFor="starts" ><h4>Mulai</h4></label>

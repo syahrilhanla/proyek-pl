@@ -11,9 +11,8 @@ export const Navbar = ({user}) => {
     const [click, setClick] = useState(false);
     let [notifications, setNotifications] = useState(1);
 
-    // Checks if its mhs or adm
-    const checkUser = (user) => {
-        console.log(user);
+    // Checks if its mhs or adm to choose sidebar
+    const chooseSidebar = (user) => {
         if (user === 'adm') {
             return SidebarDataADM
         } else {
@@ -28,8 +27,8 @@ export const Navbar = ({user}) => {
         <>
             <nav className="navbar">
 
-                <Sidebar sideBarData={checkUser(user)}/>
-                <Link to="/adm" className="navbar-logo">
+                <Sidebar sideBarData={chooseSidebar(user)}/>
+                <Link to={`/${user}`} className="navbar-logo">
                     LOGO
                 </Link>
                 <div className="menu-icon" onClick={handleClick}>

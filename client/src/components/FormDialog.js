@@ -9,7 +9,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { GlobalContext } from './globalState/GlobalState';
 
-export function FormDialog({ buttonColor, borrowingID, borrowingList }) {
+export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) {
     const [open, setOpen] = React.useState(false);
     const { updateBorrowingData } = useContext(GlobalContext);
 
@@ -21,12 +21,17 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList }) {
         setOpen(false);
     };
 
+    const updateAndClose = () => {
+        updateBorrowingData(borrowingID, borrowingList.status);
+        handleClose();
+    }
+    
     return (
         <div>
-            <div style={{ backgroundColor: buttonColor, marginLeft: "10rem", borderRadius: "3px", marginTop: "-20px" }}>
+            <div style={{ backgroundColor: styles.color, marginLeft: "10rem", borderRadius: "3px", marginTop: "-20px" }}>
                 <Button onClick={handleClickOpen}>
                     Tindak Lanjut
-            </Button>
+                </Button>
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Izinkan Pinjaman?</DialogTitle>
@@ -49,10 +54,8 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList }) {
                     </Button>
                     <Button
                         color="primary"
-                        onClick={() => 
-                            updateBorrowingData(borrowingID, borrowingList.status)}
-                        onClick={handleClose}  
-                        >   
+                        onClick={() => updateAndClose()}
+                    >   
                         Izinkan
                     </Button>
                 </DialogActions>

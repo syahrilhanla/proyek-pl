@@ -8,7 +8,7 @@ import {SiGoogleclassroom} from 'react-icons/si'
 export const SidebarData = [
   {
     title: 'Beranda',
-    path: '/',
+    path: '/mhs',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,

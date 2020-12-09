@@ -5,7 +5,7 @@ import { Button } from './Button';
 
 export const Breadcrumb = () => {
     const { loginInfo } = useContext(GlobalContext);
-
+    console.log(loginInfo);
     return (
 
         <div className="breadcrumb">

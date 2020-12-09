@@ -7,7 +7,7 @@ const BorrowingDataSchema = new mongoose.Schema({
     },
     nim: {
         type: Number,
-        required: [true, 'Please add amount']
+        required: false
     },
     startDate: {
         type: String,

@@ -8,7 +8,7 @@ import {SiGoogleclassroom} from 'react-icons/si'
 export const SidebarDataADM = [
   {
     title: 'Beranda',
-    path: '/',
+    path: '/adm',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,

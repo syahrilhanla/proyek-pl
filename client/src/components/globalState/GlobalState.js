@@ -11,7 +11,7 @@ const AppReducer = (state, action) => {
         case 'ADD_NEW_DATA':
             return {
                 ...state,
-                borrowingList: [...state.borrowingList, action.payload]
+                borrowingList: [action.payload, ...state.borrowingList]
             }
 
         case 'TAKE_LOGIN_INFO':

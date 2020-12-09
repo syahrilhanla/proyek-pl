@@ -18,7 +18,7 @@ export const HomeAdmin = () => {
             <Navbar user={'adm'}/>
 
             <div className="container">
-                <h1>Lini Masa</h1>
+                <label><h1 style={{ borderBottom:'2px solid #b8bdb5' }}>Lini Masa</h1></label>
                 {borrowingList.map(list => (
                     <TimeLineCard key={list._id} borrowingList={list} />
                 ))}
