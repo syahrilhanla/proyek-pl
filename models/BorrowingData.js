@@ -32,6 +32,10 @@ const BorrowingDataSchema = new mongoose.Schema({
     phoneNum: {
         type: Number,
         required: [true, 'Please add phone number']
+    },
+    notificationCount: {
+        type: Number,
+        default: 0
     }
 });
 

@@ -69,7 +69,8 @@ export const AddScheduleMHS = () => {
             usage: usage, phoneNum: phoneNum,
             startDate: dateFormatter(date, month, year),
             time: time,
-            status: status
+            status: status,
+            notificationCount: 1
         }
 
         log(newData);

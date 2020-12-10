@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { MenuItems } from './MenuItems';
+import { MenuItems } from './DropdownItems';
+import { GlobalContext } from './globalState/GlobalState';
+
 import './Dropdown.css';
 
 export const Dropdown = () => {
@@ -8,18 +10,19 @@ export const Dropdown = () => {
 
     const handleClick = () => setClick(!click);
 
+    const { borrowingList } = useContext(GlobalContext);
+
     return (
         <>
             <ul onClick={handleClick}
                 className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
-                {MenuItems.map((item, index) => {
+                {borrowingList.map((item, index) => {
                     return (
                         <li key={index}>
                             <Link
-                                className={item.cName}
-                                to={item.path}
+                                className='dropdown-link'
                                 onClick={() => setClick(false)}>
-                                {item.title}
+                                {item.name}
                             </Link>
                         </li>
                     )

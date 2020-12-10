@@ -110,14 +110,14 @@ export const GlobalProvider = ({ children }) => {
                 payload: err.response.data.error
             });
         }
-        console.log(id);
     }
 
-    const updateBorrowingData = async (id, status) => {
+    const updateBorrowingData = async (id, status, notificationCount) => {
 
         try {
-            console.log(status);
-            const res = await axios.put(`/api/v1/borrowingData/${id}`, {status: status + 1});
+            console.log('notificationCount: ', notificationCount);
+            const res = await axios.put(`/api/v1/borrowingData/${id}`, 
+                {status: status + 1, notificationCount: notificationCount});
             setUpdateState(!updateState);
 
             dispatch({

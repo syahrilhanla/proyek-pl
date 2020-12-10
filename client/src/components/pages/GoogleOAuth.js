@@ -24,8 +24,6 @@ const GoogleOAuth = () => {
         const name = response.profileObj.givenName;
         const email = response.profileObj.email;
         const nim = email.slice(0,13);
-        console.log(response.profileObj.email);
-        console.log(response.profileObj.givenName);
         // console.log(response)
 
         const insertLoginData = (name, email, nim) => {
@@ -42,6 +40,10 @@ const GoogleOAuth = () => {
             takeLoginInfo(newLoginData);
             console.log(newLoginData);
             history.push('/mhs');
+        } else if (email === 'kaipajuang@gmail.com') {
+            const newLoginData = insertLoginData(name, email);
+            setLoginData(newLoginData);
+            history.push('/wd-2');
         } else {
             const newLoginData = insertLoginData(name, email);
             setLoginData(newLoginData);

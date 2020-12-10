@@ -4,7 +4,7 @@
 // const { content } = useContext(GlobalContext);
 // // console.log(content.)
 
-export const MenuItems = [
+export const DropdownItems= [
     {
         title: "Jadwal Peminjaman",
         path: "/mhs/see-schedule",

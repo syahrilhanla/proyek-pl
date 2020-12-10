@@ -1,15 +1,19 @@
 import { Badge } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import './Navbar.css';
 import { Sidebar } from './Sidebar';
 import { SidebarDataADM } from './SidebarDataADM';
 import { SidebarData } from './SidebarData';
+import { Dropdown } from './Dropdown';
+import { GlobalContext } from './globalState/GlobalState';
 
-export const Navbar = ({user}) => {
+export const Navbar = ({ user, invisible, setInvisible }) => {
     const [click, setClick] = useState(false);
-    let [notifications, setNotifications] = useState(1);
+    const [dropdown, setDropdown] = useState(false);
+
+    const { borrowingList } = useContext(GlobalContext);
 
     // Checks if its mhs or adm to choose sidebar
     const chooseSidebar = (user) => {
@@ -23,9 +27,14 @@ export const Navbar = ({user}) => {
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
+    const showNotification = () => {
+        setInvisible(true);
+        setDropdown(!dropdown)
+    }
+
     return (
         <>
-            <nav className="navbar">
+            <nav className="navbar" >
 
                 <Sidebar sideBarData={chooseSidebar(user)}/>
                 <Link to={`/${user}`} className="navbar-logo">
@@ -37,13 +46,13 @@ export const Navbar = ({user}) => {
 
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
 
-                    <li className="nav-item">
+                    <li className="nav-item" onClick={() => showNotification()}>
                         <div className="nav-links not" onClick={closeMobileMenu}>
-                            <Badge badgeContent={notifications} color="secondary">
+                            <Badge badgeContent="" variant="dot" invisible={invisible} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </div>
-
+                        {dropdown && <Dropdown />}
                     </li>
                     <li className="nav-item">
                         <Link to="/" className="nav-links" onClick={closeMobileMenu}>
