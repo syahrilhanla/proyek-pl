@@ -20,7 +20,7 @@ export const HomeWD2 = () => {
 
             <div className="container">
                 <label><h1 style={{ borderBottom:'2px solid #b8bdb5' }}>Lini Masa</h1></label>
-                {borrowingList.filter(list => list.status === 3)
+                {borrowingList.filter(list => list.status === 2)
                     .map(list => (
                         <TimeLineCard key={list._id} borrowingList={list} />
                     ))}
