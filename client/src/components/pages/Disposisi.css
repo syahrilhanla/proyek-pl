@@ -1,0 +1,73 @@
+.root {
+	padding: 0px;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.container-disposisi {
+	width: 768px;
+	background-color: rgb(208, 212, 216);
+	margin: 50px auto;
+	position: relative;
+}
+
+.header {
+	text-align: center;
+	width: 100%;
+	/* border: 1px solid black; */
+	padding: 20px 0px 20px 0px;
+}
+
+.header h2 {
+	margin: 0px;
+}
+
+.title h2 {
+	font-size: 28px;
+	text-align: center;
+	/* border: 1px solid black; */
+	padding: 20px;
+	margin: 0px auto;
+}
+
+.container-disposisi .kop table tr,
+.status tr {
+	width: 765px;
+	display: flex;
+}
+
+.kop td,
+.status td {
+	/* border: 1px solid black; */
+	width: 100%;
+	margin-top: -3px;
+}
+
+.details tr {
+	padding: 5px;
+	border: 1px red solid;
+}
+
+.tableInput td,
+.tableInput th {
+	border: 1px solid black;
+	width: 150px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.tableInput th {
+	text-transform: uppercase;
+}
+
+.tableInput tr {
+	flex-direction: row;
+}
+
+.tableInput {
+	text-align: center;
+	border: 1px solid black;
+	display: flex;
+	border-collapse: collapse;
+	justify-content: center;
+}

@@ -81,7 +81,7 @@ export const StickyHeadTableADM = () => {
     // Fetching data from global state
     const { borrowingList, deleteBorrowingData } = useContext(GlobalContext);
 
-    // Turns status to string
+    // Turns status to chips
     const statusFormatter = (status) => {
         if (status === 1) {
             return <Chips status={status} size="small" label="Baru" />

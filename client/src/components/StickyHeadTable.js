@@ -10,10 +10,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import { GlobalContext } from './globalState/GlobalState';
+import { Chips } from './Chips';
 
 const columns = [
     { id: 'usage', label: 'Keperluan', minWidth: 170, align: 'center' },
-    { id: 'nim', label: 'NIM', minWidth: 100, align: 'center' },
+    { id: 'status', label: 'Status', minWidth: 100, align: 'center' },
     {
         id: 'room',
         label: 'Ruangan',
@@ -37,8 +38,8 @@ const columns = [
     }
 ];
 
-function createData(usage, nim, room, startDate, time) {
-    return { usage: usage, nim: nim, room: room, startDate: startDate, time: time};
+function createData(usage, status, room, startDate, time) {
+    return { usage: usage, status: status, room: room, startDate: startDate, time: time};
 }
 
 const useStyles = makeStyles({
@@ -54,17 +55,6 @@ const useStyles = makeStyles({
     }
 });
 
-const buttonDelete = {
-    padding: '8px 20px',
-    borderRadius: '4px',
-    outline: 'none',
-    border: 'none',
-    fontSize: '18px',
-    color: 'white',
-    cursor: 'pointer',
-    backgroundColor: '#ff1818'
-}
-
 export const StickyHeadTable = () => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
@@ -73,10 +63,21 @@ export const StickyHeadTable = () => {
     // Fetching data from global state
     const { borrowingList } = useContext(GlobalContext);
 
+    // Turns status to chips
+    const statusFormatter = (status) => {
+        if (status === 1) {
+            return <Chips status={status} size="small" label="Baru" />
+        } else if (status ===2 ) {
+            return <Chips status={status} size="small" label="Proses" />
+        } else if (status === 3) {
+            return <Chips status={status} size="small" label="Disetujui" />
+        }
+    }
+
     // putting data from global state to rows
     const rows = borrowingList.map(content => (
         createData(
-            content.usage, content.nim,
+            content.usage, statusFormatter(content.status),
             content.room, content.startDate,
             content.time)
         ));
