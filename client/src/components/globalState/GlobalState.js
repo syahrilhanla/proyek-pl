@@ -8,6 +8,11 @@ const AppReducer = (state, action) => {
                 ...state,
                 borrowingList: action.payload
             }
+        case 'GET_SPECIFIC_BORROWING_DATA':
+            return {
+                ...state,
+                specificBorrowingData: action.payload
+            }
         case 'ADD_NEW_DATA':
             return {
                 ...state,
@@ -42,7 +47,8 @@ const AppReducer = (state, action) => {
 
 const initialState = {
     borrowingList: [],
-    loginInfo: []
+    loginInfo: [],
+    specificBorrowingData: []
 }
 
 export const GlobalContext = createContext(initialState);
@@ -66,6 +72,22 @@ export const GlobalProvider = ({ children }) => {
             });
         }
     }
+
+    const getSpecificBorrowingData = async (id) => {
+        try {
+            const res = await axios.get(`/api/v1/borrowingData/${id}`);
+
+            dispatch({
+                type: 'GET_SPECIFIC_BORROWING_DATA',
+                payload: res.data.data
+            });
+        } catch (err) {
+            dispatch({
+                type: 'FETCHING_ERROR',
+                payload: err.response
+            });
+        }
+    }    
 
     const addNewBorrowing = async (newData) => {
         const config = {
@@ -138,11 +160,13 @@ export const GlobalProvider = ({ children }) => {
         <GlobalContext.Provider value={{
             borrowingList: state.borrowingList,
             loginInfo: state.loginInfo,
+            specificBorrowingData: state.specificBorrowingData,
             addNewBorrowing,
             takeLoginInfo,
             getBorrowingData,
             deleteBorrowingData,
             updateBorrowingData,
+            getSpecificBorrowingData,
             updateState
         }}>
             {children}

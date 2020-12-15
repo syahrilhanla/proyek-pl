@@ -24,7 +24,7 @@ function App() {
           <Route path='/mhs/add-schedule' exact component={AddScheduleMHS} />
           <Route path='/mhs/see-schedule' exact component={SeeScheduleMHS} />
           <Route path='/adm/see-schedule' exact component={SeeScheduleAdmin} />
-          <Route path='/adm/disposisi' exact component={Disposisi} />
+          <Route path={`/adm/disposisi/:id`} exact component={Disposisi} />
           
         </Switch>
       </Router>

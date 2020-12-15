@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { GlobalContext } from './globalState/GlobalState';
 
-export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) {
+export function FormDialog({ borrowingID, borrowingList, styles }) {
     const [open, setOpen] = useState(false);
     const [password, setPassword] = useState('');
     const [notificationCount, setNotificationCount] = useState(0);
@@ -19,7 +19,7 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
     const PASSWORD= {
         firstLevel: '123456',
         secondLevel: '987654'
-    }
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,7 +33,7 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
         setNotificationCount(notificationCount + 1);
         updateBorrowingData(borrowingID, borrowingList.status, notificationCount);
         handleClose();
-    }
+    };
     
     // If password true then update status, if not then send email to student
     const verifyPermission = (passwordInput) => {
@@ -47,6 +47,11 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
         }
     }
 
+    // Function that leads to disposition printing page
+    const seeDisposition = async () => {
+        window.open(`/adm/disposisi/${borrowingID}`);
+    };
+
     // Renders which action button based on permission level  
     const moreActionButtonFirstLevel = () => {
         return (
@@ -56,26 +61,26 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
             </Button>
         </div>
         )
-    }
+    };
 
     const moreActionButtonSecondLevel = () => {
         return (
             <div style={{ backgroundColor: styles.color, marginLeft: "10rem", borderRadius: "3px", marginTop: "-20px" }}>
-            <Button onClick={() => console.log('keluarkan disposisi')}>
-                Tindak Lanjut 2
+            <Button onClick={() => seeDisposition()}>
+                Lihat Disposisi
             </Button>
         </div>
         )
-    }
+    };
 
     // Deny Permission button, sends email if clicked 
     const denyPermission = () => {
         handleClose();
-    }
+    };
 
     return (
         <div>
-            {borrowingList.status <= 3 ? moreActionButtonFirstLevel() : moreActionButtonSecondLevel()}
+            {borrowingList.status < 3 ? moreActionButtonFirstLevel() : moreActionButtonSecondLevel()}
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Izinkan Pinjaman?</DialogTitle>
@@ -97,6 +102,7 @@ export function FormDialog({ buttonColor, borrowingID, borrowingList, styles }) 
                     <Button onClick={() => denyPermission()} color="primary">
                         Batal
                     </Button>
+                    
                     <Button
                         color="primary"
                         onClick={() => verifyPermission(password)}

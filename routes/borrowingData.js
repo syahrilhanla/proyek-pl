@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getBorrowingData, addBorrowingData, deleteBorrowingData, updateBorrowingData } =
+const { getBorrowingData, addBorrowingData, deleteBorrowingData, updateBorrowingData, getSpecificBorrowingData } =
     require('../controllers/borrowingDataController');
 
 router
@@ -10,6 +10,7 @@ router
 
 router
     .route('/:id')
+    .get(getSpecificBorrowingData)
     .put(updateBorrowingData)
     .delete(deleteBorrowingData);
 

@@ -20,6 +20,23 @@ exports.getBorrowingData = async (req, res, next) => {
     }
 }
 
+exports.getSpecificBorrowingData = async (req, res, next) => {
+    try {
+        const borrowingData = await BorrowingData.findById(req.params.id);
+
+        return res.status(200).json({
+            success: true,
+            count: borrowingData.length,
+            data: borrowingData
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: 'Server Error'
+        });
+    }
+}
+
 //  @desc   Add Borrowing Data
 //  @route  POST /api/v1/borrowingData
 //  @access public

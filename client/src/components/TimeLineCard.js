@@ -13,7 +13,6 @@ export function TimeLineCard({ borrowingList }) {
 
     const [open, setOpen] = useState(false)
     const {loginInfo} = useContext(GlobalContext);
-    console.log(loginInfo);
 
     // Configure which style which
     const cardStyle = (borrowingList) => {

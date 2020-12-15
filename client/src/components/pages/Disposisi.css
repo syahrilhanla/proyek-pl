@@ -9,12 +9,15 @@
 	background-color: rgb(208, 212, 216);
 	margin: 50px auto;
 	position: relative;
+	border: 1px solid black;
+	padding-left: 20px;
+	padding-bottom: 20px;
 }
 
 .header {
 	text-align: center;
 	width: 100%;
-	/* border: 1px solid black; */
+	border-bottom: 1px solid black;
 	padding: 20px 0px 20px 0px;
 }
 
@@ -25,22 +28,30 @@
 .title h2 {
 	font-size: 28px;
 	text-align: center;
-	/* border: 1px solid black; */
-	padding: 20px;
+	padding-top: 10px;
+	padding-bottom: 20px;
 	margin: 0px auto;
 }
 
-.container-disposisi .kop table tr,
+.kop table tr,
 .status tr {
-	width: 765px;
+	width: 750px;
 	display: flex;
+	padding-right: 20px;
 }
 
-.kop td,
-.status td {
-	/* border: 1px solid black; */
+.kop td {
 	width: 100%;
 	margin-top: -3px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 7px;
+}
+
+.status td {
+	width: 100%;
+	text-align: center;
 }
 
 .details tr {
@@ -48,12 +59,24 @@
 	border: 1px red solid;
 }
 
+.details td.long {
+	width: 130px;
+	margin-bottom: 7px;
+}
+
 .tableInput td,
 .tableInput th {
 	border: 1px solid black;
-	width: 150px;
+	width: 200px;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	border-collapse: collapse;
+}
+
+input[type="text"] {
+	width: 150px;
+	padding: none;
+	text-align: center;
 }
 
 .tableInput th {
@@ -66,8 +89,8 @@
 
 .tableInput {
 	text-align: center;
-	border: 1px solid black;
 	display: flex;
-	border-collapse: collapse;
 	justify-content: center;
+	padding-right: 15px;
+	margin: 20px 0px;
 }

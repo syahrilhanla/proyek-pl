@@ -1,71 +1,117 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { GlobalContext } from '../globalState/GlobalState';
 import './Disposisi.css';
 
-const DispositionDataTable = ({ index, data} ) => {
-    return (
-        <tr>
-            <td>
-                {index}
-            </td>
-            <td>
-                {data}
-            </td>
-        </tr>
-    )
-}
-
-const DispositionTable = ({borrowingList}) => {
-    return (
-        <tr>
-                <td>Tanggal </td>
-                <td>Dekan </td>
-                <td>11</td>
-                <td>Wakil Dekan 2</td>
-                <td>Paraf</td>
-                </tr>
-    )
-}
-
-const Details = () => {
-    return (
-            <table>
-                <tr>
-                    <td>
-                        Tanggal Surat
-                    </td>
-                    <td>
-                        : isi tanggal
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        No. Surat
-                    </td>
-                    <td>
-                        : Tanggal Surat
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Dari
-                    </td>
-                    <td>
-                        : UPM FKIP ULM
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Isi Ringkas
-                    </td>
-                    <td>
-                        : Permohonan Peminjaman ruang 32
-                    </td>
-                </tr>
-            </table>        
-    )
-}
-
 export const Disposisi = () => {
+
+    const { getSpecificBorrowingData, specificBorrowingData } = useContext(GlobalContext);
+
+    // get id from live url
+    const id = window.location.href.slice(36, 60);
+
+    useEffect(() => {
+        getSpecificBorrowingData(id);
+    }, []);
+    
+        const DispositionDataTable = ({ index, data} ) => {
+        return (
+            <tr>
+                <td>
+                    {index}
+                </td>
+                <td>
+                    {data}
+                </td>
+            </tr>
+            )
+        }
+
+        const DispositionTable = () => {
+            const SwitchInput = () => {
+                const options = ['Dekan', 'Wakil Dekan 1', 'Wakil Dekan 2', 'Wakil Dekan 3', 'Kasubag Umum'];
+
+                return (
+                    <>
+                        <input
+                            list="dari"
+                            type="text"
+                            placeholder="Pengirim..."
+                            name="dari"
+                            className="input-normal"
+                        />
+                        <datalist id="dari" >
+                            {options.map(room => (
+                                <option value={room} key={room} />
+                            ))}
+                        </datalist>
+                    </>
+                )
+            }
+
+            return (
+                <tr>
+                        <td>{specificBorrowingData.startDate}</td>
+                        <td>
+                            <SwitchInput />
+                        </td>
+                        <td>11</td>
+                        <td>Wakil Dekan 2</td>
+                        </tr>
+            )
+        }
+
+        const Details = () => {
+            return (
+                    <table>
+                        <tr>
+                            <td className='long'>
+                                Tanggal Surat
+                            </td>
+                            <td>
+                                : {specificBorrowingData.startDate}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='long'>
+                                No. Surat
+                            </td>
+                            <td>
+                                : Tanggal Surat
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='long'>
+                                Dari
+                            </td>
+                            <td>
+                                : {specificBorrowingData.name}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='long'> 
+                                Isi Ringkas
+                            </td>
+                            <td>
+                                : {specificBorrowingData.usage}
+                            </td>
+                        </tr>
+                    </table>        
+            )
+        }
+
+        const Kop = () => {
+            return (
+                    <table>
+                        <tr>
+                            <td>Tanggal Terima</td>
+                            <td>{specificBorrowingData.startDate}</td>
+                            <td>Agenda No.</td>
+                            <td>5624</td>
+                        </tr>
+                    </table>
+            )
+        }
+
     const dispositionData = [
         "Mohon Pertimbangan", "Mohon Pendapat", "Mohon Keputusan",
         "Mohon Petunjuk", "Mohon Saran", "Bicarakan",
@@ -89,30 +135,23 @@ export const Disposisi = () => {
         </div>
 
         <div className="kop">
-            <table>
-                <tr>
-                    <td>Tgl. Terima</td>
-                    <td>7-Des-20</td>
-                    <td>Agenda No.</td>
-                    <td>5624</td>
-                </tr>
-            </table>
+            <Kop />
         </div>
 
         <div className="status">
             <table>
                 <tr>
                     <td>
-                        <input type="radio" id="male" name="gender" value="male" />
-                        <label for="male">Male</label><br />
+                        <input type="radio" id="Penting" name="Penting" value="Penting" />
+                        <label htmlFor="Penting">Penting</label><br />
                     </td>
                     <td>
-                        <input type="radio" id="male" name="gender" value="male" />
-                        <label for="male">Male</label><br />
+                        <input type="radio" id="Rahasia" name="gender" value="Rahasia" />
+                        <label htmlFor="Rahasia">Rahasia</label><br />
                     </td>
                     <td>
-                        <input type="radio" id="male" name="gender" value="male" />
-                        <label for="male">Male</label><br />
+                        <input type="radio" id="Segera" name="Segera" value="Segera" />
+                        <label htmlFor="Segera">Segera</label><br />
                     </td>
                 </tr>
             </table>
@@ -129,7 +168,6 @@ export const Disposisi = () => {
                     <th>Dari </th>
                     <th>Isi Disposisi</th>
                     <th>Kepada</th>
-                    <th>Paraf</th>
                 </tr>
                 <DispositionTable />
             </table>
