@@ -27,23 +27,50 @@ export const Disposisi = () => {
         }
 
         const DispositionTable = () => {
-            const SwitchInput = () => {
-                const options = ['Dekan', 'Wakil Dekan 1', 'Wakil Dekan 2', 'Wakil Dekan 3', 'Kasubag Umum'];
+            const SwitchInput = ({ option }) => {
+                const toWhom = ['Dekan', 'Wakil Dekan 1', 'Wakil Dekan 2', 'Wakil Dekan 3', 'Kasubag Umum'];
+                const dispositionOption = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
+                // Check which column is selected
+                const decideOptions = () => {
+                    if (option === 'sender') { 
+                        return (
+                            <>
+                                <input
+                                    list="dari"
+                                    type="text"
+                                    placeholder="Masukkan Input..."
+                                    name="dari"
+                                />
+                                <datalist id="dari" >
+                                    {toWhom.map(option => (
+                                        <option value={option} key={option} />
+                                    ))}
+                                </datalist>
+                            </>
+                        );
+                    } else if (option === 'number') { 
+                        return (
+                        <>
+                            <input
+                                list="number"
+                                type="text"
+                                placeholder="Masukkan Input..."
+                                name="number"
+                            />
+                            <datalist id="number" >
+                                {dispositionOption.map(option => (
+                                    <option value={option} key={option} />
+                                ))}
+                            </datalist>
+                        </>
+                        );
+                    } 
+                }
+            
                 return (
                     <>
-                        <input
-                            list="dari"
-                            type="text"
-                            placeholder="Pengirim..."
-                            name="dari"
-                            className="input-normal"
-                        />
-                        <datalist id="dari" >
-                            {options.map(room => (
-                                <option value={room} key={room} />
-                            ))}
-                        </datalist>
+                        {decideOptions()}
                     </>
                 )
             }
@@ -51,12 +78,10 @@ export const Disposisi = () => {
             return (
                 <tr>
                         <td>{specificBorrowingData.startDate}</td>
-                        <td>
-                            <SwitchInput />
-                        </td>
-                        <td>11</td>
-                        <td>Wakil Dekan 2</td>
-                        </tr>
+                        <td>{<SwitchInput option = 'sender'/>}</td>
+                        <td>{<SwitchInput option = 'number'/>}</td>
+                        <td>{<SwitchInput option = 'sender'/>}</td>
+                </tr>
             )
         }
 

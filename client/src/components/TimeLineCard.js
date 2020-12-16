@@ -7,12 +7,10 @@ import Typography from '@material-ui/core/Typography';
 
 import { FormDialog } from './FormDialog';
 import { FormDialogDetails } from './FormDialogDetails';
-import { GlobalContext } from './globalState/GlobalState';
 
 export function TimeLineCard({ borrowingList }) {
 
     const [open, setOpen] = useState(false)
-    const {loginInfo} = useContext(GlobalContext);
 
     // Configure which style which
     const cardStyle = (borrowingList) => {

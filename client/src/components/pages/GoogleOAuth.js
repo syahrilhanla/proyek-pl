@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext } from 'react';
+import React, {useState, useContext } from 'react';
 import GoogleLogin from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom';
 import { GlobalContext } from '../globalState/GlobalState';
