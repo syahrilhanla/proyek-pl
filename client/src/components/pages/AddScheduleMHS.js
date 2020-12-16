@@ -1,22 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { GlobalContext } from '../globalState/GlobalState';
 import { Navbar } from '../Navbar';
+import Alerts from '../Alerts';
 
 export const AddScheduleMHS = () => {
 
     const { addNewBorrowing } = useContext(GlobalContext);
-
-    //CHECK EMPTY FIELDS NOT DONE YET
-    const isEmpty = (fields) => {
-        fields.forEach(field => {
-            if (field === '') {
-                console.log('ada field yang kosong');
-                return true;
-            } else {
-                console.log({ field });
-            }
-        })
-    }
 
     // STATE
     const [name, setName] = useState('');
@@ -28,6 +18,12 @@ export const AddScheduleMHS = () => {
     const [startTime, setStartTime] = useState('');
     const [finishTime, setFinishTime] = useState('');
     const [status, setStatus] = useState(1);
+    const [open, setOpen] = useState(false);
+    const [alertColor, setAlertColor] = useState('');
+    const [alertText, setAlertText] = useState('');
+
+    // HISTORY
+    const history = useHistory();
 
     // REFS
     const refName = useRef('');
@@ -55,13 +51,12 @@ export const AddScheduleMHS = () => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
 
         // GET FORMATTED DATA
         const time = `${startTime}-${finishTime}`;
         const year = startDate.slice(0, 4);
         const month = startDate.slice(5, 7);
-        const date = startDate.slice(9, 11);
+        const date = startDate.slice(8, 11);
 
         // Creates new Object to push to database every time submit hit
         const newData = {
@@ -73,8 +68,31 @@ export const AddScheduleMHS = () => {
             notificationCount: 1
         }
 
-        log(newData);
+        //CHECK EMPTY FIELDS NOT DONE YET
+        const fields = [name, nim, usage, phoneNum, room, startDate, startTime, finishTime];
+        const isEmpty = (fields) => {
+
+            const value = fields.map(field => {
+                if (field === '') {
+                    e.preventDefault();
+                    setAlertColor('error');
+                    setAlertText('Semua Kolom Harus Diisi!');
+                    setOpen(true);
+                    return true;
+                }
+                else {
+                    setAlertColor('success');
+                    setAlertText('Permintaan Berhasil Diajukan');
+                    setOpen(true);
+                    history.push('/mhs/see-schedule');
+                };
+            });
+            return value;
+        }
+
+        isEmpty(fields);
         addNewBorrowing(newData);
+        log(newData);
         // isEmpty(newData);
     }
 
@@ -95,6 +113,7 @@ export const AddScheduleMHS = () => {
     return (
         <>
             <Navbar user={'mhs'}/>
+            
             <div className="container">
                 <h1>Peminjaman Baru</h1>
 
@@ -195,9 +214,16 @@ export const AddScheduleMHS = () => {
                         </div>
                     </div>
 
-                    <input type="submit" value="Ajukan Peminjaman" className="btn btn-primary" id='submit-btn' />
-
+                    <input 
+                        type="submit" value="Ajukan Peminjaman" 
+                        className="btn btn-primary" id='submit-btn' 
+                    />
+                    
                 </form>
+                <Alerts 
+                    isOpen={open} alertColor={alertColor}
+                    alertText={alertText}
+                />
             </div></>
 
 

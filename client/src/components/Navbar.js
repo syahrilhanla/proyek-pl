@@ -1,4 +1,4 @@
-import { Badge } from '@material-ui/core';
+import { Avatar, Badge } from '@material-ui/core';
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -13,7 +13,7 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
 
-    const { borrowingList } = useContext(GlobalContext);
+    const { borrowingList, deleteLoginData, loginInfo } = useContext(GlobalContext);
 
     // Checks if its mhs or adm to choose sidebar
     const chooseSidebar = (user) => {
@@ -32,6 +32,11 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
         setDropdown(!dropdown)
     }
 
+    const logOut = () => {
+        closeMobileMenu();
+        deleteLoginData();
+    }
+
     return (
         <>
             <nav className="navbar" >
@@ -44,6 +49,8 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
                     <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
                 </div>
 
+
+
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
 
                     <li className="nav-item" onClick={() => showNotification()}>
@@ -54,8 +61,13 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
                         </div>
                         {dropdown && <Dropdown />}
                     </li>
+
                     <li className="nav-item">
-                        <Link to="/" className="nav-links" onClick={closeMobileMenu}>
+                            <Avatar alt="Syahril Hanla" src={loginInfo[0].photo} />
+                    </li>
+
+                    <li className="nav-item">
+                        <Link to="/" className="nav-links" onClick={() => deleteLoginData()}>
                             <i className="fas fa-sign-out-alt"></i>
                         </Link>
                     </li>

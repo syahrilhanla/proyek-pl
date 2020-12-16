@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/syahrilhanla/proyek-pl#readme",
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

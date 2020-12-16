@@ -6,7 +6,7 @@ import { Navbar } from '../Navbar';
 
 const Home = () => {
 
-    const { getBorrowingData } = useContext(GlobalContext);
+    const { getBorrowingData, loginInfo } = useContext(GlobalContext);
 
     // UseEffect 
     useEffect(() => {
@@ -18,7 +18,7 @@ const Home = () => {
         <>
             <Navbar user={'mhs'}/>
             <div className="container">
-                <Breadcrumb />
+                <Breadcrumb loginInfo={loginInfo}/>
             </div>
 
             <div className="container-schedule">

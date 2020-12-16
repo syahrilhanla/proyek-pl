@@ -3,8 +3,8 @@ import { GlobalContext } from './globalState/GlobalState';
 import './Breadcrumb.css';
 import { Button } from './Button';
 
-export const Breadcrumb = () => {
-    const { loginInfo } = useContext(GlobalContext);
+export const Breadcrumb = ({loginInfo}) => {
+    // const { loginInfo } = useContext(GlobalContext);
     console.log(loginInfo);
     return (
 

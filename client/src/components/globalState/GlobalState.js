@@ -34,6 +34,11 @@ const AppReducer = (state, action) => {
                 ...state,
                 borrowingList: state.borrowingList.filter(data => data._id !== action.payload)
             }
+        case 'DELETE_LOGIN_DATA':
+            return {
+                ...state,
+                loginInfo: []
+            }
         case 'UPDATE_BORROWING_DATA':
             return {
                 ...state,
@@ -134,6 +139,20 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
+    const deleteLoginData = async () => {
+        try {
+            if (initialState.loginInfo.length >= 1) {
+                initialState.loginInfo.slice(0, 1);
+            }
+
+            dispatch({
+                type: 'DELETE_LOGIN_DATA'
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     const updateBorrowingData = async (id, status, notificationCount) => {
 
         try {
@@ -167,6 +186,7 @@ export const GlobalProvider = ({ children }) => {
             deleteBorrowingData,
             updateBorrowingData,
             getSpecificBorrowingData,
+            deleteLoginData,
             updateState
         }}>
             {children}

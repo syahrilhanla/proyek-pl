@@ -11,6 +11,7 @@ import { GlobalProvider } from './components/globalState/GlobalState';
 import { LoginPage } from './components/pages/LoginPage';
 import { HomeWD2 } from './components/pages/HomeWD2';
 import { Disposisi } from './components/pages/Disposisi';
+import Alerts  from './components/Alerts';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/mhs' exact component={HomeMHS} />
           <Route path='/adm' exact component={HomeAdmin} />
           <Route path='/wd-2' exact component={HomeWD2} />
+          <Route path='/alert' exact component={Alerts} />
           <Route path='/mhs/add-schedule' exact component={AddScheduleMHS} />
           <Route path='/mhs/see-schedule' exact component={SeeScheduleMHS} />
           <Route path='/adm/see-schedule' exact component={SeeScheduleAdmin} />

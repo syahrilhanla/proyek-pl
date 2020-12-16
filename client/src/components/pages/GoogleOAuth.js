@@ -24,29 +24,33 @@ const GoogleOAuth = () => {
         const name = response.profileObj.givenName;
         const email = response.profileObj.email;
         const nim = email.slice(0,13);
-        // console.log(response)
+        const photo = response.profileObj.imageUrl;
+        console.log(response)
 
-        const insertLoginData = (name, email, nim) => {
+        const insertLoginData = (name, email, nim, photo) => {
             return {
                 email: email,
                 name: name,
-                nim: nim
+                nim: nim,
+                photo: photo
             }
         }
 
         // If ULM emails then returns link to MHS page, if not then returns to ADM
         if (emailFormatter(response.profileObj.email) === true) {
-            const newLoginData = insertLoginData(name, email, nim);
+            const newLoginData = insertLoginData(name, email, nim, photo);
             takeLoginInfo(newLoginData);
             console.log(newLoginData);
             history.push('/mhs');
         } else if (email === 'kaipajuang@gmail.com') {
-            const newLoginData = insertLoginData(name, email);
-            setLoginData(newLoginData);
+            const newLoginData = insertLoginData(name, email, nim, photo);
+            takeLoginInfo(newLoginData);
+            console.log(newLoginData);
             history.push('/wd-2');
         } else {
-            const newLoginData = insertLoginData(name, email);
-            setLoginData(newLoginData);
+            const newLoginData = insertLoginData(name, email, nim, photo);
+            takeLoginInfo(newLoginData);
+            console.log(newLoginData);
             history.push('/adm');
         }
     }
