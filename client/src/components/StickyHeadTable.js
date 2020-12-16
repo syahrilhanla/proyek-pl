@@ -62,7 +62,15 @@ export const StickyHeadTable = () => {
 
     // Fetching data from global state
     const { borrowingList } = useContext(GlobalContext);
+    // Sort table contents based on time added
+    const sortedBorrowingList = borrowingList.sort((a, b) => {
+        const timeA = a.addedAt;
+        const timeB = b.addedAt;
 
+        return timeB - timeA;
+    });
+    console.log(sortedBorrowingList.map(time => time.addedAt));
+ 
     // Turns status to chips
     const statusFormatter = (status) => {
         if (status === 1) {
@@ -72,10 +80,10 @@ export const StickyHeadTable = () => {
         } else if (status === 3) {
             return <Chips status={status} size="small" label="Disetujui" />
         }
-    }
+    };    
 
     // putting data from global state to rows
-    const rows = borrowingList.map(content => (
+    const rows = sortedBorrowingList.map(content => (
         createData(
             content.usage, statusFormatter(content.status),
             content.room, content.startDate,

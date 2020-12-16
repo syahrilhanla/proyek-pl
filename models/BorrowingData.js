@@ -36,6 +36,10 @@ const BorrowingDataSchema = new mongoose.Schema({
     notificationCount: {
         type: Number,
         default: 0
+    }, 
+    addedAt: {
+        type: Number,
+        default: Date.now()
     }
 });
 
