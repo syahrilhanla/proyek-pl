@@ -1,9 +1,3 @@
-// import React, { useContext } from 'react';
-// import { GlobalContext } from './globalState/GlobalState';
-
-// const { content } = useContext(GlobalContext);
-// // console.log(content.)
-
 export const DropdownItems= [
     {
         title: "Jadwal Peminjaman",

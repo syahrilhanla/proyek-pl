@@ -13,7 +13,7 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
 
-    const { borrowingList, deleteLoginData, loginInfo } = useContext(GlobalContext);
+    const { deleteLoginData, loginInfo } = useContext(GlobalContext);
 
     // Checks if its mhs or adm to choose sidebar
     const chooseSidebar = (user) => {
@@ -37,6 +37,14 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
         deleteLoginData();
     }
 
+    const checkLoginInfo = () => {
+        if (loginInfo.length > 0) {
+            return loginInfo[0].photo;
+        } else {
+            return true
+        }
+    }
+
     return (
         <>
             <nav className="navbar" >
@@ -48,8 +56,6 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
                 <div className="menu-icon" onClick={handleClick}>
                     <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
                 </div>
-
-
 
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
 
@@ -63,7 +69,7 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
                     </li>
 
                     <li className="nav-item">
-                            <Avatar alt="Syahril Hanla" src={loginInfo[0].photo} />
+                            <Avatar alt="Syahril Hanla" src={checkLoginInfo()} />
                     </li>
 
                     <li className="nav-item">

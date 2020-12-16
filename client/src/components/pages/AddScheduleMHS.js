@@ -70,30 +70,51 @@ export const AddScheduleMHS = () => {
 
         //CHECK EMPTY FIELDS NOT DONE YET
         const fields = [name, nim, usage, phoneNum, room, startDate, startTime, finishTime];
-        const isEmpty = (fields) => {
 
+        const errorFound = () => {
+            setAlertColor('error');
+            setAlertText('Semua Kolom Harus Diisi!');
+            setOpen(true);
+            setTimeout(() => {
+                setOpen(false);
+            }, 3000);           
+        }
+
+        const executeAddSchedule = () => {
+            setAlertColor('success');
+            setAlertText('Permintaan Berhasil Diajukan');
+            setOpen(true);
+            addNewBorrowing(newData);
+            history.push('/mhs/see-schedule');
+            setTimeout(() => {
+                setOpen(false);
+            }, 3000);
+        }
+
+        const checkFields = (fields) => {
             const value = fields.map(field => {
                 if (field === '') {
                     e.preventDefault();
-                    setAlertColor('error');
-                    setAlertText('Semua Kolom Harus Diisi!');
-                    setOpen(true);
                     return true;
+                } else {
+                    return false;
                 }
-                else {
-                    setAlertColor('success');
-                    setAlertText('Permintaan Berhasil Diajukan');
-                    setOpen(true);
-                    history.push('/mhs/see-schedule');
-                };
             });
             return value;
         }
-
-        isEmpty(fields);
-        addNewBorrowing(newData);
-        log(newData);
-        // isEmpty(newData);
+            const isEmpty = checkFields(fields);
+            console.log(isEmpty);
+            const isAllEmpty = isEmpty.every(value => value === true);
+            if (isAllEmpty === false) {
+                const verifyElements = isEmpty.every(value => value === isEmpty[0]);
+                console.log(verifyElements);
+                verifyElements ? executeAddSchedule() : errorFound(); 
+            } else {
+                errorFound();
+            }
+            log(newData);
+            // isEmpty(newData);
+        
     }
 
 
