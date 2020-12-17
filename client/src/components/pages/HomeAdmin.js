@@ -5,12 +5,12 @@ import { Navbar } from '../Navbar';
 
 export const HomeAdmin = () => {
 
-    const { borrowingList, getBorrowingData, updateState } = useContext(GlobalContext);
+    const { borrowingList, getBorrowingData, getLoginInfo, updateState } = useContext(GlobalContext);
     const [invisible, setInvisible] = useState(true);
 
     useEffect(() => {
         getBorrowingData();
-        console.log(borrowingList);
+        getLoginInfo();
         setInvisible(false);
     }, [updateState]);
 

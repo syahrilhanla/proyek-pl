@@ -22,7 +22,7 @@ export const SidebarData = [
     subNav: [
       {
         title: 'Jadwal Peminjaman',
-        path: '/mhs/see-schedule',
+        path: '/mhs',
         icon: <AiIcons.AiOutlineSchedule />,
         cName: 'sub-nav'
       },

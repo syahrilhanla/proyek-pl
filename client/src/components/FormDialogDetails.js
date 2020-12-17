@@ -1,12 +1,18 @@
-import React, { useContext } from 'react';
+import React, {  useState, useEffect } from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, Typography } from '@material-ui/core';
-import { GlobalContext } from './globalState/GlobalState';
 
 export function FormDialogDetails({ borrowingList, styles, open }) {
 
-    const { loginInfo } = useContext(GlobalContext);
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        setIsOpen(open);
+    }, [open]);
+
+    const handleClick = () => {
+        setIsOpen(!isOpen);
+    }
 
     const useStyles = makeStyles({
         root: {
@@ -35,7 +41,8 @@ export function FormDialogDetails({ borrowingList, styles, open }) {
     return (
         <div>
 
-            <Dialog open={open} aria-labelledby="form-dialog-title" className={classes.root}>
+            <Dialog open={isOpen} aria-labelledby="form-dialog-title" className={classes.root}
+                onClick={() => handleClick()}>
                 <div className={classes.wrapper}>
                     <Typography variant="h2" component="h2" style={{fontSize: '30px', margin: '15px auto'}}>
                             Detail Peminjaman

@@ -21,7 +21,8 @@ export const Dropdown = () => {
                         <li key={index}>
                             <Link
                                 className='dropdown-link'
-                                onClick={() => setClick(false)}>
+                                onClick={() => setClick(false)}
+                                to='#'>
                                 {item.name}
                             </Link>
                         </li>

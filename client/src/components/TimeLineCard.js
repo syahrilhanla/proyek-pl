@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,23 +8,23 @@ import Typography from '@material-ui/core/Typography';
 import { FormDialog } from './FormDialog';
 import { FormDialogDetails } from './FormDialogDetails';
 
+    // Configure which style which
+export function cardStyle(borrowingList) {
+        if (borrowingList.status === 1) {
+            return { title: "Peminjaman Baru", color: "#cf957e", buttonColor: "#CB4335 ", gradient: 'linear-gradient(180deg, #cf957e 0%, #ff8062 50%, #ff1600 100%)' };
+        } else if (borrowingList.status === 2) {
+            return { title: "Sedang Proses", color: "#0093E9", buttonColor: "#F1C40F ", gradient: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)' };
+        }
+         else if (borrowingList.status === 3) {
+            return { title: "Disetujui", color: "#99daae", buttonColor: "#229954 ", gradient: 'linear-gradient(45deg, #99daae 0%, #0fcd32 50%, #eee8e8 100%)' };
+        } else {
+            return { title: "Disetujui", color: "#99daae", buttonColor: "#229954 ", gradient: 'linear-gradient(45deg, #99daae 0%, #0fcd32 50%, #eee8e8 100%)' };
+        }
+    }
+
 export function TimeLineCard({ borrowingList }) {
 
-    const [open, setOpen] = useState(false)
-
-    // Configure which style which
-    const cardStyle = (borrowingList) => {
-            if (borrowingList.status === 1) {
-                return { title: "Peminjaman Baru", color: "#cf957e", buttonColor: "#CB4335 ", gradient: 'linear-gradient(180deg, #cf957e 0%, #ff8062 50%, #ff1600 100%)' };
-            } else if (borrowingList.status === 2) {
-                return { title: "Sedang Proses", color: "#0093E9", buttonColor: "#F1C40F ", gradient: 'linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)' };
-            }
-             else if (borrowingList.status === 3) {
-                return { title: "Disetujui", color: "#99daae", buttonColor: "#229954 ", gradient: 'linear-gradient(45deg, #99daae 0%, #0fcd32 50%, #eee8e8 100%)' };
-            } else {
-                return { title: "Disetujui", color: "#99daae", buttonColor: "#229954 ", gradient: 'linear-gradient(45deg, #99daae 0%, #0fcd32 50%, #eee8e8 100%)' };
-            }
-    }
+    const [open, setOpen] = useState(false);
 
     // styles attributes
     const styles = cardStyle(borrowingList);
@@ -35,7 +35,6 @@ export function TimeLineCard({ borrowingList }) {
             background: styles.color,
             backgroundImage: styles.gradient,
             margin: '15px 0px',
-            opacity: '90',
 
         },
         title: {
@@ -49,7 +48,7 @@ export function TimeLineCard({ borrowingList }) {
             marginBottom: 12,
         },
         detail: {
-            cursor: 'pointer'
+            cursor: 'pointer',
         }
     });
 
@@ -57,9 +56,10 @@ export function TimeLineCard({ borrowingList }) {
 
     return (
         <Card className={classes.root} >
-            <CardContent className={classes.detail}
-                 onClick={() => setOpen(!open)}>
-                     {open && <FormDialogDetails styles={styles} borrowingList={borrowingList} open={open}/>}
+            <CardContent 
+                className={classes.detail}
+                onClick={() => setOpen(!open)}>
+                     {open && <FormDialogDetails styles={styles} borrowingList={borrowingList} open={open} />}
                     <Typography className={classes.title} color="textPrimary" gutterBottom>
                         {styles.title}
                     </Typography>

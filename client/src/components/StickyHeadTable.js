@@ -69,7 +69,6 @@ export const StickyHeadTable = () => {
 
         return timeB - timeA;
     });
-    console.log(sortedBorrowingList.map(time => time.addedAt));
  
     // Turns status to chips
     const statusFormatter = (status) => {

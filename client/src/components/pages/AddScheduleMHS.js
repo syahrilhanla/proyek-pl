@@ -85,7 +85,7 @@ export const AddScheduleMHS = () => {
             setAlertText('Permintaan Berhasil Diajukan');
             setOpen(true);
             addNewBorrowing(newData);
-            history.push('/mhs/see-schedule');
+            history.push('/mhs');
             setTimeout(() => {
                 setOpen(false);
             }, 3000);

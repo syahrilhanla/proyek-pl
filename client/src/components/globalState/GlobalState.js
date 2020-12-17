@@ -13,6 +13,11 @@ const AppReducer = (state, action) => {
                 ...state,
                 specificBorrowingData: action.payload
             }
+        case 'GET_CHILD_STATES':
+            return {
+                ...state,
+                childStates: action.payload
+            }
         case 'ADD_NEW_DATA':
             return {
                 ...state,
@@ -53,7 +58,8 @@ const AppReducer = (state, action) => {
 const initialState = {
     borrowingList: [],
     loginInfo: [],
-    specificBorrowingData: []
+    specificBorrowingData: [],
+    childStates: []
 }
 
 export const GlobalContext = createContext(initialState);
@@ -65,8 +71,6 @@ export const GlobalProvider = ({ children }) => {
     const getBorrowingData = async () => {
         try {
             const res = await axios.get('/api/v1/borrowingData');
-            const loginInfo = localStorage.getItem('loginInfo');
-            initialState.loginInfo.push(JSON.parse(loginInfo));
 
             dispatch({
                 type: 'GET_BORROWING_DATA',
@@ -77,6 +81,27 @@ export const GlobalProvider = ({ children }) => {
                 type: 'FETCHING_ERROR',
                 payload: err.response
             });
+        }
+    }
+
+    const getLoginInfo = async () => {
+        try {
+            // get login info from localStorage, so when the page refreshes it loads the data from there
+            const loginInfo = localStorage.getItem('loginInfo');
+            initialState.loginInfo.push(JSON.parse(loginInfo));
+        } catch (err) {
+            alert('tidak bisa mengambil login info');
+        }
+    }
+
+    const getChildStates = (states) => {
+        try {
+            dispatch({
+                type: 'GET_CHILD_STATES',
+                payload: states
+            })
+        } catch (err) {
+            alert('failed to get child states');
         }
     }
 
@@ -119,7 +144,9 @@ export const GlobalProvider = ({ children }) => {
     }
 
     const takeLoginInfo = (newLogin) => {
+        // Save loginInfo to local storage so it can be retrieved when the page refreshes
         localStorage.setItem('loginInfo', JSON.stringify(newLogin));
+
         dispatch({
             type: 'TAKE_LOGIN_INFO',
             payload: newLogin
@@ -185,6 +212,7 @@ export const GlobalProvider = ({ children }) => {
             borrowingList: state.borrowingList,
             loginInfo: state.loginInfo,
             specificBorrowingData: state.specificBorrowingData,
+            childStates: state.childStates,
             addNewBorrowing,
             takeLoginInfo,
             getBorrowingData,
@@ -192,6 +220,8 @@ export const GlobalProvider = ({ children }) => {
             updateBorrowingData,
             getSpecificBorrowingData,
             deleteLoginData,
+            getLoginInfo, 
+            getChildStates,
             updateState
         }}>
             {children}

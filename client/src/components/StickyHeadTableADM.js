@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -46,7 +46,11 @@ const columns = [
 ];
 
 function createData(usage, status, room, startDate, time, deleteAction) {
-    return { usage: usage, status: status, room: room, startDate: startDate, time: time, deleteAction: deleteAction};
+    return { 
+        usage: usage, status: status, room: room,
+        startDate: startDate, time: time,
+        deleteAction: deleteAction
+    };
 }
 
 const useStyles = makeStyles({
@@ -77,9 +81,21 @@ export const StickyHeadTableADM = () => {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    // For FormDialogDetails:
+    const [open, setOpen] =  React.useState(false);
+    const [selectedRow, setSelectedRow] =  React.useState(false);
+
+    // useEffect when table body clicked
+    useEffect(() => {
+        const childState = {
+            open: open,
+            selectedRow: selectedRow
+        }
+        getChildStates(childState);
+    }, [open])
 
     // Fetching data from global state
-    const { borrowingList, deleteBorrowingData } = useContext(GlobalContext);
+    const { borrowingList, deleteBorrowingData, getChildStates } = useContext(GlobalContext);
 
     // Sort table contents based on time added
     const sortedBorrowingList = borrowingList.sort((a, b) => {
@@ -88,7 +104,6 @@ export const StickyHeadTableADM = () => {
 
         return timeB - timeA;
     });
-    console.log(sortedBorrowingList.map(time => time.addedAt));
  
     // Turns status to chips
     const statusFormatter = (status) => {
@@ -102,7 +117,7 @@ export const StickyHeadTableADM = () => {
     };
 
     // putting data from global state to rows
-    const rows = sortedBorrowingList.map(content => (
+    const rows = sortedBorrowingList.map((content) => (
         createData(
             content.usage, statusFormatter(content.status),
             content.room, content.startDate,
@@ -124,6 +139,11 @@ export const StickyHeadTableADM = () => {
         setPage(0);
     };
 
+    const showDetails = row => {
+        setSelectedRow(row); 
+        setOpen(!open);
+    }
+
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
@@ -142,10 +162,14 @@ export const StickyHeadTableADM = () => {
                             ))}
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody className='table' >
                         {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                             return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                <TableRow
+                                    hover role="checkbox" tabIndex={-1} key={row.code} 
+                                    onClick={() => showDetails(row)}
+                                    style={{cursor: 'pointer'}}
+                                >
                                     {columns.map((column) => {
                                         const value = row[column.id];
                                         return (

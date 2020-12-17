@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HomeMHS from './components/pages/HomeMHS';
-import { SeeScheduleMHS } from './components/pages/SeeScheduleMHS';
 import { SeeScheduleAdmin } from './components/pages/SeeScheduleAdmin';
 import { AddScheduleMHS } from './components/pages/AddScheduleMHS';
 import { HomeAdmin } from './components/pages/HomeAdmin';
@@ -24,7 +23,6 @@ function App() {
           <Route path='/wd-2' exact component={HomeWD2} />
           <Route path='/alert' exact component={Alerts} />
           <Route path='/mhs/add-schedule' exact component={AddScheduleMHS} />
-          <Route path='/mhs/see-schedule' exact component={SeeScheduleMHS} />
           <Route path='/adm/see-schedule' exact component={SeeScheduleAdmin} />
           <Route path={`/adm/disposisi/:id`} exact component={Disposisi} />
           
