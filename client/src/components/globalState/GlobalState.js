@@ -65,6 +65,8 @@ export const GlobalProvider = ({ children }) => {
     const getBorrowingData = async () => {
         try {
             const res = await axios.get('/api/v1/borrowingData');
+            const loginInfo = localStorage.getItem('loginInfo');
+            initialState.loginInfo.push(JSON.parse(loginInfo));
 
             dispatch({
                 type: 'GET_BORROWING_DATA',
@@ -117,6 +119,7 @@ export const GlobalProvider = ({ children }) => {
     }
 
     const takeLoginInfo = (newLogin) => {
+        localStorage.setItem('loginInfo', JSON.stringify(newLogin));
         dispatch({
             type: 'TAKE_LOGIN_INFO',
             payload: newLogin
@@ -144,6 +147,8 @@ export const GlobalProvider = ({ children }) => {
             if (initialState.loginInfo.length >= 1) {
                 initialState.loginInfo.slice(0, 1);
             }
+
+            localStorage.removeItem('loginInfo');
 
             dispatch({
                 type: 'DELETE_LOGIN_DATA'
