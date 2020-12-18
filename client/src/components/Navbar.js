@@ -43,12 +43,15 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 			return true;
 		} else {
 			console.log(loginInfo);
-			return false;
+			return null;
 		}
 	};
 
 	const displayAvatar = () => {
-		<Avatar alt='user' src={loginInfo[0].photo} />;
+		console.log(loginInfo);
+		if (checkLoginInfo(loginInfo)) {
+			return loginInfo[0].newLogin.photo;
+		} else return null;
 	};
 
 	return (
@@ -78,7 +81,7 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 					</li>
 
 					<li className='nav-item'>
-						{/* <Avatar alt="user" src={loginInfo[0].photo} />  */}
+						<Avatar alt='user' src={displayAvatar()} />
 					</li>
 
 					<li className='nav-item'>

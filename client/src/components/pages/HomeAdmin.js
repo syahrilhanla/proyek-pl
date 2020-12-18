@@ -5,13 +5,13 @@ import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 
 // Check if logged in
-export const redirectPage = (loginInfo, history) => {
+export const checkLogin = (loginInfo, history) => {
 	if (loginInfo[0] !== null) {
 		console.log("sudah login");
 		return true;
 	} else {
 		console.log("tidak login");
-		history.push("/");
+		// history.push("/");
 		return false;
 	}
 };
@@ -39,7 +39,7 @@ export const HomeAdmin = () => {
 	}, [updateState]);
 
 	// Redirect if not logged in
-	redirectPage(loginInfo, history);
+	checkLogin(loginInfo, history);
 
 	return (
 		<>

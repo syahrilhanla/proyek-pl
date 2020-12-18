@@ -3,7 +3,7 @@ import { TimeLineCard } from "../TimeLineCard";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 import { useHistory } from "react-router-dom";
-import { redirectPage } from "./HomeAdmin";
+import { checkLogin } from "./HomeAdmin";
 
 export const HomeWD2 = () => {
 	const {
@@ -21,7 +21,7 @@ export const HomeWD2 = () => {
 	}, [updateState]);
 
 	// Redirect to home if not logged in
-	redirectPage(loginInfo, history);
+	checkLogin(loginInfo, history);
 
 	return (
 		<>

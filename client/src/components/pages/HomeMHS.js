@@ -3,10 +3,10 @@ import { GlobalContext } from "../globalState/GlobalState";
 import { Breadcrumb } from "../Breadcrumb";
 import { StickyHeadTable } from "../StickyHeadTable";
 import { Navbar } from "../Navbar";
-import { redirectPage } from "./HomeAdmin";
-import { useHistory } from "react-router-dom";
+import { checkLogin } from "./HomeAdmin";
+import { Redirect, useHistory } from "react-router-dom";
 
-const Home = () => {
+const HomeMHS = () => {
 	const [invisible, setInvisible] = useState(true);
 	const { getBorrowingData, getLoginInfo, loginInfo, updateState } = useContext(
 		GlobalContext
@@ -27,6 +27,7 @@ const Home = () => {
 	}, []);
 
 	const HomeMHS = () => {
+		console.log(loginInfo);
 		return (
 			<>
 				<Navbar
@@ -45,6 +46,8 @@ const Home = () => {
 		);
 	};
 
-	return <>{redirectPage(loginInfo, history) && <HomeMHS />}</>;
+	return (
+		<>{checkLogin(loginInfo, history) ? <HomeMHS /> : <Redirect to='/' />}</>
+	);
 };
-export default Home;
+export default HomeMHS;

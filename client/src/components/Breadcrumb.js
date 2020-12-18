@@ -7,11 +7,11 @@ export const Breadcrumb = ({ loginInfo }) => {
 		if (loginInfo.length > 0) {
 			return (
 				<span>
-					<h3>Selamat Datang, {loginInfo[0].name}!</h3>
+					<h3>Selamat Datang, {loginInfo[0].newLogin.name}!</h3>
 				</span>
 			);
 		} else {
-			return true;
+			return null;
 		}
 	};
 	return (
