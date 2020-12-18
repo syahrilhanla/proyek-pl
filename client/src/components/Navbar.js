@@ -39,11 +39,17 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 
     const checkLoginInfo = () => {
         if (loginInfo.length > 0) {
-            return loginInfo[0].photo;
-        } else {
+            console.log(loginInfo)
             return true
+        } else {
+            console.log(loginInfo)
+            return false;
         }
     }
+
+    const displayAvatar = () => {
+        <Avatar alt="user" src={loginInfo[0].photo} />
+    }    
 
     return (
         <>
@@ -69,11 +75,11 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
                     </li>
 
                     <li className="nav-item">
-                            <Avatar alt="Syahril Hanla" src={checkLoginInfo()} />
+                        {/* <Avatar alt="user" src={loginInfo[0].photo} />  */}
                     </li>
 
                     <li className="nav-item">
-                        <Link to="/" className="nav-links" onClick={() => deleteLoginData()}>
+                        <Link to="/" className="nav-links" onClick={() => logOut()}>
                             <i className="fas fa-sign-out-alt"></i>
                         </Link>
                     </li>

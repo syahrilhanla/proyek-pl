@@ -42,13 +42,13 @@ exports.getSpecificBorrowingData = async (req, res, next) => {
 //  @access public
 exports.addBorrowingData = async (req, res, next) => {
     try {
-        const { name, nim, room, startDate, time, status, usage } = req.body;
+        const { name, nim, room, startDate, time, status, usage, letterNum } = req.body;
 
         const borrowingData = await BorrowingData.create(req.body);
 
         return res.status(201).json({
             success: true,
-            data: borrowingData
+            data: borrowingData,
         });
     } catch (err) {
         if (err.name === 'ValidationError') {
@@ -116,9 +116,10 @@ exports.updateBorrowingData = async (req, res, next) => {
             });
         } 
 
+
         return res.status(201).json({
             success: true,
-            data: borrowingData
+            data: borrowingData,
         });
 
     } catch (err) {

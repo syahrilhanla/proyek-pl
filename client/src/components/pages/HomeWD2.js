@@ -2,17 +2,22 @@ import React, { useContext, useEffect, useState } from 'react';
 import { TimeLineCard } from '../TimeLineCard';
 import { GlobalContext } from '../globalState/GlobalState';
 import { Navbar } from '../Navbar';
+import { useHistory } from 'react-router-dom';
+import { redirectPage } from './HomeAdmin';
 
 export const HomeWD2 = () => {
 
-    const { borrowingList, getBorrowingData, updateState } = useContext(GlobalContext);
+    const { borrowingList, getBorrowingData, updateState, loginInfo } = useContext(GlobalContext);
     const [invisible, setInvisible] = useState(true);
+    const history = useHistory(); 
 
     useEffect(() => {
         getBorrowingData();
-        console.log(borrowingList);
         setInvisible(false);
     }, [updateState]);
+
+    // Redirect to home if not logged in
+    redirectPage(loginInfo, history);
 
     return (
         <>

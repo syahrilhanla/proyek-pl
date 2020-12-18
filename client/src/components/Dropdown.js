@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { MenuItems } from './DropdownItems';
 import { GlobalContext } from './globalState/GlobalState';
 
 import './Dropdown.css';
@@ -19,12 +18,7 @@ export const Dropdown = () => {
                 {borrowingList.map((item, index) => {
                     return (
                         <li key={index}>
-                            <Link
-                                className='dropdown-link'
-                                onClick={() => setClick(false)}
-                                to='#'>
-                                {item.name}
-                            </Link>
+                            {item.name}
                         </li>
                     )
                 })}

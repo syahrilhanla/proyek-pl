@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const AppReducer = (state, action) => {
     switch (action.type) {
@@ -27,7 +28,8 @@ const AppReducer = (state, action) => {
         case 'TAKE_LOGIN_INFO':
             return {
                 ...state,
-                loginInfo: [action.payload, ...state.loginInfo]
+                loginInfo: [action.payload],
+                loggedIn: action.payload.loggedIn
             }
         case 'FETCHING_ERROR':
             return {
@@ -42,7 +44,8 @@ const AppReducer = (state, action) => {
         case 'DELETE_LOGIN_DATA':
             return {
                 ...state,
-                loginInfo: []
+                loginInfo: [],
+                loggedIn: action.payload
             }
         case 'UPDATE_BORROWING_DATA':
             return {
@@ -59,7 +62,8 @@ const initialState = {
     borrowingList: [],
     loginInfo: [],
     specificBorrowingData: [],
-    childStates: []
+    childStates: [],
+    loggedIn: []
 }
 
 export const GlobalContext = createContext(initialState);
@@ -88,6 +92,11 @@ export const GlobalProvider = ({ children }) => {
         try {
             // get login info from localStorage, so when the page refreshes it loads the data from there
             const loginInfo = localStorage.getItem('loginInfo');
+
+            if (initialState.loginInfo.length >= 1) {
+                delete initialState.loginInfo[1];
+            }
+            
             initialState.loginInfo.push(JSON.parse(loginInfo));
         } catch (err) {
             alert('tidak bisa mengambil login info');
@@ -146,10 +155,11 @@ export const GlobalProvider = ({ children }) => {
     const takeLoginInfo = (newLogin) => {
         // Save loginInfo to local storage so it can be retrieved when the page refreshes
         localStorage.setItem('loginInfo', JSON.stringify(newLogin));
+        const loggedIn = true;
 
         dispatch({
             type: 'TAKE_LOGIN_INFO',
-            payload: newLogin
+            payload: {newLogin, loggedIn }
         });
     }
 
@@ -171,14 +181,11 @@ export const GlobalProvider = ({ children }) => {
 
     const deleteLoginData = async () => {
         try {
-            if (initialState.loginInfo.length >= 1) {
-                initialState.loginInfo.slice(0, 1);
-            }
-
             localStorage.removeItem('loginInfo');
 
             dispatch({
-                type: 'DELETE_LOGIN_DATA'
+                type: 'DELETE_LOGIN_DATA',
+                payload: false
             })
         } catch (err) {
             console.log(err);
@@ -213,6 +220,7 @@ export const GlobalProvider = ({ children }) => {
             loginInfo: state.loginInfo,
             specificBorrowingData: state.specificBorrowingData,
             childStates: state.childStates,
+            loggedIn: state.loggedIn,
             addNewBorrowing,
             takeLoginInfo,
             getBorrowingData,

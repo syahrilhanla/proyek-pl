@@ -4,8 +4,6 @@ import './Breadcrumb.css';
 import { Button } from './Button';
 
 export const Breadcrumb = ({loginInfo}) => {
-    // const { loginInfo } = useContext(GlobalContext);
-    console.log(loginInfo);
 
     const checkLoginInfo = () => {
         if (loginInfo.length > 0) {

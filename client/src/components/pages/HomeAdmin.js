@@ -1,18 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { TimeLineCard } from '../TimeLineCard';
 import { GlobalContext } from '../globalState/GlobalState';
 import { Navbar } from '../Navbar';
 
-export const HomeAdmin = () => {
+// Check if logged in
+export const redirectPage = (loginInfo, history) => {
+    if (loginInfo[0] !== null) {
+        console.log('sudah login')
+        return true;
+    } else {
+        console.log('tidak login')
+        history.push('/'); 
+        return false;
+    }
+}
 
-    const { borrowingList, getBorrowingData, getLoginInfo, updateState } = useContext(GlobalContext);
+export const HomeAdmin = () => {
+    const { borrowingList, getBorrowingData, getLoginInfo
+          , updateState, loginInfo } = useContext(GlobalContext);
+
     const [invisible, setInvisible] = useState(true);
+    const history = useHistory();
 
     useEffect(() => {
         getBorrowingData();
         getLoginInfo();
         setInvisible(false);
+        
+        setTimeout(() => {
+            console.log(borrowingList);
+        }, 2000);
+
     }, [updateState]);
+
+    // Redirect if not logged in
+    redirectPage(loginInfo, history);
 
     return (
         <>

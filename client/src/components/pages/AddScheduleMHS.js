@@ -18,6 +18,7 @@ export const AddScheduleMHS = () => {
     const [startTime, setStartTime] = useState('');
     const [finishTime, setFinishTime] = useState('');
     const [status, setStatus] = useState(1);
+    const [letterNum, setLetterNum] = useState(0);
     const [open, setOpen] = useState(false);
     const [alertColor, setAlertColor] = useState('');
     const [alertText, setAlertText] = useState('');
@@ -65,7 +66,8 @@ export const AddScheduleMHS = () => {
             startDate: dateFormatter(date, month, year),
             time: time,
             status: status,
-            notificationCount: 1
+            notificationCount: 1,
+            letterNum: letterNum
         }
 
         //CHECK EMPTY FIELDS NOT DONE YET

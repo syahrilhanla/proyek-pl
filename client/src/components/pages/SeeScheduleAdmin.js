@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StickyHeadTableADM } from '../../components/StickyHeadTableADM';
 import { FormDialogDetails } from '../FormDialogDetails';
 import { GlobalContext } from '../globalState/GlobalState';
@@ -6,10 +6,12 @@ import { Navbar } from '../Navbar';
 import { cardStyle } from '../TimeLineCard';
 
 export const SeeScheduleAdmin = () => {
-    const { childStates, borrowingList, getBorrowingData, getLoginInfo } = useContext(GlobalContext);
+    const { childStates, borrowingList, getBorrowingData, getLoginInfo, updateState  } = useContext(GlobalContext);
+    const [invisible, setInvisible] = useState(true);
 
     // Decide status for FormDialogDetails:
     const styles = cardStyle(borrowingList);
+    
 
     useEffect(() => {
         getBorrowingData();
@@ -18,7 +20,7 @@ export const SeeScheduleAdmin = () => {
 
     return (
         <div style={{opacity: 90}}>
-            <Navbar user={'adm'}/>
+            <Navbar user={'adm'} invisible={invisible} setInvisible={setInvisible} />
 
             <div className="container-schedule">
 
