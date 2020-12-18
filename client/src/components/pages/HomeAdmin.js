@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { TimeLineCard } from "../TimeLineCard";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
@@ -11,7 +11,6 @@ export const checkLogin = (loginInfo, history) => {
 		return true;
 	} else {
 		console.log("tidak login");
-		// history.push("/");
 		return false;
 	}
 };
@@ -26,7 +25,6 @@ export const HomeAdmin = () => {
 	} = useContext(GlobalContext);
 
 	const [invisible, setInvisible] = useState(true);
-	const history = useHistory();
 
 	useEffect(() => {
 		getBorrowingData();
@@ -38,21 +36,30 @@ export const HomeAdmin = () => {
 		}, 2000);
 	}, [updateState]);
 
-	// Redirect if not logged in
-	checkLogin(loginInfo, history);
+	const Home = () => {
+		return (
+			<>
+				<Navbar
+					user={"adm"}
+					invisible={invisible}
+					setInvisible={setInvisible}
+				/>
+
+				<div className='container'>
+					<label>
+						<h1 style={{ borderBottom: "2px solid #b8bdb5" }}>Lini Masa</h1>
+					</label>
+					{borrowingList.map((list) => (
+						<TimeLineCard key={list._id} borrowingList={list} />
+					))}
+				</div>
+			</>
+		);
+	};
 
 	return (
 		<>
-			<Navbar user={"adm"} invisible={invisible} setInvisible={setInvisible} />
-
-			<div className='container'>
-				<label>
-					<h1 style={{ borderBottom: "2px solid #b8bdb5" }}>Lini Masa</h1>
-				</label>
-				{borrowingList.map((list) => (
-					<TimeLineCard key={list._id} borrowingList={list} />
-				))}
-			</div>
+			<>{checkLogin(loginInfo) ? <Home /> : <Redirect to='/' />}</>
 		</>
 	);
 };
