@@ -1,49 +1,50 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { GlobalContext } from '../globalState/GlobalState';
-import { Breadcrumb } from '../Breadcrumb';
-import { StickyHeadTable } from '../StickyHeadTable';
-import { Navbar } from '../Navbar';
-import { redirectPage } from './HomeAdmin';
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from "react";
+import { GlobalContext } from "../globalState/GlobalState";
+import { Breadcrumb } from "../Breadcrumb";
+import { StickyHeadTable } from "../StickyHeadTable";
+import { Navbar } from "../Navbar";
+import { redirectPage } from "./HomeAdmin";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
-    const [invisible, setInvisible] = useState(true);
-    const { getBorrowingData, getLoginInfo, loginInfo, updateState } = useContext(GlobalContext);
-    const history = useHistory();
+	const [invisible, setInvisible] = useState(true);
+	const { getBorrowingData, getLoginInfo, loginInfo, updateState } = useContext(
+		GlobalContext
+	);
 
-    // useEffect when updateState updated
-    useEffect(() => {
-        setInvisible(false);
-    }, [updateState]);
+	const history = useHistory();
 
-    // useEffect after page loaded for the first time
-    useEffect(() => {
-        getBorrowingData();
-        getLoginInfo();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+	// useEffect when updateState updated
+	useEffect(() => {
+		setInvisible(false);
+	}, [updateState]);
 
-    const HomeMHS = () => {
-        return (
-            <>
-            <Navbar user={'mhs'} invisible={invisible} setInvisible={setInvisible}/>
-                <div className="container">
-                    <Breadcrumb loginInfo={loginInfo}/>
-                </div>
+	// useEffect after page loaded for the first time
+	useEffect(() => {
+		getBorrowingData();
+		getLoginInfo();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-                <div className="container-schedule">
-                    <StickyHeadTable />
-                </div>            
-            </>
-        )
-    }
+	const HomeMHS = () => {
+		return (
+			<>
+				<Navbar
+					user={"mhs"}
+					invisible={invisible}
+					setInvisible={setInvisible}
+				/>
+				<div className='container'>
+					<Breadcrumb loginInfo={loginInfo} />
+				</div>
 
-    
+				<div className='container-schedule'>
+					<StickyHeadTable />
+				</div>
+			</>
+		);
+	};
 
-    return (
-        <>
-            {redirectPage(loginInfo, history) && <HomeMHS />}
-        </>
-    )
-}
-export default Home
+	return <>{redirectPage(loginInfo, history) && <HomeMHS />}</>;
+};
+export default Home;
