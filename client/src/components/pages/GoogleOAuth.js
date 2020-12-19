@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { Link, useHistory } from "react-router-dom";
 import { GlobalContext } from "../globalState/GlobalState";
@@ -7,9 +7,8 @@ const GoogleOAuth = () => {
 	const clientId =
 		"943373440851-0d888p5eldjd8n17ev5o5cnkbeo1s502.apps.googleusercontent.com";
 
-	const history = useHistory();
-	const [loginData, setLoginData] = useState({});
 	const { takeLoginInfo } = useContext(GlobalContext);
+	const history = useHistory();
 
 	// Checks if the email is ULM email
 	const emailFormatter = (email) => {
@@ -17,6 +16,22 @@ const GoogleOAuth = () => {
 		const emailFormatTrue = `${nim}@mhs.ulm.ac.id`;
 
 		return emailFormatTrue === email ? true : false;
+	};
+
+	const checkLoginInfo = () => {
+		// login info object from local storage
+		const localStorageLoginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+		if (localStorageLoginInfo !== null) {
+			if (localStorageLoginInfo.email === "kaipajuang@gmail.com") {
+				history.push("/wd-2");
+			} else if (emailFormatter(localStorageLoginInfo.email) === true) {
+				history.push("/mhs");
+			} else {
+				history.push("/adm");
+			}
+		} else {
+			return console.log("null", null);
+		}
 	};
 
 	const responseGoogle = (response) => {
@@ -49,7 +64,7 @@ const GoogleOAuth = () => {
 		} else {
 			const newLoginData = insertLoginData(name, email, nim, photo);
 			takeLoginInfo(newLoginData);
-			console.log(newLoginData);
+			console.log("syahrilhanla");
 			history.push("/adm");
 		}
 	};
@@ -66,6 +81,9 @@ const GoogleOAuth = () => {
 		marginBottom: "2rem",
 		textDecoration: "none",
 	};
+
+	// If not logged out then redirect to user dashboard
+	checkLoginInfo();
 
 	return (
 		<>

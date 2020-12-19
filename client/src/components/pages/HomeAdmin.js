@@ -30,10 +30,6 @@ export const HomeAdmin = () => {
 		getBorrowingData();
 		getLoginInfo();
 		setInvisible(false);
-
-		setTimeout(() => {
-			console.log(borrowingList);
-		}, 2000);
 	}, [updateState]);
 
 	const Home = () => {

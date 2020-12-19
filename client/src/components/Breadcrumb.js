@@ -2,12 +2,14 @@ import React from "react";
 import "./Breadcrumb.css";
 import { Button } from "./Button";
 
-export const Breadcrumb = ({ loginInfo }) => {
+export const Breadcrumb = () => {
 	const checkLoginInfo = () => {
-		if (loginInfo.length > 0) {
+		const localLoginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+
+		if (localLoginInfo !== null) {
 			return (
 				<span>
-					<h3>Selamat Datang, {loginInfo[0].newLogin.name}!</h3>
+					<h3>Selamat Datang, {localLoginInfo.name}!</h3>
 				</span>
 			);
 		} else {

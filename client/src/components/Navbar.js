@@ -37,20 +37,12 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 		deleteLoginData();
 	};
 
-	const checkLoginInfo = () => {
-		if (loginInfo.length > 0) {
-			console.log(loginInfo);
-			return true;
-		} else {
-			console.log(loginInfo);
-			return null;
-		}
-	};
+	const localLoginInfo = JSON.parse(localStorage.getItem("loginInfo"));
 
 	const displayAvatar = () => {
-		console.log(loginInfo);
-		if (checkLoginInfo(loginInfo)) {
-			return loginInfo[0].newLogin.photo;
+		console.log(localLoginInfo);
+		if (localLoginInfo !== null) {
+			return localLoginInfo.photo;
 		} else return null;
 	};
 
