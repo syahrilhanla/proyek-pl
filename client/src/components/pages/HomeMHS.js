@@ -30,11 +30,6 @@ const HomeMHS = () => {
 		console.log(loginInfo);
 		return (
 			<>
-				<Navbar
-					user={"mhs"}
-					invisible={invisible}
-					setInvisible={setInvisible}
-				/>
 				<div className='container'>
 					<Breadcrumb loginInfo={loginInfo} />
 				</div>
@@ -47,7 +42,10 @@ const HomeMHS = () => {
 	};
 
 	return (
-		<>{checkLogin(loginInfo, history) ? <HomeMHS /> : <Redirect to='/' />}</>
+		<>
+			<Navbar user={"mhs"} invisible={invisible} setInvisible={setInvisible} />
+			{checkLogin(loginInfo, history) ? <HomeMHS /> : <Redirect to='/' />}
+		</>
 	);
 };
 export default HomeMHS;

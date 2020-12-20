@@ -39,23 +39,28 @@ const SidebarWrap = styled.div`
 	width: 100%;
 `;
 
-export const Sidebar = ({ sideBarData }) => {
+export const Sidebar = ({ sideBarData, showSideBar }) => {
 	const [sidebar, setSidebar] = useState(false);
+	const [text, setText] = useState("off");
 
-	const showSidebar = () => setSidebar(!sidebar);
+	const showSidebar = () => {
+		setSidebar(!sidebar);
+		setText("on");
+		console.log(text);
+	};
 
 	return (
 		<>
 			<IconContext.Provider value={{ color: "#fff" }}>
 				<Nav>
 					<NavIcon to='#'>
-						<FaIcons.FaBars onClick={showSidebar} />
+						<FaIcons.FaBars onClick={() => showSidebar()} />
 					</NavIcon>
 				</Nav>
 				<SidebarNav sidebar={sidebar}>
 					<SidebarWrap>
 						<NavIcon to='#'>
-							<AiIcons.AiOutlineClose onClick={showSidebar} />
+							<AiIcons.AiOutlineClose onClick={() => showSidebar()} />
 						</NavIcon>
 						{sideBarData.map((item, index) => {
 							return <SubMenu item={item} key={index} />;
