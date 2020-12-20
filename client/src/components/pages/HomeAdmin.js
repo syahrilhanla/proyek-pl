@@ -35,12 +35,6 @@ export const HomeAdmin = () => {
 	const Home = () => {
 		return (
 			<>
-				<Navbar
-					user={"adm"}
-					invisible={invisible}
-					setInvisible={setInvisible}
-				/>
-
 				<div className='container'>
 					<label>
 						<h1 style={{ borderBottom: "2px solid #b8bdb5" }}>Lini Masa</h1>
@@ -55,6 +49,7 @@ export const HomeAdmin = () => {
 
 	return (
 		<>
+			<Navbar user={"adm"} invisible={invisible} setInvisible={setInvisible} />
 			<>{checkLogin(loginInfo) ? <Home /> : <Redirect to='/' />}</>
 		</>
 	);

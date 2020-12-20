@@ -24,12 +24,16 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 		}
 	};
 
-	const handleClick = () => setClick(!click);
+	const handleClick = () => {
+		setClick(!click);
+		console.log(click);
+	};
 	const closeMobileMenu = () => setClick(false);
 
 	const showNotification = () => {
 		setInvisible(true);
 		setDropdown(!dropdown);
+		console.log(invisible);
 	};
 
 	const logOut = () => {
@@ -40,7 +44,6 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 	const localLoginInfo = JSON.parse(localStorage.getItem("loginInfo"));
 
 	const displayAvatar = () => {
-		console.log(localLoginInfo);
 		if (localLoginInfo !== null) {
 			return localLoginInfo.photo;
 		} else return null;
@@ -53,6 +56,7 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 				<Link to={`/${user}`} className='navbar-logo'>
 					LOGO
 				</Link>
+
 				<div className='menu-icon' onClick={handleClick}>
 					<i className={click ? "fas fa-times" : "fas fa-bars"} />
 				</div>
