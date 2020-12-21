@@ -39,14 +39,11 @@ const SidebarWrap = styled.div`
 	width: 100%;
 `;
 
-export const Sidebar = ({ sideBarData, showSideBar }) => {
+export const Sidebar = ({ sideBarData }) => {
 	const [sidebar, setSidebar] = useState(false);
-	const [text, setText] = useState("off");
 
 	const showSidebar = () => {
 		setSidebar(!sidebar);
-		setText("on");
-		console.log(text);
 	};
 
 	return (

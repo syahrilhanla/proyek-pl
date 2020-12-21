@@ -14,20 +14,26 @@ import Alerts from "./components/Alerts";
 
 function App() {
 	return (
-		<GlobalProvider>
-			<Router>
-				<Switch>
-					<Route path='/' exact component={LoginPage} />
-					<Route path='/mhs' exact component={HomeMHS} />
-					<Route path='/adm' exact component={HomeAdmin} />
-					<Route path='/wd-2' exact component={HomeWD2} />
-					<Route path='/alert' exact component={Alerts} />
-					<Route path='/mhs/add-schedule' exact component={AddScheduleMHS} />
-					<Route path='/adm/see-schedule' exact component={SeeScheduleAdmin} />
-					<Route path={`/adm/disposisi/:id`} exact component={Disposisi} />
-				</Switch>
-			</Router>
-		</GlobalProvider>
+		<div className='mother-class'>
+			<GlobalProvider>
+				<Router>
+					<Switch>
+						<Route path='/' exact component={LoginPage} />
+						<Route path='/mhs' exact component={HomeMHS} />
+						<Route path='/adm' exact component={HomeAdmin} />
+						<Route path='/wd-2' exact component={HomeWD2} />
+						<Route path='/alert' exact component={Alerts} />
+						<Route path='/mhs/add-schedule' exact component={AddScheduleMHS} />
+						<Route
+							path='/adm/see-schedule'
+							exact
+							component={SeeScheduleAdmin}
+						/>
+						<Route path={`/adm/disposisi/:id`} exact component={Disposisi} />
+					</Switch>
+				</Router>
+			</GlobalProvider>
+		</div>
 	);
 }
 

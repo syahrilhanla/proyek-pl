@@ -12,6 +12,7 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 	const [open, setOpen] = useState(false);
 	const [password, setPassword] = useState("");
 	const [notificationCount, setNotificationCount] = useState(0);
+	const [option, setOption] = useState("");
 
 	const { updateBorrowingData } = useContext(GlobalContext);
 
@@ -21,8 +22,14 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 		secondLevel: "987654",
 	};
 
-	const handleClickOpen = () => {
+	const accept = () => {
 		setOpen(true);
+		setOption("accept");
+	};
+
+	const deny = () => {
+		setOpen(true);
+		setOption("deny");
 	};
 
 	const handleClose = () => {
@@ -36,7 +43,7 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 	};
 
 	// If password true then update status, if not then send email to student
-	const verifyPermission = (passwordInput) => {
+	const acceptPermission = (passwordInput) => {
 		if (passwordInput === PASSWORD.firstLevel) {
 			updateAndClose();
 		} else if (passwordInput === PASSWORD.secondLevel) {
@@ -57,13 +64,28 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 		return (
 			<div
 				style={{
-					backgroundColor: styles.color,
-					marginLeft: "10rem",
-					borderRadius: "3px",
-					marginTop: "-20px",
+					display: "flex",
+					marginLeft: "90px",
+					justifyContent: "space-around",
+					width: "250px",
 				}}
 			>
-				<Button onClick={() => handleClickOpen()}>Tindak Lanjut</Button>
+				<div
+					style={{
+						backgroundColor: "#FF4F28",
+						borderRadius: "3px",
+					}}
+				>
+					<Button onClick={() => deny()}>Tolak</Button>
+				</div>
+				<div
+					style={{
+						backgroundColor: "#2DCF3B",
+						borderRadius: "3px",
+					}}
+				>
+					<Button onClick={() => accept()}>Terima</Button>
+				</div>
 			</div>
 		);
 	};
@@ -73,36 +95,53 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 			<div
 				style={{
 					backgroundColor: styles.color,
-					marginLeft: "10rem",
+					marginLeft: "9rem",
 					borderRadius: "3px",
 					marginTop: "-20px",
+					width: "150px",
+					textAlign: "center",
 				}}
 			>
-				<Button onClick={() => seeDisposition()}>Lihat Disposisi</Button>
+				<Button onClick={() => seeDisposition()}>Lembar Disposisi</Button>
 			</div>
 		);
 	};
 
 	// Deny Permission button, sends email if clicked
-	const denyPermission = () => {
+	const closeDialog = () => {
 		handleClose();
 	};
 
-	return (
-		<div>
-			{borrowingList.status < 3
-				? moreActionButtonFirstLevel()
-				: moreActionButtonSecondLevel()}
+	const RespondProposal = ({ type }) => {
+		const checkType = (type) => {
+			if (type === "deny") {
+				console.log("menolak pinjaman");
+				return {
+					title: "Tolak Pinjaman?",
+					text: "menolak",
+					action: console.log("tolak"),
+				};
+			} else {
+				return {
+					title: "Izinkan Pinjaman?",
+					text: "mengizinkan",
+					action: acceptPermission,
+				};
+			}
+		};
 
+		const decision = checkType(type);
+
+		return (
 			<Dialog
 				open={open}
 				onClose={handleClose}
 				aria-labelledby='form-dialog-title'
 			>
-				<DialogTitle id='form-dialog-title'>Izinkan Pinjaman?</DialogTitle>
+				<DialogTitle id='form-dialog-title'>{decision.title}</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						Silahkan masukkan sandi pribadi untuk mengizinkan permintaan
+						Silahkan masukkan sandi pribadi untuk {decision.text} permintaan
 						peminjaman.
 					</DialogContentText>
 					<TextField
@@ -111,16 +150,83 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 						id='password'
 						label='Password'
 						type='password'
+						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						fullWidth
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={() => denyPermission()} color='primary'>
+					<Button onClick={() => closeDialog()} color='primary'>
 						Batal
 					</Button>
 
-					<Button color='primary' onClick={() => verifyPermission(password)}>
+					<Button color='primary' onClick={() => decision.action(password)}>
+						Izinkan
+					</Button>
+				</DialogActions>
+			</Dialog>
+		);
+	};
+
+	const checkType = (type) => {
+		if (type === "deny") {
+			console.log("menolak pinjaman");
+			return {
+				title: "Tolak Pinjaman?",
+				text: "menolak",
+				action: console.log("tolak"),
+			};
+		} else {
+			console.log("mengizinkan peminjaman");
+			return {
+				title: "Izinkan Pinjaman?",
+				text: "mengizinkan",
+				action: acceptPermission,
+			};
+		}
+	};
+
+	const decision = checkType(option);
+
+	return (
+		<div>
+			{borrowingList.status < 3
+				? moreActionButtonFirstLevel()
+				: moreActionButtonSecondLevel()}
+
+			{/* {option === "accept" ? (
+				<RespondProposal type='accept' />
+			) : (
+				<RespondProposal type='deny' />
+			)} */}
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				aria-labelledby='form-dialog-title'
+			>
+				<DialogTitle id='form-dialog-title'>{decision.title}</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						Silahkan masukkan sandi pribadi untuk {decision.text} permintaan
+						peminjaman.
+					</DialogContentText>
+					<TextField
+						autoFocus
+						margin='dense'
+						id='password'
+						label='Password'
+						type='password'
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						fullWidth
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => closeDialog()} color='primary'>
+						Batal
+					</Button>
+
+					<Button color='primary' onClick={() => decision.action(password)}>
 						Izinkan
 					</Button>
 				</DialogActions>
