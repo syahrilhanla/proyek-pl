@@ -8,12 +8,13 @@ import { SidebarDataADM } from "./SidebarDataADM";
 import { SidebarData } from "./SidebarData";
 import { Dropdown } from "./Dropdown";
 import { GlobalContext } from "./globalState/GlobalState";
+import logo from "../assets/logo.png";
 
 export const Navbar = ({ user, invisible, setInvisible }) => {
 	const [click, setClick] = useState(false);
 	const [dropdown, setDropdown] = useState(false);
 
-	const { deleteLoginData, loginInfo } = useContext(GlobalContext);
+	const { deleteLoginData } = useContext(GlobalContext);
 
 	// Checks if its mhs or adm to choose sidebar
 	const chooseSidebar = (user) => {
@@ -53,8 +54,13 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 		<>
 			<nav className='navbar'>
 				<Sidebar sideBarData={chooseSidebar(user)} />
-				<Link to={`/${user}`} className='navbar-logo'>
-					LOGO
+
+				<Link to={`/${user}`} className='navbar-logo.png'>
+					<img
+						src={logo}
+						alt='logo'
+						style={{ width: "200px", height: "60px", marginLeft: "30px" }}
+					/>
 				</Link>
 
 				<div className='menu-icon' onClick={handleClick}>

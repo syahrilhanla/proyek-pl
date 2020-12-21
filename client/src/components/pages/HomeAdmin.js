@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { TimeLineCard } from "../TimeLineCard";
+import { TimeLineCardNew } from "../TimeLineCardNew";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 
@@ -40,7 +40,7 @@ export const HomeAdmin = () => {
 						<h1 style={{ borderBottom: "2px solid #b8bdb5" }}>Lini Masa</h1>
 					</label>
 					{borrowingList.map((list) => (
-						<TimeLineCard key={list._id} borrowingList={list} />
+						<TimeLineCardNew key={list._id} borrowingList={list} />
 					))}
 				</div>
 			</>

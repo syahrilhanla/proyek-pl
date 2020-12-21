@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Button } from "../Button";
 import { GlobalContext } from "../globalState/GlobalState";
 import "./Disposisi.css";
 
@@ -154,70 +155,91 @@ export const Disposisi = () => {
 		"Arsip",
 	];
 
-	return (
-		<div className='container-disposisi'>
-			<div className='header'>
-				<h2>KEMENTRIAN PENDIDIKAN DAN KEBUDAYAAN</h2>
-				<h2>UNIVERSITAS LAMBUNG MANGKURAT</h2>
-				<h2>FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN</h2>
-			</div>
-
-			<div className='title'>
-				<h2>LEMBAR DISPOSISI</h2>
-			</div>
-
-			<div className='kop'>
-				<Kop />
-			</div>
-
+	const Status = () => {
+		return (
 			<div className='status'>
-				<table>
-					<tr>
-						<td>
-							<input type='radio' id='Penting' name='Penting' value='Penting' />
-							<label htmlFor='Penting'>Penting</label>
-							<br />
-						</td>
-						<td>
-							<input type='radio' id='Rahasia' name='gender' value='Rahasia' />
-							<label htmlFor='Rahasia'>Rahasia</label>
-							<br />
-						</td>
-						<td>
-							<input type='radio' id='Segera' name='Segera' value='Segera' />
-							<label htmlFor='Segera'>Segera</label>
-							<br />
-						</td>
-					</tr>
-				</table>
+				<span>
+					<input type='radio' id='Penting' name='Penting' value='Penting' />
+					<label htmlFor='Penting'>Penting</label>
+				</span>
+				<span>
+					<input type='radio' id='Rahasia' name='Rahasia' value='Rahasia' />
+					<label htmlFor='Rahasia'>Rahasia</label>
+				</span>
+				<span>
+					<input type='radio' id='Segera' name='Segera' value='Segera' />
+					<label htmlFor='Segera'>Segera</label>
+				</span>
 			</div>
+		);
+	};
 
-			<div className='details'>
-				<Details />
+	const PrintLetter = () => {
+		const printLetter = () => {
+			const letterOnly = document.querySelector(".no-print");
+			const container = document.querySelector(".container-disposisi");
+			letterOnly.style.display = "none";
+			container.style.border = "none";
+			window.print();
+		};
+		return (
+			<div
+				className='no-print'
+				style={{ textAlign: "center" }}
+				onClick={() => printLetter()}
+			>
+				<Button text='Print Surat' toWhom='#' />
 			</div>
+		);
+	};
 
-			<div className='tableInput'>
-				<table>
-					<tr>
-						<th>Tanggal </th>
-						<th>Dari </th>
-						<th>Isi Disposisi</th>
-						<th>Kepada</th>
-					</tr>
-					<DispositionTable />
-				</table>
-			</div>
+	return (
+		<div className='root'>
+			<div className='container-disposisi'>
+				<div className='header'>
+					<h2>KEMENTRIAN PENDIDIKAN DAN KEBUDAYAAN</h2>
+					<h2>UNIVERSITAS LAMBUNG MANGKURAT</h2>
+					<h2>FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN</h2>
+				</div>
 
-			<div className='addition'>
-				<table>
-					<tr>
-						<th>Disposisi</th>
-						<th>:</th>
-					</tr>
-					{dispositionData.map((data, index) => (
-						<DispositionDataTable key={index} index={index + 1} data={data} />
-					))}
-				</table>
+				<div className='title'>
+					<h2>LEMBAR DISPOSISI</h2>
+				</div>
+
+				<div className='kop'>
+					<Kop />
+				</div>
+
+				<Status />
+
+				<div className='details'>
+					<Details />
+				</div>
+
+				<div className='tableInput'>
+					<table>
+						<tr>
+							<th>Tanggal </th>
+							<th>Dari </th>
+							<th>Isi Disposisi</th>
+							<th>Kepada</th>
+						</tr>
+						<DispositionTable />
+					</table>
+				</div>
+
+				<div className='addition'>
+					<table>
+						<tr>
+							<th>Disposisi</th>
+							<th>:</th>
+						</tr>
+						{dispositionData.map((data, index) => (
+							<DispositionDataTable key={index} index={index + 1} data={data} />
+						))}
+					</table>
+				</div>
+				<PrintLetter />
 			</div>
 		</div>
 	);

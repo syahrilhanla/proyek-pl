@@ -2,11 +2,12 @@
 	padding: 0px;
 	box-sizing: border-box;
 	border: 1px solid black;
+	background-color: rgb(231, 228, 228);
 }
 
 .container-disposisi {
 	width: 768px;
-	background-color: rgb(208, 212, 216);
+	background-color: white;
 	margin: 50px auto;
 	position: relative;
 	border: 1px solid black;
@@ -33,8 +34,7 @@
 	margin: 0px auto;
 }
 
-.kop table tr,
-.status tr {
+.kop table tr {
 	width: 750px;
 	display: flex;
 	padding-right: 20px;
@@ -49,8 +49,13 @@
 	padding: 7px;
 }
 
-.status td {
-	width: 100%;
+.status {
+	display: flex;
+	flex-direction: row;
+}
+
+.status span {
+	width: 250px;
 	text-align: center;
 }
 
