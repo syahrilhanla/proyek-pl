@@ -4,7 +4,7 @@ import "./footer.css";
 export const Footer = () => {
 	return (
 		<div className='footer'>
-			<span>@Copyright Syahril 2020</span>
+			<span>@Copyright Proyek-PL(14) 2020</span>
 		</div>
 	);
 };

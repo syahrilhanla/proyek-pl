@@ -11,7 +11,6 @@ import { GlobalContext } from "./globalState/GlobalState";
 export function FormDialog({ borrowingID, borrowingList, styles }) {
 	const [open, setOpen] = useState(false);
 	const [password, setPassword] = useState("");
-	const [notificationCount, setNotificationCount] = useState(0);
 	const [option, setOption] = useState("");
 
 	const { updateBorrowingData, deleteBorrowingData } = useContext(
@@ -39,8 +38,7 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 	};
 
 	const updateAndClose = () => {
-		setNotificationCount(notificationCount + 1);
-		updateBorrowingData(borrowingID, borrowingList.status, notificationCount);
+		updateBorrowingData(borrowingID, borrowingList.status);
 		handleClose();
 	};
 

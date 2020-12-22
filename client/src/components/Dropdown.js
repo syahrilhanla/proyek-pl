@@ -10,16 +10,55 @@ export const Dropdown = () => {
 
 	const { borrowingList } = useContext(GlobalContext);
 
+	const NewNotification = () => {
+		return (
+			<>
+				{borrowingList.map((item, index) => {
+					return (
+						<div className='notification'>
+							<li key={index}>
+								<div>
+									<b>{item.name}</b> mengajukan permintaan peminjaman{" "}
+									{item.room}!
+								</div>
+							</li>
+						</div>
+					);
+				})}
+			</>
+		);
+	};
+
+	const OldNotification = () => {
+		return (
+			<>
+				{borrowingList.map((item, index) => {
+					return (
+						<div className='notification'>
+							<li key={index}>
+								<div>
+									<b>{item.name}</b> mengajukan permintaan peminjaman{" "}
+									{item.room}!
+								</div>
+							</li>
+						</div>
+					);
+				})}
+			</>
+		);
+	};
+
 	return (
-		<>
+		<div className='dropdown-menu'>
 			<ul
 				onClick={handleClick}
 				className={click ? "dropdown-menu clicked" : "dropdown-menu"}
 			>
-				{borrowingList.map((item, index) => {
-					return <li key={index}>{item.name}</li>;
-				})}
+				<h2 className='title'>Terbaru:</h2>
+				<NewNotification />
+				<h2 className='title'>Terdahulu:</h2>
+				<OldNotification />
 			</ul>
-		</>
+		</div>
 	);
 };

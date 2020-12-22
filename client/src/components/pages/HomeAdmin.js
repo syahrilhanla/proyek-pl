@@ -6,12 +6,10 @@ import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 
 // Check if logged in
-export const checkLogin = (loginInfo, history) => {
+export const checkLogin = (loginInfo) => {
 	if (loginInfo[0] !== null) {
-		console.log("sudah login");
 		return true;
 	} else {
-		console.log("tidak login");
 		return false;
 	}
 };
@@ -60,7 +58,7 @@ export const HomeAdmin = () => {
 	return (
 		<>
 			<Navbar user={"adm"} invisible={invisible} setInvisible={setInvisible} />
-			<>{checkLogin(loginInfo) ? <Home /> : <Redirect to='/' />}</>
+			<>{checkLogin ? <Home /> : <Redirect to='/' />}</>
 			<Footer />
 		</>
 	);

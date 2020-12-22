@@ -192,12 +192,10 @@ export const GlobalProvider = ({ children }) => {
 		}
 	};
 
-	const updateBorrowingData = async (id, status, notificationCount) => {
+	const updateBorrowingData = async (id, status) => {
 		try {
-			console.log("notificationCount: ", notificationCount);
 			const res = await axios.put(`/api/v1/borrowingData/${id}`, {
 				status: status + 1,
-				notificationCount: notificationCount,
 			});
 			setUpdateState(!updateState);
 
