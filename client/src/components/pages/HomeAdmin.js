@@ -3,14 +3,13 @@ import { Redirect } from "react-router-dom";
 import { TimeLineCardNew } from "../TimeLineCardNew";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
+import { Footer } from "../Footer";
 
 // Check if logged in
-export const checkLogin = (loginInfo, history) => {
+export const checkLogin = (loginInfo) => {
 	if (loginInfo[0] !== null) {
-		console.log("sudah login");
 		return true;
 	} else {
-		console.log("tidak login");
 		return false;
 	}
 };
@@ -37,11 +36,20 @@ export const HomeAdmin = () => {
 			<>
 				<div className='container'>
 					<label>
-						<h1 style={{ borderBottom: "2px solid #b8bdb5" }}>Lini Masa</h1>
+						<h1
+							style={{
+								borderBottom: "2px solid #b8bdb5",
+								marginTop: "-20px",
+							}}
+						>
+							Lini Masa
+						</h1>
 					</label>
-					{borrowingList.map((list) => (
-						<TimeLineCardNew key={list._id} borrowingList={list} />
-					))}
+					<div style={{ height: "490px", overflow: "auto" }}>
+						{borrowingList.map((list) => (
+							<TimeLineCardNew key={list._id} borrowingList={list} />
+						))}
+					</div>
 				</div>
 			</>
 		);
@@ -50,7 +58,8 @@ export const HomeAdmin = () => {
 	return (
 		<>
 			<Navbar user={"adm"} invisible={invisible} setInvisible={setInvisible} />
-			<>{checkLogin(loginInfo) ? <Home /> : <Redirect to='/' />}</>
+			<>{checkLogin ? <Home /> : <Redirect to='/' />}</>
+			<Footer />
 		</>
 	);
 };

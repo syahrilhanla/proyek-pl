@@ -11,10 +11,11 @@ import { GlobalContext } from "./globalState/GlobalState";
 export function FormDialog({ borrowingID, borrowingList, styles }) {
 	const [open, setOpen] = useState(false);
 	const [password, setPassword] = useState("");
-	const [notificationCount, setNotificationCount] = useState(0);
 	const [option, setOption] = useState("");
 
-	const { updateBorrowingData } = useContext(GlobalContext);
+	const { updateBorrowingData, deleteBorrowingData } = useContext(
+		GlobalContext
+	);
 
 	// Passwords to verify permission
 	const PASSWORD = {
@@ -37,8 +38,7 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 	};
 
 	const updateAndClose = () => {
-		setNotificationCount(notificationCount + 1);
-		updateBorrowingData(borrowingID, borrowingList.status, notificationCount);
+		updateBorrowingData(borrowingID, borrowingList.status);
 		handleClose();
 	};
 
@@ -48,6 +48,17 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 			updateAndClose();
 		} else if (passwordInput === PASSWORD.secondLevel) {
 			updateAndClose();
+		} else {
+			console.log("wrong password");
+			handleClose();
+		}
+	};
+
+	const denyPermission = (passwordInput, id) => {
+		if (passwordInput === PASSWORD.firstLevel) {
+			deleteBorrowingData(id);
+		} else if (passwordInput === PASSWORD.secondLevel) {
+			deleteBorrowingData(id);
 		} else {
 			console.log("wrong password");
 			handleClose();
@@ -107,65 +118,9 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 		);
 	};
 
-	// Deny Permission button, sends email if clicked
+	// handle to close dialog form
 	const closeDialog = () => {
 		handleClose();
-	};
-
-	const RespondProposal = ({ type }) => {
-		const checkType = (type) => {
-			if (type === "deny") {
-				console.log("menolak pinjaman");
-				return {
-					title: "Tolak Pinjaman?",
-					text: "menolak",
-					action: console.log("tolak"),
-				};
-			} else {
-				return {
-					title: "Izinkan Pinjaman?",
-					text: "mengizinkan",
-					action: acceptPermission,
-				};
-			}
-		};
-
-		const decision = checkType(type);
-
-		return (
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				aria-labelledby='form-dialog-title'
-			>
-				<DialogTitle id='form-dialog-title'>{decision.title}</DialogTitle>
-				<DialogContent>
-					<DialogContentText>
-						Silahkan masukkan sandi pribadi untuk {decision.text} permintaan
-						peminjaman.
-					</DialogContentText>
-					<TextField
-						autoFocus
-						margin='dense'
-						id='password'
-						label='Password'
-						type='password'
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						fullWidth
-					/>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={() => closeDialog()} color='primary'>
-						Batal
-					</Button>
-
-					<Button color='primary' onClick={() => decision.action(password)}>
-						Izinkan
-					</Button>
-				</DialogActions>
-			</Dialog>
-		);
 	};
 
 	const checkType = (type) => {
@@ -174,7 +129,7 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 			return {
 				title: "Tolak Pinjaman?",
 				text: "menolak",
-				action: console.log("tolak"),
+				action: denyPermission,
 			};
 		} else {
 			console.log("mengizinkan peminjaman");
@@ -194,11 +149,6 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 				? moreActionButtonFirstLevel()
 				: moreActionButtonSecondLevel()}
 
-			{/* {option === "accept" ? (
-				<RespondProposal type='accept' />
-			) : (
-				<RespondProposal type='deny' />
-			)} */}
 			<Dialog
 				open={open}
 				onClose={handleClose}
@@ -226,7 +176,10 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 						Batal
 					</Button>
 
-					<Button color='primary' onClick={() => decision.action(password)}>
+					<Button
+						color='primary'
+						onClick={() => decision.action(password, borrowingID)}
+					>
 						Izinkan
 					</Button>
 				</DialogActions>

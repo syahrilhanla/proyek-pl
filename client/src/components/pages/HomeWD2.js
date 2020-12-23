@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TimeLineCard } from "../TimeLineCard";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 import { Redirect, useHistory } from "react-router-dom";
 import { checkLogin } from "./HomeAdmin";
+import { TimeLineCardNew } from "../TimeLineCardNew";
+import { Footer } from "../Footer";
 
 export const HomeWD2 = () => {
 	const {
@@ -29,11 +30,13 @@ export const HomeWD2 = () => {
 					<label>
 						<h1 style={{ borderBottom: "2px solid #b8bdb5" }}>Lini Masa</h1>
 					</label>
-					{borrowingList
-						.filter((list) => list.status === 2)
-						.map((list) => (
-							<TimeLineCard key={list._id} borrowingList={list} />
-						))}
+					<div style={{ height: "470px", overflow: "auto" }}>
+						{borrowingList
+							.filter((list) => list.status === 2)
+							.map((list) => (
+								<TimeLineCardNew key={list._id} borrowingList={list} />
+							))}
+					</div>
 				</div>
 			</>
 		);
@@ -43,6 +46,7 @@ export const HomeWD2 = () => {
 		<>
 			<Navbar user={"adm"} invisible={invisible} setInvisible={setInvisible} />
 			{checkLogin(loginInfo, history) ? <Home /> : <Redirect to='/' />}
+			<Footer />
 		</>
 	);
 };
