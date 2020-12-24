@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 import Alerts from "../Alerts";
+import { UploadButton } from "../UploadButton";
 
 export const AddScheduleMHS = () => {
 	const { addNewBorrowing } = useContext(GlobalContext);
@@ -271,6 +272,14 @@ export const AddScheduleMHS = () => {
 								onChange={(e) => setFinishTime(e.target.value)}
 								className='input-half'
 							/>
+						</div>
+
+						<div className='form-control'>
+							<label htmlFor='upload'>
+								<h3>Upload File</h3>
+							</label>
+							<br />
+							<UploadButton />
 						</div>
 					</div>
 

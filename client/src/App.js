@@ -11,6 +11,7 @@ import { LoginPage } from "./components/pages/LoginPage";
 import { HomeWD2 } from "./components/pages/HomeWD2";
 import { Disposisi } from "./components/pages/Disposisi";
 import Alerts from "./components/Alerts";
+import { SeePictures } from "./components/pages/SeePictures";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 				<Router>
 					<Switch>
 						<Route path='/' exact component={LoginPage} />
+						<Route path='/files' exact component={SeePictures} />
 						<Route path='/mhs' exact component={HomeMHS} />
 						<Route path='/adm' exact component={HomeAdmin} />
 						<Route path='/wd-2' exact component={HomeWD2} />
