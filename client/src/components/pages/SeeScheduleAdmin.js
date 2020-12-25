@@ -3,7 +3,7 @@ import { StickyHeadTableADM } from "../../components/StickyHeadTableADM";
 import { FormDialogDetails } from "../FormDialogDetails";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
-import { cardStyle } from "../TimeLineCard";
+import { cardStyle } from "../TimeLineCardNew";
 
 export const SeeScheduleAdmin = () => {
 	const {

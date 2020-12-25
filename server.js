@@ -55,20 +55,9 @@ const storage = new GridFsStorage({
 });
 const upload = multer({ storage });
 
-// create storage engine with original file name
-// const storage = new GridFsStorage({
-// 	url: 'mongodb://host:27017/database',
-// 	file: (req, file) => {
-// 		return {
-// 			filename: '' + file.originalname
-// 		};
-// 	}
-// });
-// const upload = multer({ storage });
-
 // @route GET /files
 // @desc  Display all files in JSON
-app.get("/files/", (req, res) => {
+app.get("/adm/", (req, res) => {
 	gfs.files.find().toArray((err, files) => {
 		// Check if files
 		if (!files || files.length === 0) {
@@ -84,7 +73,7 @@ app.get("/files/", (req, res) => {
 
 // @route GET /files/:filename
 // @desc Display Image
-app.get('/files/:filename', (req, res) => {
+app.get('/adm/:filename', (req, res) => {
 	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
 		// Check if file
 		if (!file || file.length === 0) {

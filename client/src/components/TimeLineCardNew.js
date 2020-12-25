@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -7,6 +7,8 @@ import Typography from "@material-ui/core/Typography";
 
 import { FormDialog } from "./FormDialog";
 import { FormDialogDetails } from "./FormDialogDetails";
+import { GlobalContext } from "./globalState/GlobalState";
+import { Link } from "react-router-dom";
 
 // Configure which style which
 export function cardStyle(borrowingList) {
@@ -48,6 +50,8 @@ export function TimeLineCardNew({ borrowingList }) {
 	// styles attributes
 	const styles = cardStyle(borrowingList);
 
+	const { pictures } = useContext(GlobalContext);
+
 	const useStyles = makeStyles({
 		root: {
 			minWidth: 275,
@@ -59,15 +63,14 @@ export function TimeLineCardNew({ borrowingList }) {
 			color: "#413F3F",
 			fontFamily: "Arial, Helvetica, sans- serif",
 			fontWeight: 700,
-			cursor: "pointer",
 		},
 		pos: {
 			marginBottom: 12,
 		},
 		detail: {
-			cursor: "pointer",
-			width: "350px",
+			width: "450px",
 			marginLeft: "15px",
+			cursor: "pointer",
 		},
 		edgeColor: {
 			// backgroundColor: "rgb(82, 82, 235)",
@@ -76,12 +79,32 @@ export function TimeLineCardNew({ borrowingList }) {
 			background: styles.color,
 			// backgroundImage: styles.gradient,
 		},
+		picture: {
+			width: '100%',
+			padding: '5px',
+			border: '1px solid black'
+		}
 	});
 
 	const classes = useStyles();
 
+	const LittlePicture = () => {
+		const selectedPicture = pictures.filter(picture => picture.filename === borrowingList.fileName);
+		console.log(selectedPicture);
+		return (
+			<div className={classes.picture}>
+				{selectedPicture.map((picture, index) => (
+					<Link to={`/adm/${picture.filename}`} key={index} >
+						<img src={picture.filename} alt={picture.filename} style={{ width: '200px', height: '100px' }} />
+					</Link>
+				))}
+			</div>
+		)
+	}
+
 	return (
 		<Card className={classes.root}>
+			<LittlePicture />
 			<div className={classes.edgeColor}>
 				<CardContent className={classes.detail} onClick={() => setOpen(!open)}>
 					{open && (

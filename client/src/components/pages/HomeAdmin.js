@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { TimeLineCardNew } from "../TimeLineCardNew";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
@@ -20,7 +20,8 @@ export const HomeAdmin = () => {
 		getBorrowingData,
 		getLoginInfo,
 		updateState,
-		loginInfo,
+		getPictures,
+		pictures
 	} = useContext(GlobalContext);
 
 	const [invisible, setInvisible] = useState(true);
@@ -33,6 +34,14 @@ export const HomeAdmin = () => {
 			console.log('borrowingList', borrowingList)
 		}, 5000);
 	}, [updateState]);
+
+	useEffect(() => {
+		getPictures();
+	}, []);
+
+	const fileNames = borrowingList.map(list => list.fileName);
+	const selectedPicture = pictures.filter(picture => picture.filename === fileNames);
+	console.log('selectedPicture', selectedPicture)
 
 	const Home = () => {
 		return (

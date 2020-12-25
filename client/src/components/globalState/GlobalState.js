@@ -140,7 +140,7 @@ export const GlobalProvider = ({ children }) => {
 
 	const getPictures = async () => {
 		try {
-			const res = await axios.get('/files');
+			const res = await axios.get('/adm/');
 
 			dispatch({
 				type: 'GET_PICTURES',

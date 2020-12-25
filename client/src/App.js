@@ -33,7 +33,7 @@ function App() {
 							component={SeeScheduleAdmin}
 						/>
 						<Route path={`/adm/disposisi/:id`} exact component={Disposisi} />
-						<Route path={`/files/:filename`} exact component={DisplayPicture} />
+						<Route path={`/adm/:filename`} exact component={DisplayPicture} />
 					</Switch>
 				</Router>
 			</GlobalProvider>
