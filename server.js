@@ -10,6 +10,8 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const { BorrowingDataSchema } = require("./models/BorrowingData");
 
+const app = express();
+
 dotenv.config({ path: "./config/config.env" });
 conn = new mongoose.createConnection(process.env.MONGO_URI, {
 	useNewUrlParser: true,
@@ -17,9 +19,54 @@ conn = new mongoose.createConnection(process.env.MONGO_URI, {
 	useUnifiedTopology: true,
 });
 
+// Data Model
+exports.BorrowingData = conn.model("BorrowingData", BorrowingDataSchema);
+
 console.log(`MongoDB Connected: ${conn.host}`.cyan.underline.bold);
 
-const app = express(); // @route GET /files
+// FILE UPLOAD ###############
+// Init gfs
+let gfs;
+
+conn.once("open", () => {
+	// Init stream
+	gfs = Grid(conn.db, mongoose.mongo);
+	gfs.collection("uploads");
+});
+
+// Create storage engine with crypto
+const storage = new GridFsStorage({
+	url: process.env.MONGO_URI,
+	file: (req, file) => {
+		return new Promise((resolve, reject) => {
+			crypto.randomBytes(16, (err, buf) => {
+				if (err) {
+					return reject(err);
+				}
+				const filename = '' + file.originalname;
+				const fileInfo = {
+					filename: filename,
+					bucketName: 'uploads'
+				};
+				resolve(fileInfo);
+			});
+		});
+	}
+});
+const upload = multer({ storage });
+
+// create storage engine with original file name
+// const storage = new GridFsStorage({
+// 	url: 'mongodb://host:27017/database',
+// 	file: (req, file) => {
+// 		return {
+// 			filename: '' + file.originalname
+// 		};
+// 	}
+// });
+// const upload = multer({ storage });
+
+// @route GET /files
 // @desc  Display all files in JSON
 app.get("/files", (req, res) => {
 	gfs.files.find().toArray((err, files) => {
@@ -35,17 +82,29 @@ app.get("/files", (req, res) => {
 	});
 });
 
-exports.BorrowingData = conn.model("BorrowingData", BorrowingDataSchema);
-
-// FILE UPLOAD ###############
-// Init gfs
-let gfs;
-
-conn.once("open", () => {
-	// Init stream
-	gfs = Grid(conn.db, mongoose.mongo);
-	gfs.collection("uploads");
+// @route POST /upload
+// @desc  Uploads file to DB
+app.post('/upload', upload.single('file'), (req, res) => {
+	// res.json({ file: req.file });
+	res.redirect('/');
 });
+
+// @route GET /files/:filename
+// @desc  Display single file object
+app.get('/files/:filename', (req, res) => {
+	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+		// Check if file
+		if (!file || file.length === 0) {
+			return res.status(404).json({
+				err: 'No file exists'
+			});
+		}
+		// File exists
+		return res.json(file);
+	});
+});
+
+// ############################################
 
 const borrowingData = require("./routes/borrowingData");
 

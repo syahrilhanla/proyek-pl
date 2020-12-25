@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 import Alerts from "../Alerts";
-import { UploadButton } from "../UploadButton";
+import { Button } from "@material-ui/core";
+import axios from 'axios';
 
 export const AddScheduleMHS = () => {
 	const { addNewBorrowing } = useContext(GlobalContext);
@@ -22,6 +23,8 @@ export const AddScheduleMHS = () => {
 	const [open, setOpen] = useState(false);
 	const [alertColor, setAlertColor] = useState("");
 	const [alertText, setAlertText] = useState("");
+	const [fileName, setFileName] = useState('');
+	const [file, setFile] = useState({});
 
 	// HISTORY
 	const history = useHistory();
@@ -62,6 +65,30 @@ export const AddScheduleMHS = () => {
 		return `${date} ${formattedMonth} ${year}`;
 	};
 
+	const inputFile = (e) => {
+		e.preventDefault();
+		setFile(e.target.files[0]);
+		setFileName(e.target.files[0].name);
+	}
+
+	const uploadFile = async () => {
+
+		const formData = new FormData();
+		formData.append('file', file);
+
+		const config = {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		};
+
+		try {
+			const res = await axios.post('/upload', formData, config);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	const handleSubmit = (e) => {
 		// GET FORMATTED DATA
 		const time = `${startTime}-${finishTime}`;
@@ -81,6 +108,7 @@ export const AddScheduleMHS = () => {
 			status: status,
 			notificationCount: 1,
 			letterNum: letterNum,
+			fileName: fileName,
 		};
 
 		//CHECK EMPTY FIELDS NOT DONE YET
@@ -93,7 +121,10 @@ export const AddScheduleMHS = () => {
 			startDate,
 			startTime,
 			finishTime,
+			fileName,
 		];
+
+		uploadFile();
 
 		const errorFound = () => {
 			setAlertColor("error");
@@ -109,6 +140,7 @@ export const AddScheduleMHS = () => {
 			setAlertText("Permintaan Berhasil Diajukan");
 			setOpen(true);
 			addNewBorrowing(newData);
+			// uploadFile();
 			history.push("/mhs");
 			setTimeout(() => {
 				setOpen(false);
@@ -141,7 +173,7 @@ export const AddScheduleMHS = () => {
 	};
 
 	// ROOMS GENERATOR
-	const rooms = [];
+	const rooms = ['Aula Hasan Bondan', 'Aula Ki Hajar D.'];
 	const roomGen = () => {
 		for (let i = 1; i <= 38; i++) {
 			let room = `Ruang ${i}`;
@@ -151,7 +183,7 @@ export const AddScheduleMHS = () => {
 	roomGen();
 	// ###############################
 
-	const required = () => <span style={{ color: "red" }}>*</span>;
+	const required = (text) => <span style={{ color: "red" }}>*{text}</span>;
 
 	return (
 		<>
@@ -276,10 +308,25 @@ export const AddScheduleMHS = () => {
 
 						<div className='form-control'>
 							<label htmlFor='upload'>
-								<h3>Upload File</h3>
+								<h3>{required()}Foto Surat Pemberitahuan Dekan</h3>
+								<br />
 							</label>
 							<br />
-							<UploadButton />
+
+							<label htmlFor='file' style={{ marginTop: '-50px' }}>
+								<input
+									style={{ display: 'none' }}
+									id="file"
+									name="file"
+									type="file"
+									accept=".jpg, .jpeg, .png"
+									onChange={(e) => inputFile(e)}
+								/>
+
+								<Button color="secondary" variant="contained" component="span" style={{ minWidth: '450px' }}>
+									Unggah Foto
+  								</Button>
+							</label>
 						</div>
 					</div>
 
