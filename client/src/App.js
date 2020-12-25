@@ -12,6 +12,7 @@ import { HomeWD2 } from "./components/pages/HomeWD2";
 import { Disposisi } from "./components/pages/Disposisi";
 import Alerts from "./components/Alerts";
 import { SeePictures } from "./components/pages/SeePictures";
+import { DisplayPicture } from "./components/pages/DisplayPicture";
 
 function App() {
 	return (
@@ -20,7 +21,7 @@ function App() {
 				<Router>
 					<Switch>
 						<Route path='/' exact component={LoginPage} />
-						<Route path='/files' exact component={SeePictures} />
+						<Route path='/files/' exact component={SeePictures} />
 						<Route path='/mhs' exact component={HomeMHS} />
 						<Route path='/adm' exact component={HomeAdmin} />
 						<Route path='/wd-2' exact component={HomeWD2} />
@@ -32,6 +33,7 @@ function App() {
 							component={SeeScheduleAdmin}
 						/>
 						<Route path={`/adm/disposisi/:id`} exact component={Disposisi} />
+						<Route path={`/files/:filename`} exact component={DisplayPicture} />
 					</Switch>
 				</Router>
 			</GlobalProvider>

@@ -201,7 +201,7 @@ export const AddScheduleMHS = () => {
 							placeholder='Masukkan Nama Organisasi/Program Studi'
 							value={name}
 							className='input-normal'
-							onChange={(e) => setName(e.target.value)}
+							onChange={(e) => setName(e.target.value.toUpperCase())}
 						/>
 					</div>
 
@@ -307,6 +307,7 @@ export const AddScheduleMHS = () => {
 						<div className='form-control'>
 							<label htmlFor='upload'>
 								<h3>{required()}Foto Surat Pemberitahuan Dekan</h3>
+								<span>{required('File Tidak Menggunakan Spasi')}</span>
 								<br />
 							</label>
 							<br />

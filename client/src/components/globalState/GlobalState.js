@@ -18,6 +18,11 @@ const AppReducer = (state, action) => {
 				...state,
 				childStates: action.payload,
 			};
+		case 'GET_PICTURES':
+			return {
+				...state,
+				pictures: action.payload
+			}
 		case "ADD_NEW_DATA":
 			return {
 				...state,
@@ -64,13 +69,13 @@ const initialState = {
 	specificBorrowingData: [],
 	childStates: [],
 	loggedIn: [],
+	pictures: []
 };
 
 export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);
-	const [updateState, setUpdateState] = useState(false);
 
 	const getBorrowingData = async () => {
 		try {
@@ -129,6 +134,22 @@ export const GlobalProvider = ({ children }) => {
 			});
 		}
 	};
+
+	const getPictures = async () => {
+		try {
+			const res = await axios.get('/files');
+
+			dispatch({
+				type: 'GET_PICTURES',
+				payload: res.data
+			});
+		} catch (err) {
+			dispatch({
+				type: "FETCHING_ERROR",
+				payload: err.response,
+			});
+		}
+	}
 
 	const addNewBorrowing = async (newData) => {
 		const config = {
@@ -197,7 +218,6 @@ export const GlobalProvider = ({ children }) => {
 			const res = await axios.put(`/api/v1/borrowingData/${id}`, {
 				status: status + 1,
 			});
-			setUpdateState(!updateState);
 
 			dispatch({
 				type: "UPDATE_BORROWING_DATA",
@@ -221,6 +241,7 @@ export const GlobalProvider = ({ children }) => {
 				specificBorrowingData: state.specificBorrowingData,
 				childStates: state.childStates,
 				loggedIn: state.loggedIn,
+				pictures: state.pictures,
 				addNewBorrowing,
 				takeLoginInfo,
 				getBorrowingData,
@@ -230,7 +251,7 @@ export const GlobalProvider = ({ children }) => {
 				deleteLoginData,
 				getLoginInfo,
 				getChildStates,
-				updateState,
+				getPictures,
 			}}
 		>
 			{children}

@@ -68,7 +68,7 @@ const upload = multer({ storage });
 
 // @route GET /files
 // @desc  Display all files in JSON
-app.get("/files", (req, res) => {
+app.get("/files/", (req, res) => {
 	gfs.files.find().toArray((err, files) => {
 		// Check if files
 		if (!files || files.length === 0) {
@@ -82,6 +82,30 @@ app.get("/files", (req, res) => {
 	});
 });
 
+// @route GET /files/:filename
+// @desc Display Image
+app.get('/files/:filename', (req, res) => {
+	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+		// Check if file
+		if (!file || file.length === 0) {
+			return res.status(404).json({
+				err: 'No file exists'
+			});
+		}
+
+		// Check if image
+		if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+			// Read output to browser
+			const readstream = gfs.createReadStream(file.filename);
+			readstream.pipe(res);
+		} else {
+			res.status(404).json({
+				err: 'Not an image'
+			});
+		}
+	});
+});
+
 // @route POST /upload
 // @desc  Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
@@ -91,7 +115,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 // @route GET /files/:filename
 // @desc  Display single file object
-app.get('/files/:filename', (req, res) => {
+app.get('/image/:filename', (req, res) => {
 	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
 		// Check if file
 		if (!file || file.length === 0) {
