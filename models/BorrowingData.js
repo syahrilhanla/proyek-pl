@@ -33,10 +33,6 @@ const BorrowingDataSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please add phone number']
     },
-    notificationCount: {
-        type: Number,
-        default: 0
-    },
     addedAt: {
         type: Number,
         default: Date.now()
@@ -45,10 +41,6 @@ const BorrowingDataSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    file: {
-        type: Object,
-        required: true
-    }
 });
 
 module.exports = mongoose.model('BorrowingData', BorrowingDataSchema);

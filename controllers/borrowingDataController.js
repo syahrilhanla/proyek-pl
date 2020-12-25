@@ -57,7 +57,8 @@ exports.addBorrowingData = async (req, res, next) => {
 			time,
 			status,
 			usage,
-			letterNum,
+			fileName,
+			phoneNum,
 		} = req.body;
 
 		const borrowingData = await BorrowingData.create(req.body);

@@ -65,8 +65,8 @@ export const AddScheduleMHS = () => {
 		return `${date} ${formattedMonth} ${year}`;
 	};
 
+	// Entering file to state
 	const inputFile = (e) => {
-		e.preventDefault();
 		setFile(e.target.files[0]);
 		setFileName(e.target.files[0].name);
 	}
@@ -106,8 +106,6 @@ export const AddScheduleMHS = () => {
 			startDate: dateFormatter(date, month, year),
 			time: time,
 			status: status,
-			notificationCount: 1,
-			letterNum: letterNum,
 			fileName: fileName,
 		};
 
