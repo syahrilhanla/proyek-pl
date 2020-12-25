@@ -124,8 +124,6 @@ export const AddScheduleMHS = () => {
 			fileName,
 		];
 
-		uploadFile();
-
 		const errorFound = () => {
 			setAlertColor("error");
 			setAlertText("Semua Kolom Harus Diisi!");
@@ -140,7 +138,7 @@ export const AddScheduleMHS = () => {
 			setAlertText("Permintaan Berhasil Diajukan");
 			setOpen(true);
 			addNewBorrowing(newData);
-			// uploadFile();
+			uploadFile();
 			history.push("/mhs");
 			setTimeout(() => {
 				setOpen(false);
