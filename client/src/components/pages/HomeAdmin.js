@@ -29,6 +29,9 @@ export const HomeAdmin = () => {
 		getBorrowingData();
 		getLoginInfo();
 		setInvisible(false);
+		setTimeout(() => {
+			console.log('borrowingList', borrowingList)
+		}, 5000);
 	}, [updateState]);
 
 	const Home = () => {

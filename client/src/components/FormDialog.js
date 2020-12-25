@@ -125,14 +125,12 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 
 	const checkType = (type) => {
 		if (type === "deny") {
-			console.log("menolak pinjaman");
 			return {
 				title: "Tolak Pinjaman?",
 				text: "menolak",
 				action: denyPermission,
 			};
 		} else {
-			console.log("mengizinkan peminjaman");
 			return {
 				title: "Izinkan Pinjaman?",
 				text: "mengizinkan",

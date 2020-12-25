@@ -116,7 +116,18 @@ exports.deleteBorrowingData = async (req, res, next) => {
 //  @access public
 exports.updateBorrowingData = async (req, res, next) => {
 	try {
-		const { name, nim, room, startDate, time, status, usage } = req.body;
+
+		const {
+			name,
+			nim,
+			room,
+			startDate,
+			time,
+			status,
+			usage,
+			fileName,
+			phoneNum,
+		} = req.body;
 
 		const borrowingData = await BorrowingData.findById(
 			req.params.id,

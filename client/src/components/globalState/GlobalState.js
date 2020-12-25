@@ -77,6 +77,9 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);
 
+	// to check if there's any recent update
+	const [updateState, setUpdateState] = useState(false);
+
 	const getBorrowingData = async () => {
 		try {
 			const res = await axios.get("/api/v1/borrowingData");
@@ -214,10 +217,14 @@ export const GlobalProvider = ({ children }) => {
 	};
 
 	const updateBorrowingData = async (id, status) => {
+		console.log(id);
 		try {
 			const res = await axios.put(`/api/v1/borrowingData/${id}`, {
 				status: status + 1,
 			});
+
+			// if triggered then fires back to HomeAdmin page, then triggers to re-render the page
+			setUpdateState(!updateState);
 
 			dispatch({
 				type: "UPDATE_BORROWING_DATA",
@@ -230,7 +237,6 @@ export const GlobalProvider = ({ children }) => {
 			});
 			console.log(err);
 		}
-		console.log(id);
 	};
 
 	return (
@@ -242,6 +248,7 @@ export const GlobalProvider = ({ children }) => {
 				childStates: state.childStates,
 				loggedIn: state.loggedIn,
 				pictures: state.pictures,
+				updateState,
 				addNewBorrowing,
 				takeLoginInfo,
 				getBorrowingData,
