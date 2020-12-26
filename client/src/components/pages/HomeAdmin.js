@@ -39,10 +39,6 @@ export const HomeAdmin = () => {
 		getPictures();
 	}, []);
 
-	const fileNames = borrowingList.map(list => list.fileName);
-	const selectedPicture = pictures.filter(picture => picture.filename === fileNames);
-	console.log('selectedPicture', selectedPicture)
-
 	const Home = () => {
 		return (
 			<>

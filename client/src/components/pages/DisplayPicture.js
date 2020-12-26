@@ -8,6 +8,7 @@ export const DisplayPicture = ({ filename }) => {
     console.log('pathname', pathname);
 
     const selectedPicture = pictures.filter(picture => picture.filename === pathname);
+    console.log(selectedPicture);
 
     return (
         <div style={{ boxSizing: 'border-box', padding: '0px', margin: '0px' }}>

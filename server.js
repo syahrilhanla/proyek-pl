@@ -57,7 +57,7 @@ const upload = multer({ storage });
 
 // @route GET /files
 // @desc  Display all files in JSON
-app.get("/adm/", (req, res) => {
+app.get("/files", (req, res) => {
 	gfs.files.find().toArray((err, files) => {
 		// Check if files
 		if (!files || files.length === 0) {
@@ -73,7 +73,7 @@ app.get("/adm/", (req, res) => {
 
 // @route GET /files/:filename
 // @desc Display Image
-app.get('/adm/:filename', (req, res) => {
+app.get(['/:filename', '/adm/:filename'], (req, res) => {
 	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
 		// Check if file
 		if (!file || file.length === 0) {
