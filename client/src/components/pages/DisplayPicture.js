@@ -1,15 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Footer } from '../Footer';
 import { GlobalContext } from '../globalState/GlobalState';
 
-export const DisplayPicture = ({ filename }) => {
-    const { pictures } = useContext(GlobalContext);
+export const DisplayPicture = () => {
+    const { pictures, getPictures } = useContext(GlobalContext);
 
+    // Getting pathname as endpoint to request to the API
     const pathname = window.location.pathname.split('/')[2];
-    console.log('pathname', pathname);
+    // console.log('pathname', pathname);
 
+    useEffect(() => {
+        getPictures();
+    }, []);
+
+    // Matching Pictures in borrowingList with the collection in GridFS Storage
     const selectedPicture = pictures.filter(picture => picture.filename === pathname);
-    console.log(selectedPicture);
+    // console.log(selectedPicture);
 
     const style = { width: '100%', height: '600px', alignSelf: 'center' };
 

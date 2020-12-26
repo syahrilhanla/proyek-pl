@@ -9,7 +9,7 @@ const SidebarLink = styled(Link)`
 	align-items: center;
 	padding: 20px;
 	list-style: none;
-	height: 60px;
+	height: 40px;
 	text-decoration: none;
 	font-size: 18px;
 
@@ -56,8 +56,8 @@ const SubMenu = ({ item }) => {
 					{item.subNav && subnav
 						? item.iconOpened
 						: item.subNav
-						? item.iconClosed
-						: null}
+							? item.iconClosed
+							: null}
 				</div>
 			</SidebarLink>
 			{subnav &&

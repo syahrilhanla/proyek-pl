@@ -79,23 +79,31 @@ export function TimeLineCardNew({ borrowingList }) {
 			background: styles.color,
 			// backgroundImage: styles.gradient,
 		},
+		pictureBox: {
+			width: '90%',
+			height: '30%',
+			margin: 'auto'
+		},
 		picture: {
-			width: '100%',
-			padding: '5px',
-			border: '1px solid black'
+			width: '100%', height: '100%', padding: '10px'
 		}
 	});
 
 	const classes = useStyles();
 
+	// Function that leads to DisplayPicture page
+	const seePicture = filename => {
+		window.open(`/adm/${filename}`);
+	};
+
 	const LittlePicture = () => {
 		const selectedPicture = pictures.filter(picture => picture.filename === borrowingList.fileName);
 		console.log(selectedPicture);
 		return (
-			<div className={classes.picture}>
+			<div className={classes.pictureBox}>
 				{selectedPicture.map((picture, index) => (
-					<Link to={`/adm/${picture.filename}`} key={index} >
-						<img src={picture.filename} alt={picture.filename} style={{ width: '200px', height: '100px' }} />
+					<Link to='#' key={index} onClick={() => seePicture(picture.filename)} >
+						<img src={picture.filename} alt={picture.filename} style={{ width: '80%', padding: '10px', margin: 'auto' }} />
 					</Link>
 				))}
 			</div>
@@ -104,7 +112,6 @@ export function TimeLineCardNew({ borrowingList }) {
 
 	return (
 		<Card className={classes.root}>
-			<LittlePicture />
 			<div className={classes.edgeColor}>
 				<CardContent className={classes.detail} onClick={() => setOpen(!open)}>
 					{open && (
@@ -114,6 +121,9 @@ export function TimeLineCardNew({ borrowingList }) {
 							open={open}
 						/>
 					)}
+					{/* Display picture so its within the styled component */}
+					<LittlePicture />
+
 					<Typography
 						className={classes.title}
 						color='textPrimary'
