@@ -73,7 +73,7 @@ app.get("/files", (req, res) => {
 
 // @route GET /files/:filename
 // @desc Display Image
-app.get(['/:filename', '/adm/:filename'], (req, res) => {
+app.get(['/:filename', '/adm/:filename', '/wd-2/:filename'], (req, res) => {
 	gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
 		// Check if file
 		if (!file || file.length === 0) {

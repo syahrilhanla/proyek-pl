@@ -13,6 +13,8 @@ export const HomeWD2 = () => {
 		updateState,
 		loginInfo,
 		getLoginInfo,
+		getPictures,
+		pictures
 	} = useContext(GlobalContext);
 	const [invisible, setInvisible] = useState(true);
 	const history = useHistory();
@@ -22,6 +24,10 @@ export const HomeWD2 = () => {
 		setInvisible(false);
 		getLoginInfo();
 	}, [updateState]);
+
+	useEffect(() => {
+		getPictures();
+	}, []);
 
 	const Home = () => {
 		return (

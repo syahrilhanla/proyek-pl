@@ -5,6 +5,7 @@ import { StickyHeadTable } from "../StickyHeadTable";
 import { Navbar } from "../Navbar";
 import { checkLogin } from "./HomeAdmin";
 import { Redirect, useHistory } from "react-router-dom";
+import { Footer } from "../Footer";
 
 const HomeMHS = () => {
 	const [invisible, setInvisible] = useState(true);
@@ -37,6 +38,7 @@ const HomeMHS = () => {
 				<div className='container-schedule'>
 					<StickyHeadTable />
 				</div>
+				<Footer />
 			</>
 		);
 	};
