@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { TimeLineCardNew } from "../TimeLineCardNew";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
@@ -21,7 +21,6 @@ export const HomeAdmin = () => {
 		getLoginInfo,
 		updateState,
 		getPictures,
-		pictures
 	} = useContext(GlobalContext);
 
 	const [invisible, setInvisible] = useState(true);
@@ -31,7 +30,7 @@ export const HomeAdmin = () => {
 		getLoginInfo();
 		setInvisible(false);
 		setTimeout(() => {
-			console.log('borrowingList', borrowingList)
+			console.log("borrowingList", borrowingList);
 		}, 5000);
 	}, [updateState]);
 

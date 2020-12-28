@@ -10,6 +10,7 @@ const crypto = require("crypto");
 const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
+// const methodOverride = require("method-override");
 const { BorrowingDataSchema } = require("./models/BorrowingData");
 
 const app = express();
@@ -45,6 +46,10 @@ exports.BorrowingData = conn.model("BorrowingData", BorrowingDataSchema);
 console.log(`MongoDB Connected: ${conn.host}`.cyan.underline.bold);
 
 // FILE UPLOAD ###############
+
+// Middleware to delete picture
+// app.use(methodOverride("_method"));
+
 // Init gfs
 let gfs;
 
@@ -135,6 +140,21 @@ app.get("/image/:filename", (req, res) => {
 		// File exists
 		return res.json(file);
 	});
+});
+
+// @route DELETE /files/:id
+// @desc  Delete file
+app.delete("/files/:filename", (req, res) => {
+	gfs.remove(
+		{ filename: req.params.filename, root: "uploads" },
+		(err, gridStore) => {
+			if (err) {
+				return res.status(404).json({ err: err });
+			}
+
+			res.redirect("/");
+		}
+	);
 });
 
 // ############################################

@@ -195,9 +195,11 @@ export const GlobalProvider = ({ children }) => {
 		});
 	};
 
-	const deleteBorrowingData = async (id) => {
+	const deleteBorrowingData = async (id, filename) => {
 		try {
+			console.log(filename);
 			await axios.delete(`/api/v1/borrowingData/${id}`);
+			await axios.delete(`http://localhost:5000/files/${filename}`);
 
 			dispatch({
 				type: "DELETE_BORROWING_DATA",

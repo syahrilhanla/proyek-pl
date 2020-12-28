@@ -20,7 +20,7 @@ export const SeeScheduleAdmin = () => {
 	useEffect(() => {
 		getBorrowingData();
 		getLoginInfo();
-	}, [childStates.open]);
+	}, [childStates.open, borrowingList]);
 
 	return (
 		<div style={{ opacity: 90 }}>
@@ -34,7 +34,6 @@ export const SeeScheduleAdmin = () => {
 						open={childStates.open}
 					/>
 				)}
-				;
 				<StickyHeadTableADM />
 			</div>
 		</div>

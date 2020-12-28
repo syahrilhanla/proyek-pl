@@ -76,9 +76,10 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 			<div
 				style={{
 					display: "flex",
-					marginLeft: "90px",
+					marginLeft: "110px",
 					justifyContent: "space-around",
 					width: "250px",
+					color: "white",
 				}}
 			>
 				<div
@@ -106,10 +107,10 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 			<div
 				style={{
 					backgroundColor: styles.color,
-					marginLeft: "9rem",
+					marginLeft: "8rem",
 					borderRadius: "3px",
 					marginTop: "-20px",
-					width: "150px",
+					width: "170px",
 					textAlign: "center",
 				}}
 			>

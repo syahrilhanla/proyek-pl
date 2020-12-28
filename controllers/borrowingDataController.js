@@ -1,10 +1,3 @@
-const path = require("path");
-const express = require("express");
-const crypto = require("crypto");
-const mongoose = require("mongoose");
-const multer = require("multer");
-const GridFsStorage = require("multer-gridfs-storage");
-const Grid = require("gridfs-stream");
 const { BorrowingData } = require("../server");
 
 //  @desc   Get All Borrowing Data
@@ -116,7 +109,6 @@ exports.deleteBorrowingData = async (req, res, next) => {
 //  @access public
 exports.updateBorrowingData = async (req, res, next) => {
 	try {
-
 		const {
 			name,
 			nim,

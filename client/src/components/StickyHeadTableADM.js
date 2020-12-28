@@ -95,12 +95,17 @@ export const StickyHeadTableADM = () => {
 			selectedRow: selectedRow,
 		};
 		getChildStates(childState);
+		getPictures();
 	}, [open]);
 
 	// Fetching data from global state
-	const { borrowingList, deleteBorrowingData, getChildStates } = useContext(
-		GlobalContext
-	);
+	const {
+		borrowingList,
+		deleteBorrowingData,
+		getChildStates,
+		pictures,
+		getPictures,
+	} = useContext(GlobalContext);
 
 	// Sort table contents based on time added
 	const sortedBorrowingList = borrowingList.sort((a, b) => {
@@ -130,7 +135,7 @@ export const StickyHeadTableADM = () => {
 			content.startDate,
 			content.time,
 			<button
-				onClick={() => deleteBorrowingData(content._id)}
+				onClick={() => deleteBorrowingData(content._id, content.fileName)}
 				style={buttonDelete}
 			>
 				X
