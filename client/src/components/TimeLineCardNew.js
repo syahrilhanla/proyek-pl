@@ -109,7 +109,12 @@ export function TimeLineCardNew({ borrowingList }) {
 						<img
 							src={picture.filename}
 							alt={picture.filename}
-							style={{ width: "80%", padding: "10px", margin: "auto" }}
+							style={{
+								width: "80%",
+								height: "20em",
+								padding: "10px",
+								margin: "auto",
+							}}
 						/>
 					</Link>
 				))}
