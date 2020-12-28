@@ -18,10 +18,9 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 
 	console.log("notificationCount", notificationCount);
 
-	const { deleteLoginData, borrowingList } = useContext(GlobalContext);
+	const { deleteLoginData, socket } = useContext(GlobalContext);
 
 	useEffect(() => {
-		const socket = io("http://localhost:5000");
 		socket.on("notification", (notification) => {
 			setNotificationCount(notificationCount + 1);
 		});

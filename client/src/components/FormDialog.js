@@ -42,8 +42,6 @@ export function FormDialog({ borrowingID, borrowingList, styles, fileName }) {
 		handleClose();
 	};
 
-	console.log(fileName);
-
 	// If password true then update status, if not then send email to student
 	const acceptPermission = (passwordInput) => {
 		if (passwordInput === PASSWORD.firstLevel) {

@@ -102,7 +102,6 @@ export function TimeLineCardNew({ borrowingList }) {
 		const selectedPicture = pictures.filter(
 			(picture) => picture.filename === borrowingList.fileName
 		);
-		console.log(selectedPicture);
 		return (
 			<div className={classes.pictureBox}>
 				{selectedPicture.map((picture, index) => (
@@ -117,8 +116,6 @@ export function TimeLineCardNew({ borrowingList }) {
 			</div>
 		);
 	};
-
-	console.log(borrowingList);
 
 	return (
 		<Card className={classes.root}>

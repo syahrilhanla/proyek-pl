@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useState } from "react";
-import io from "socket.io-client";
 import axios from "axios";
 
 const AppReducer = (state, action) => {
@@ -75,19 +74,15 @@ const initialState = {
 
 export const GlobalContext = createContext(initialState);
 
-// Initialize socket to be global
-let socket;
-
-export const GlobalProvider = ({ children }) => {
+export const GlobalProvider = ({ children, socket }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);
 
 	// to check if there's any recent update
-	const [updateState, setUpdateState] = useState(false);
+	const [anyUpdate, setAnyUpdate] = useState(false);
 
 	const getBorrowingData = async () => {
 		try {
 			const res = await axios.get("/api/v1/borrowingData");
-			socket = io("http://localhost:5000");
 
 			dispatch({
 				type: "GET_BORROWING_DATA",
@@ -201,6 +196,9 @@ export const GlobalProvider = ({ children }) => {
 			await axios.delete(`/api/v1/borrowingData/${id}`);
 			await axios.delete(`http://localhost:5000/files/${filename}`);
 
+			// if triggered then fires back to HomeAdmin page, then triggers to re-render the page
+			setAnyUpdate(!anyUpdate);
+
 			dispatch({
 				type: "DELETE_BORROWING_DATA",
 				payload: id,
@@ -234,7 +232,7 @@ export const GlobalProvider = ({ children }) => {
 			});
 
 			// if triggered then fires back to HomeAdmin page, then triggers to re-render the page
-			setUpdateState(!updateState);
+			setAnyUpdate(!anyUpdate);
 
 			const newStatus = "There's new status update";
 			socket.emit("newStatus", newStatus);
@@ -261,7 +259,7 @@ export const GlobalProvider = ({ children }) => {
 				childStates: state.childStates,
 				loggedIn: state.loggedIn,
 				pictures: state.pictures,
-				updateState,
+				anyUpdate,
 				addNewBorrowing,
 				takeLoginInfo,
 				getBorrowingData,

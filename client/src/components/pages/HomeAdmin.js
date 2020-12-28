@@ -21,8 +21,9 @@ export const HomeAdmin = () => {
 		borrowingList,
 		getBorrowingData,
 		getLoginInfo,
-		updateState,
+		anyUpdate,
 		getPictures,
+		socket,
 	} = useContext(GlobalContext);
 
 	const [invisible, setInvisible] = useState(true);
@@ -37,21 +38,20 @@ export const HomeAdmin = () => {
 		setTimeout(() => {
 			console.log("borrowingList", borrowingList);
 		}, 5000);
-	}, [updateState]);
+	}, [anyUpdate]);
 
 	useEffect(() => {
 		getPictures();
 	}, []);
 
-	let socket = io("http://localhost:5000");
-
 	socket.on("notification", (notification) => {
+		console.log(notification);
 		setAlertColor("error");
-		setAlertText("There's an Update, Reload the Page!");
+		setAlertText("Ada Update, Halaman Reload dalam 5 Detik!");
+		setTimeout(() => {
+			window.location.reload();
+		}, 5000);
 		setOpen(true);
-		return (
-			<Alerts isOpen={open} alertColor={alertColor} alertText={alertText} />
-		);
 	});
 
 	const Home = () => {
@@ -82,6 +82,7 @@ export const HomeAdmin = () => {
 		<>
 			<Navbar user={"adm"} invisible={invisible} setInvisible={setInvisible} />
 			<>{checkLogin ? <Home /> : <Redirect to='/' />}</>
+			<Alerts isOpen={open} alertColor={alertColor} alertText={alertText} />
 			<Footer />
 		</>
 	);
