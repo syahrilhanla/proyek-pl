@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { GlobalContext } from "./globalState/GlobalState";
 
-export function FormDialog({ borrowingID, borrowingList, styles }) {
+export function FormDialog({ borrowingID, borrowingList, styles, fileName }) {
 	const [open, setOpen] = useState(false);
 	const [password, setPassword] = useState("");
 	const [option, setOption] = useState("");
@@ -42,6 +42,8 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 		handleClose();
 	};
 
+	console.log(fileName);
+
 	// If password true then update status, if not then send email to student
 	const acceptPermission = (passwordInput) => {
 		if (passwordInput === PASSWORD.firstLevel) {
@@ -54,11 +56,11 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 		}
 	};
 
-	const denyPermission = (passwordInput, id) => {
+	const denyPermission = (passwordInput, id, fileName) => {
 		if (passwordInput === PASSWORD.firstLevel) {
-			deleteBorrowingData(id);
+			deleteBorrowingData(id, fileName);
 		} else if (passwordInput === PASSWORD.secondLevel) {
-			deleteBorrowingData(id);
+			deleteBorrowingData(id, fileName);
 		} else {
 			console.log("wrong password");
 			handleClose();
@@ -177,7 +179,7 @@ export function FormDialog({ borrowingID, borrowingList, styles }) {
 
 					<Button
 						color='primary'
-						onClick={() => decision.action(password, borrowingID)}
+						onClick={() => decision.action(password, borrowingID, fileName)}
 					>
 						Izinkan
 					</Button>

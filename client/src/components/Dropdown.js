@@ -4,12 +4,18 @@ import { GlobalContext } from "./globalState/GlobalState";
 
 import "./Dropdown.css";
 
-export const Dropdown = ({ clicked }) => {
+export const Dropdown = () => {
 	const [click, setClick] = useState(false);
 
 	const handleClick = () => setClick(!click);
 
 	const { borrowingList } = useContext(GlobalContext);
+
+	let beenReadIDs = [];
+
+	useEffect(() => {
+		beenReadIDs = borrowingList.map((list) => list._id);
+	}, [click]);
 
 	const hasNotRead = borrowingList.filter((list) => list.hasRead === false);
 
@@ -54,7 +60,14 @@ export const Dropdown = ({ clicked }) => {
 					})}
 				</>
 			);
-		}
+		} else
+			return (
+				<div className='notification'>
+					<li>
+						<div>Tidak Ada Berita Terbaru</div>
+					</li>
+				</div>
+			);
 	};
 
 	return (

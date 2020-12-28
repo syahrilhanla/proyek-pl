@@ -80,35 +80,45 @@ export function TimeLineCardNew({ borrowingList }) {
 			// backgroundImage: styles.gradient,
 		},
 		pictureBox: {
-			width: '90%',
-			height: '30%',
-			margin: 'auto'
+			width: "90%",
+			height: "30%",
+			margin: "auto",
 		},
 		picture: {
-			width: '100%', height: '100%', padding: '10px'
-		}
+			width: "100%",
+			height: "100%",
+			padding: "10px",
+		},
 	});
 
 	const classes = useStyles();
 
 	// Function that leads to DisplayPicture page
-	const seePicture = filename => {
+	const seePicture = (filename) => {
 		window.open(`/adm/${filename}`);
 	};
 
 	const LittlePicture = () => {
-		const selectedPicture = pictures.filter(picture => picture.filename === borrowingList.fileName);
+		const selectedPicture = pictures.filter(
+			(picture) => picture.filename === borrowingList.fileName
+		);
 		console.log(selectedPicture);
 		return (
 			<div className={classes.pictureBox}>
 				{selectedPicture.map((picture, index) => (
-					<Link to='#' key={index} onClick={() => seePicture(picture.filename)} >
-						<img src={picture.filename} alt={picture.filename} style={{ width: '80%', padding: '10px', margin: 'auto' }} />
+					<Link to='#' key={index} onClick={() => seePicture(picture.filename)}>
+						<img
+							src={picture.filename}
+							alt={picture.filename}
+							style={{ width: "80%", padding: "10px", margin: "auto" }}
+						/>
 					</Link>
 				))}
 			</div>
-		)
-	}
+		);
+	};
+
+	console.log(borrowingList);
 
 	return (
 		<Card className={classes.root}>
@@ -152,6 +162,7 @@ export function TimeLineCardNew({ borrowingList }) {
 							styles={styles}
 							borrowingID={borrowingList._id}
 							borrowingList={borrowingList}
+							fileName={borrowingList.fileName}
 							className='button-dialog'
 						/>
 					</div>

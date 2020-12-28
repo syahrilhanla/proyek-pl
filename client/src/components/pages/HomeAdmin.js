@@ -4,6 +4,8 @@ import { TimeLineCardNew } from "../TimeLineCardNew";
 import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
+import Alerts from "../Alerts";
+import { io } from "socket.io-client";
 
 // Check if logged in
 export const checkLogin = (loginInfo) => {
@@ -24,6 +26,9 @@ export const HomeAdmin = () => {
 	} = useContext(GlobalContext);
 
 	const [invisible, setInvisible] = useState(true);
+	const [alertColor, setAlertColor] = useState("");
+	const [alertText, setAlertText] = useState("");
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		getBorrowingData();
@@ -37,6 +42,17 @@ export const HomeAdmin = () => {
 	useEffect(() => {
 		getPictures();
 	}, []);
+
+	let socket = io("http://localhost:5000");
+
+	socket.on("notification", (notification) => {
+		setAlertColor("error");
+		setAlertText("There's an Update, Reload the Page!");
+		setOpen(true);
+		return (
+			<Alerts isOpen={open} alertColor={alertColor} alertText={alertText} />
+		);
+	});
 
 	const Home = () => {
 		return (
