@@ -15,6 +15,8 @@ const { BorrowingDataSchema } = require("./models/BorrowingData");
 
 const app = express();
 app.use(cors());
+
+// SOCKET IO STUFF (FOR REALTIME FEATURES) ####################
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
 	cors: {
@@ -26,12 +28,20 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
 	console.log("new connection opened");
 
-	socket.emit("message", "this is message");
-
+	// Fires when status is updated
 	socket.on("newStatus", (newStatus) => {
 		console.log(newStatus);
 	});
+
+	// Fires when there's a new proposal
+	socket.on("newBorrowing", (newBorrowing) => {
+		console.log(newBorrowing);
+	});
+
+	socket.on("disconnect", () => console.log("disconnected"));
 });
+
+// ############################################################
 
 dotenv.config({ path: "./config/config.env" });
 conn = new mongoose.createConnection(process.env.MONGO_URI, {

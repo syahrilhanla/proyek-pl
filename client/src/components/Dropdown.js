@@ -56,6 +56,7 @@ export const Dropdown = () => {
 			>
 				<h2 className='title'>Terbaru:</h2>
 				<NewNotification />
+				<hr />
 				<h2 className='title'>Terdahulu:</h2>
 				<OldNotification />
 			</ul>
