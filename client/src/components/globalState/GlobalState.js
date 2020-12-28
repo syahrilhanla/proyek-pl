@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useState } from "react";
+import io from "socket.io-client";
 import axios from "axios";
 
 const AppReducer = (state, action) => {
@@ -18,11 +19,11 @@ const AppReducer = (state, action) => {
 				...state,
 				childStates: action.payload,
 			};
-		case 'GET_PICTURES':
+		case "GET_PICTURES":
 			return {
 				...state,
-				pictures: action.payload
-			}
+				pictures: action.payload,
+			};
 		case "ADD_NEW_DATA":
 			return {
 				...state,
@@ -69,10 +70,13 @@ const initialState = {
 	specificBorrowingData: [],
 	childStates: [],
 	loggedIn: [],
-	pictures: []
+	pictures: [],
 };
 
 export const GlobalContext = createContext(initialState);
+
+// Initialize socket to be global
+let socket;
 
 export const GlobalProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);
@@ -83,6 +87,7 @@ export const GlobalProvider = ({ children }) => {
 	const getBorrowingData = async () => {
 		try {
 			const res = await axios.get("/api/v1/borrowingData");
+			socket = io("http://localhost:5000");
 
 			dispatch({
 				type: "GET_BORROWING_DATA",
@@ -140,11 +145,11 @@ export const GlobalProvider = ({ children }) => {
 
 	const getPictures = async () => {
 		try {
-			const res = await axios.get('/files');
+			const res = await axios.get("/files");
 
 			dispatch({
-				type: 'GET_PICTURES',
-				payload: res.data
+				type: "GET_PICTURES",
+				payload: res.data,
 			});
 		} catch (err) {
 			dispatch({
@@ -152,7 +157,7 @@ export const GlobalProvider = ({ children }) => {
 				payload: err.response,
 			});
 		}
-	}
+	};
 
 	const addNewBorrowing = async (newData) => {
 		const config = {
@@ -160,6 +165,9 @@ export const GlobalProvider = ({ children }) => {
 				"Content-Type": "application/json",
 			},
 		};
+
+		const newBorrowing = "There' New Proposal";
+		socket.emit("newBorrowing", newBorrowing);
 
 		try {
 			const res = await axios.post("/api/v1/borrowingData", newData, config);
@@ -225,6 +233,9 @@ export const GlobalProvider = ({ children }) => {
 
 			// if triggered then fires back to HomeAdmin page, then triggers to re-render the page
 			setUpdateState(!updateState);
+
+			const newStatus = "There's new status update";
+			socket.emit("newStatus", newStatus);
 
 			dispatch({
 				type: "UPDATE_BORROWING_DATA",

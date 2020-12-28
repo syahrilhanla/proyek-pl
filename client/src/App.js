@@ -13,6 +13,7 @@ import { Disposisi } from "./components/pages/Disposisi";
 import Alerts from "./components/Alerts";
 import { SeePictures } from "./components/pages/SeePictures";
 import { DisplayPicture } from "./components/pages/DisplayPicture";
+import { TestSocket } from "./components/pages/TestSocket";
 
 function App() {
 	return (
@@ -21,6 +22,7 @@ function App() {
 				<Router>
 					<Switch>
 						<Route path='/' exact component={LoginPage} />
+						<Route path='/testing' exact component={TestSocket} />
 						<Route path='/files/' exact component={SeePictures} />
 						<Route path='/mhs' exact component={HomeMHS} />
 						<Route path='/adm' exact component={HomeAdmin} />
