@@ -272,6 +272,7 @@ export const GlobalProvider = ({ children }) => {
 				getLoginInfo,
 				getChildStates,
 				getPictures,
+				socket,
 			}}
 		>
 			{children}

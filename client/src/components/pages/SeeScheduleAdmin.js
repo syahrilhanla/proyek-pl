@@ -20,7 +20,7 @@ export const SeeScheduleAdmin = () => {
 	useEffect(() => {
 		getBorrowingData();
 		getLoginInfo();
-	}, [childStates.open, borrowingList]);
+	}, [childStates.open]);
 
 	return (
 		<div style={{ opacity: 90 }}>

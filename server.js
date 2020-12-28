@@ -31,11 +31,15 @@ io.on("connection", (socket) => {
 	// Fires when status is updated
 	socket.on("newStatus", (newStatus) => {
 		console.log(newStatus);
+
+		io.emit("notification", "There's New Update");
 	});
 
 	// Fires when there's a new proposal
 	socket.on("newBorrowing", (newBorrowing) => {
 		console.log(newBorrowing);
+
+		io.emit("notification", "There's New Proposal");
 	});
 
 	socket.on("disconnect", () => console.log("disconnected"));

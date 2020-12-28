@@ -1,5 +1,5 @@
 import { Avatar, Badge } from "@material-ui/core";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import "./Navbar.css";
@@ -9,12 +9,23 @@ import { SidebarData } from "./SidebarData";
 import { Dropdown } from "./Dropdown";
 import { GlobalContext } from "./globalState/GlobalState";
 import logo from "../assets/logo.png";
+import { io } from "socket.io-client";
 
 export const Navbar = ({ user, invisible, setInvisible }) => {
 	const [click, setClick] = useState(false);
 	const [dropdown, setDropdown] = useState(false);
+	const [notificationCount, setNotificationCount] = useState(0);
 
-	const { deleteLoginData } = useContext(GlobalContext);
+	console.log("notificationCount", notificationCount);
+
+	const { deleteLoginData, borrowingList } = useContext(GlobalContext);
+
+	useEffect(() => {
+		const socket = io("http://localhost:5000");
+		socket.on("notification", (notification) => {
+			setNotificationCount(notificationCount + 1);
+		});
+	}, []);
 
 	// Checks if its mhs or adm to choose sidebar
 	const chooseSidebar = (user) => {
@@ -29,7 +40,10 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 		setClick(!click);
 		console.log(click);
 	};
-	const closeMobileMenu = () => setClick(false);
+	const closeMobileMenu = () => {
+		setClick(false);
+		setNotificationCount(0);
+	};
 
 	const showNotification = () => {
 		setInvisible(true);
@@ -73,7 +87,7 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 							<Badge
 								badgeContent=''
 								variant='dot'
-								invisible={invisible}
+								invisible={notificationCount < 1 ? true : false}
 								color='secondary'
 							>
 								<NotificationsIcon />

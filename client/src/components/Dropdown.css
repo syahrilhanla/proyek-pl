@@ -1,12 +1,12 @@
 .dropdown-menu {
-	width: 400px;
+	width: 18em;
 	position: absolute;
 	top: 35px;
 	right: 0px;
 	list-style: none;
 	text-align: center;
 	border: 2x solid black;
-	background: linear-gradient(160deg, #d3e6ee 0%, #cfe0f3 100%);
+	background: #94c0ee;
 	border-radius: 8px;
 }
 
@@ -15,14 +15,14 @@ h2.title {
 	margin-bottom: -5px;
 }
 
+.dropdown-menu:hover {
+	background: linear-gradient(160deg, #d3e6ee 0%, #cfe0f3 100%);
+	border-radius: 8px;
+}
+
 .dropdown-menu li {
 	cursor: pointer;
 	padding: 5px 3px;
-}
-
-.dropdown-menu li:hover {
-	background: #94c0ee;
-	border-radius: 8px;
 }
 
 .dropdown-menu clicked {
