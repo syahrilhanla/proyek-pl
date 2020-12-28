@@ -5,7 +5,7 @@ import { GlobalContext } from "../globalState/GlobalState";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
 import Alerts from "../Alerts";
-import { io } from "socket.io-client";
+import { socket } from "../socket";
 
 // Check if logged in
 export const checkLogin = (loginInfo) => {
@@ -23,7 +23,6 @@ export const HomeAdmin = () => {
 		getLoginInfo,
 		anyUpdate,
 		getPictures,
-		socket,
 	} = useContext(GlobalContext);
 
 	const [invisible, setInvisible] = useState(true);

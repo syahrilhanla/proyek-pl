@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useState } from "react";
 import axios from "axios";
+import { socket } from "../socket";
 
 const AppReducer = (state, action) => {
 	switch (action.type) {
@@ -74,7 +75,7 @@ const initialState = {
 
 export const GlobalContext = createContext(initialState);
 
-export const GlobalProvider = ({ children, socket }) => {
+export const GlobalProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);
 
 	// to check if there's any recent update
@@ -270,7 +271,6 @@ export const GlobalProvider = ({ children, socket }) => {
 				getLoginInfo,
 				getChildStates,
 				getPictures,
-				socket,
 			}}
 		>
 			{children}

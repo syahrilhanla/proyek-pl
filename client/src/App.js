@@ -13,13 +13,10 @@ import { Disposisi } from "./components/pages/Disposisi";
 import Alerts from "./components/Alerts";
 import { DisplayPicture } from "./components/pages/DisplayPicture";
 
-import io from "socket.io-client";
-
 function App() {
-	const socket = io("http://localhost:5000");
 	return (
 		<div className='mother-class'>
-			<GlobalProvider socket={socket}>
+			<GlobalProvider>
 				<Router>
 					<Switch>
 						<Route path='/' exact component={LoginPage} />

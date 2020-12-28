@@ -9,7 +9,7 @@ import { SidebarData } from "./SidebarData";
 import { Dropdown } from "./Dropdown";
 import { GlobalContext } from "./globalState/GlobalState";
 import logo from "../assets/logo.png";
-import { io } from "socket.io-client";
+import { socket } from "./socket";
 
 export const Navbar = ({ user, invisible, setInvisible }) => {
 	const [click, setClick] = useState(false);
@@ -18,7 +18,7 @@ export const Navbar = ({ user, invisible, setInvisible }) => {
 
 	console.log("notificationCount", notificationCount);
 
-	const { deleteLoginData, socket } = useContext(GlobalContext);
+	const { deleteLoginData } = useContext(GlobalContext);
 
 	useEffect(() => {
 		socket.on("notification", (notification) => {

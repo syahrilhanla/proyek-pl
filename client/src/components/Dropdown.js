@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import io from "socket.io-client";
 import { GlobalContext } from "./globalState/GlobalState";
 
 import "./Dropdown.css";
